@@ -10,6 +10,7 @@
 
 - [Description](#description)
 - [Prerequisites](#prerequisites)
+- [Setup](#setup)
 - [Progress](#progress)
 - [Author Info](#author-info)
 
@@ -63,9 +64,7 @@ The Malawian educational system has failed to fully cater for both teachers, whe
 
 ---
 
-## Progress
-
-### Setup
+## Setup
 
 ### 1. Engine Lock
 
@@ -79,18 +78,12 @@ Node v14
 
 npm
 
----
-
 ### 2. Specific Lint Rules
 
 A linter is a tool that checks source code for potential errors and coding style issues. It analyzes the code for syntax errors, logical errors, and formatting errors, and reports them back to the developer. The primary goal of a linter is to help developers identify and fix potential bugs or problems in their code before it is executed.
 
 - Automatic react imports on every file that declares it
 - Unused variables have been set to **warning**
-
----
-
----
 
 ### 3. Prettier Rules
 
@@ -101,10 +94,6 @@ Prettier is an opinionated code formatter. It enforces a consistent style by par
 - semi
 - single quotes
 
----
-
----
-
 ### 4. Git Hooks
 
 It is a script that runs at different stages of the git process. This is to enforce code quality standards to everyone on the team for everyone to commit or push to git
@@ -112,10 +101,6 @@ It is a script that runs at different stages of the git process. This is to enfo
 - Run linter after every commit to test partial code improvements
 - Run build command to check if site is still operational after every push to the repo
 - Check that every commit message is up to standard, this stadard can be seen in the **commitlint.config.js** file in the comments
-
----
-
----
 
 ### 5. VScode config
 
@@ -133,11 +118,15 @@ These are project specific settings that will reset the global when specfically 
 - Client side debugging script
 - Full stack debugging script
 
----
-
 ### 6. Directory Structure
 
+### 7. React Storybooks
+
+[Back to the Top](#mphunzitsi-platform)
+
 ---
+
+## Progress
 
 ### Latest development
 
