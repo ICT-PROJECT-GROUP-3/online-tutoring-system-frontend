@@ -1,9 +1,9 @@
-import PageWrapper from '@/components/shared/PageWrapper';
 import Link from 'next/link';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';
+import PageWrapper from '../../components/shared/PageWrapper';
 
 // Define the component
 const Index = () => {
@@ -99,13 +99,13 @@ const Index = () => {
                     className="bg-gray-100 outline-none w-full text-sm text-gray-600"
                   />
 
-                  <div class="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                  <div className="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                     <svg
-                      class="h-4 text-gray-700"
+                      className="h-4 text-gray-700"
                       fill="none"
                       onClick={() => setshowPassword(!showPassword)}
                       xmlns="http://www.w3.org/2000/svg"
-                      viewbox="0 0 576 512"
+                      viewBox="0 0 576 512"
                     >
                       <path
                         fill="currentColor"
@@ -123,16 +123,16 @@ const Index = () => {
                     placeholder="confirm password"
                     className="bg-gray-100 outline-none w-full text-sm text-gray-600"
                   />
-                  <div class="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                  <div className="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                     <svg
-                      class="h-4 text-gray-700"
+                      className="h-4 text-gray-700"
                       fill="none"
                       onClick={() =>
                         setshowConfirmPassword(!showConfirmPassword)
                       }
                       //   className={showPassword ? 'hidden' : 'block'}
                       xmlns="http://www.w3.org/2000/svg"
-                      viewbox="0 0 576 512"
+                      viewBox="0 0 576 512"
                     >
                       <path
                         fill="currentColor"
