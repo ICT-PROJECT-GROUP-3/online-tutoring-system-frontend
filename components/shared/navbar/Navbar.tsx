@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
 import HidddenMenuBar from './HidddenMenuBar';
@@ -85,13 +85,13 @@ const Navbar = () => {
               <div className="gap-4 hidden sm:flex">
                 <Link
                   href="/auth"
-                  className="text-grey-700 font-medium text-sm my-auto"
+                  className="text-grey-700 font-medium text-sm my-auto hover:text-gray-500"
                 >
                   About Us
                 </Link>
                 <Link
                   href="../../../Auth"
-                  className="text-grey-700 font-medium text-sm my-auto"
+                  className="text-grey-700 font-medium text-sm my-auto hover:text-gray-500"
                 >
                   Sign In
                 </Link>
