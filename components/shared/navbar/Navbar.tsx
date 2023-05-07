@@ -53,9 +53,9 @@ const Navbar = () => {
             <Link href="/">
               <Image
                 className="cursor-pointer w-2/3 my-2"
-                src="/image/shared/logo.svg"
+                src="/image/shared/logo.png"
                 alt="..."
-                width={10}
+                width={180}
                 height={50}
               />
             </Link>
