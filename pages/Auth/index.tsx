@@ -1,15 +1,16 @@
-import PageWrapper from '@/components/shared/PageWrapper';
 import Link from 'next/link';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
+import PageWrapper from '../../components/shared/PageWrapper';
 
 // Define the component
 const Index = () => {
   // Define the state
   const [showPassword, setshowPassword] = useState(false);
+
   return (
-    // Top level container
+    //Top level container
     <PageWrapper>
       <div className="flex flex-col items-center justify-center min-h-screen py-5 mx-4 pt-5 sm:pt-0 sm:mx-2">
         <main className="flex flex-col items-center justify-center flex-1 px-0 sm:px-20 text-center w-full">
@@ -64,13 +65,13 @@ const Index = () => {
                       placeholder="password"
                       className="bg-gray-200 outline-none w-full text-sm text-gray-600"
                     />
-                    <div class="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                    <div className="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                       <svg
-                        class="h-4 text-gray-700"
+                        className="h-4 text-gray-700"
                         fill="none"
                         onClick={() => setshowPassword(!showPassword)}
                         xmlns="http://www.w3.org/2000/svg"
-                        viewbox="0 0 576 512"
+                        viewBox="0 0 576 512"
                       >
                         <path
                           fill="currentColor"
@@ -119,4 +120,5 @@ const Index = () => {
     </PageWrapper>
   );
 };
+
 export default Index;
