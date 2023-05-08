@@ -48,7 +48,7 @@ const HidddenMenuBar = () => {
         {navLinks.map((link, index) => (
           <li
             key={index}
-            className="text-center text-white font-medium text-sm my-auto"
+            className="text-center text-white font-medium text-sm my-auto hover:text-orange-500"
           >
             <Link href={link.link}>{link.name}</Link>
           </li>

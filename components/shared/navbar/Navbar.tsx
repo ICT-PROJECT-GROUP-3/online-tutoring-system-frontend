@@ -70,7 +70,7 @@ const Navbar = () => {
                   Become a Tutor
                 </Link>
               </li>
-              <li className="bg-orange-500 text-white hover:bg-white hover:border-2 hover:border-orange-200 hover:text-grey-700  ease-in-out py-1 w-28 text-center rounded">
+              <li className="bg-[#d03434] text-white hover:bg-white hover:border-2 hover:border-orange-200 hover:text-grey-700  ease-in-out py-1 w-28 text-center rounded">
                 <Link
                   className="hover:scale-50 font-medium hover:text-gray-700 text-sm"
                   href="#"
@@ -100,7 +100,7 @@ const Navbar = () => {
                 </Link>
               </div>
               <BiMenuAltRight
-                className="h-8 w-8 text-orange-500"
+                className="h-8 w-8 text-[#d03434]"
                 onClick={toggleMenu}
               />
             </div>
