@@ -1,3 +1,4 @@
+
 import HomePageWrapper from './HomePageWrapper';
 
 // const navigation = [
@@ -11,6 +12,7 @@ const Hero = () => {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
+
     <HomePageWrapper>
       <div className="bg-white shadow-lg w-full top-10">
         {/* <header className="absolute inset-x-0 top-0 z-50">

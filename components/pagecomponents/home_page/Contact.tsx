@@ -1,5 +1,4 @@
 /*import HomePageWrapper from './HomePageWrapper';
-
   This example requires some changes to your config:
   
   ```
@@ -17,6 +16,7 @@ import { Switch } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import HomePageWrapper from './HomePageWrapper';
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
