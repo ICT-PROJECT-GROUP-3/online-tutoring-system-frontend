@@ -17,11 +17,17 @@
   },
   "dependencies": {
     "@next/font": "^13.4.0",
+    "@prisma/client": "^4.13.0",
     "autoprefixer": "10.4.14",
+    "aws-sdk": "^2.1373.0",
+    "bcryptjs-react": "^2.4.6",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "framer-motion": "^10.12.7",
+    "mock-aws-s3": "^4.0.2",
     "next": "13.3.4",
+    "next-auth": "^4.22.1",
+    "next-sanity": "^4.3.2",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -31,8 +37,22 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
+    "@types/node": "^20.1.0",
+    "@types/react": "18.2.6",
     "cross-env": "^7.0.3",
     "husky": "^8.0.3",
-    "prettier": "^2.8.8"
+    "prettier": "^2.8.8",
+    "prisma": "^4.13.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "child_process": false
   }
 }

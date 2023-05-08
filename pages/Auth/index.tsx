@@ -1,11 +1,24 @@
-import PageWrapper from '@/components/shared/PageWrapper';
+// 'use client';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
+import PageWrapper from '../../components/shared/PageWrapper';
 
 // Define the component
 const Index = () => {
+  const email = useRef('');
+  const password = useRef('');
+
+  const onSubmit = async () => {
+    await signIn('credentials', {
+      username: email.current,
+      password: password.current,
+      redirect: true,
+      callbackUrl: '/',
+    });
+  };
   // Define the state
   const [showPassword, setshowPassword] = useState(false);
   return (
@@ -27,19 +40,19 @@ const Index = () => {
                 <div className="border-2 w-10 border-orange-500 inline-block mb-2"></div>
                 <div className="flex justify-center my-2">
                   {/* Facebook login button */}
-                  <Link
-                    href="#"
+                  <button
+                    onClick={() => signIn('facebook', { callbackUrl: '/' })}
                     className=" text-orange-500 border-2 mr-4 border-gray-200 rounded-full p-3 mx-1 "
                   >
                     <ImFacebook className="text-sm" />
-                  </Link>
+                  </button>
                   {/* Google login button */}
-                  <Link
-                    href="#"
+                  <button
+                    onClick={() => signIn('google', { callbackUrl: '/' })}
                     className=" text-orange-500 mr-4 border-2 border-gray-200 rounded-full p-3 mx-1 "
                   >
                     <ImGoogle className="text-sm" />
-                  </Link>
+                  </button>
                   {/* Login section */}
                 </div>
                 <p className="text-orange-500"> or </p>
@@ -51,6 +64,8 @@ const Index = () => {
                     <input
                       type="text"
                       name="email"
+                      required
+                      onChange={(e) => (email.current = e.target.value)}
                       placeholder="email"
                       className="bg-gray-200 outline-none w-full text-sm text-gray-600"
                     />
@@ -61,16 +76,18 @@ const Index = () => {
                     <input
                       type={showPassword ? 'text' : 'password'}
                       name="password"
+                      required
+                      onChange={(e) => (password.current = e.target.value)}
                       placeholder="password"
                       className="bg-gray-200 outline-none w-full text-sm text-gray-600"
                     />
-                    <div class="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                    <div className="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                       <svg
-                        class="h-4 text-gray-700"
+                        className="h-4 text-gray-700"
                         fill="none"
                         onClick={() => setshowPassword(!showPassword)}
                         xmlns="http://www.w3.org/2000/svg"
-                        viewbox="0 0 576 512"
+                        viewBox="0 0 576 512"
                       >
                         <path
                           fill="currentColor"
@@ -90,12 +107,12 @@ const Index = () => {
                     </Link>
                   </div>
                   {/* Sign in button */}
-                  <Link
-                    href="#"
+                  <button
+                    onClick={onSubmit}
                     className="text-orange-500 border-2 border-orange-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out"
                   >
                     Sign In
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
