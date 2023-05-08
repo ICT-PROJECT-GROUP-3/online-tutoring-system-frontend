@@ -95,6 +95,5 @@ export default function Newsletter() {
       </div>
     </div>
     </HomePageWrapper>
-
   );
 }

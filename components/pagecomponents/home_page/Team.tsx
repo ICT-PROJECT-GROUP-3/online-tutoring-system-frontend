@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import HomePageWrapper from './HomePageWrapper';
 
-
 const people = [
   {
     name: 'Madalo ChikuKhuzeni',
@@ -82,7 +81,6 @@ const Team = () => {
       </div>
     </div>
     </HomePageWrapper>
-
   );
 };
 
