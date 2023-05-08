@@ -1,12 +1,20 @@
-import React from 'react'
+import Image from 'next/image';
+import React from 'react';
+import background from '../../../public/image/shared/background.png';
 
-const Background = ({children}) => {
+const Background = ({ children }) => {
   return (
-    
-          <div className="relative overflow-hidden bg-[#f4f3f2] h-full w-full">
-            {children}
-          </div>
+    <div>
+      <Image
+        className="z-[-50] overflow-hidden fixed h-full w-full"
+        src={background}
+        width={1000}
+        height={1000}
+        alt='....'
+      />
+      {children}
+    </div>
   );
-}
+};
 
-export default Background
+export default Background;
