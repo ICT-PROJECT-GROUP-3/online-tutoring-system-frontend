@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import About from '../components/pagecomponents/home_page/About';
 import Contact from '../components/pagecomponents/home_page/Contact';
 import Features from '../components/pagecomponents/home_page/Features';
@@ -17,8 +16,6 @@ export default function Home() {
       <Team />
       <Contact />
       <NewsLetter />
-      <Link href="/Auth">Sign In</Link>
-      <Link href="/tutor_profile">See Tutor</Link>
     </main>
   );
 }
