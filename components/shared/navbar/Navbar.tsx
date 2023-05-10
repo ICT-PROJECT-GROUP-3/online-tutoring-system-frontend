@@ -150,9 +150,11 @@ import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
+import { useAuth } from '../../../lib/services/firebase/auth';
 
 const navigationDesktop = [
   { name: 'Sign In', href: '/Auth' },
@@ -168,7 +170,13 @@ const navigation = [
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const router = useRouter();
+  const { authUser, isLoading, signOut } = useAuth();
+  useEffect(() => {
+    if (!isLoading && !authUser) {
+      router.push('/Auth');
+    }
+  });
   return (
     <div className="bg-whites shadow-lg w-full">
       <header className="relative inset-x-0 top-0 z-50">
@@ -212,6 +220,13 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
+            <button
+              className="btn btn-secondary bg-blue-500 p-4 text-white"
+              onClick={() => signOut()}
+            >
+              {' '}
+              log out
+            </button>
             {navigationDesktop.map((item) => (
               <Link
                 key={item.name}
@@ -265,9 +280,9 @@ const Navbar = () => {
                       key={item.name}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="-mx-3 block text-center rounded-lg px-3 py-2 text-base font leading-7 text-gray-900 hover:text-orange-400"             
+                      className="-mx-3 block text-center rounded-lg px-3 py-2 text-base font leading-7 text-gray-900 hover:text-orange-400"
                     >
-                      <p > {item.name}</p>
+                      <p> {item.name}</p>
                     </Link>
                   ))}
                 </div>

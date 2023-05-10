@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import Stepper from '../../components/pagecomponents/Auth/Stepper';
+import StepperControl from '../../components/pagecomponents/Auth/StepperControl';
+import PersonalDetails from '../../components/pagecomponents/Auth/steps/PersonalDetails';
+import Qualification from '../../components/pagecomponents/Auth/steps/Qualification';
+import Scheduling from '../../components/pagecomponents/Auth/steps/Scheduling';
+import Verification from '../../components/pagecomponents/Auth/steps/Verification';
 import PageWrapper from '../../components/shared/PageWrapper';
-import Stepper from '/components/pagecomponents/Auth/Stepper';
-import StepperControl from '/components/pagecomponents/Auth/StepperControl';
-import PersonalDetails from '/components/pagecomponents/Auth/steps/PersonalDetails';
-import Qualification from '/components/pagecomponents/Auth/steps/Qualification';
-import Scheduling from '/components/pagecomponents/Auth/steps/Scheduling';
-import Verification from '/components/pagecomponents/Auth/steps/Verification';
-import { StepperContextProvider } from '/context/auth/StepperContext';
+import { StepperContextProvider } from '../../context/auth/StepperContext';
+// import Link from 'next/link';
 
 const RegistrationStepper = () => {
   const [currentStep, setcurrentStep] = useState(1);
