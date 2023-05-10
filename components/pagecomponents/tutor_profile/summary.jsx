@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import RegularButton from '../../components/common/buttons/primary-button';
 import CardFlat from '../../components/common/cards/card-flat';
-import VideoPlayer from '../../components/common/video-player';
+// import VideoPlayer from '../../components/common/video-player';
 
 const ProfileSummary = () => {
   return (
@@ -9,7 +9,7 @@ const ProfileSummary = () => {
       <div className="fixed w-80">
         <CardFlat>
           {/* Place tutor's mock lesson video - video*/}
-          <VideoPlayer />
+          {/* <VideoPlayer /> */}
 
           <div className="m-4">
             {/* Place tutor's name - string */}
