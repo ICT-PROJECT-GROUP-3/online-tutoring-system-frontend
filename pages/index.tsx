@@ -1,41 +1,34 @@
-// import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { Loader } from '../components/shared/Loader';
-import { useAuth } from '../lib/services/firebase/auth';
+import About from '../components/pagecomponents/home_page/About';
+import Contact from '../components/pagecomponents/home_page/Contact';
+import Features from '../components/pagecomponents/home_page/Features';
+import Hero from '../components/pagecomponents/home_page/Hero';
+import NewsLetter from '../components/pagecomponents/home_page/Newsletter';
+import Team from '../components/pagecomponents/home_page/Team';
 
 export default function Home() {
-  const router = useRouter();
-  const { authUser, isLoading, signOut } = useAuth();
-  useEffect(() => {
-    if (!isLoading && !authUser) {
-      router.push('/Auth');
-    }
-  });
-
-  return !authUser ? (
-    <Loader />
-  ) : (
+  return (
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 `}
     >
-      <div>
-        {/* {status === 'unauthenticated' ? ( */}
-        <Link href="/Auth">Sign In</Link>
-        {/* ) : ( */}
-        <button
-          className="btn btn-secondary bg-blue-500 p-4 text-white"
-          onClick={() => signOut()}
-        >
-          Sign Out
-        </button>
-        {/* )} */}
-        <Link href="/tutor_profile">See Tutor</Link>
-      </div>
+      <Hero />
+      <About />
+      <Features />
+      <Team />
+      <Contact />
+      <NewsLetter />
     </main>
   );
 }
+//  <div>
+//    {/* {status === 'unauthenticated' ? ( */}
+//    <Link href="/Auth">Sign In</Link>
+//    {/* ) : ( */}
+//
+//      Sign Out
+//    </button>
+//    {/* )} */}
+//    <Link href="/tutor_profile">See Tutor</Link>
+//  </div>;
 // <div>
 
 //     <button

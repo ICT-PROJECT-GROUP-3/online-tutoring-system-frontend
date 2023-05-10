@@ -33,7 +33,7 @@ const Index = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   useEffect(() => {
     if (!isLoading && authUser) {
-      router.push('/');
+      router.push('/Auth/RegistrationStepper');
     }
   });
 
@@ -45,7 +45,7 @@ const Index = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         dispatch(signInToAccount(userCredential.user));
-        router.push('/');
+        router.push('/Auth/RegistrationStepper');
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -57,7 +57,7 @@ const Index = () => {
   const signInWithGoogle = async () => {
     const { user }: any = await signInWithPopup(auth, googleProvider)
       .then(() => {
-        router.push('/');
+        router.push('/Auth/RegistrationStepper');
         alert('User signed in successfully');
       })
       .catch((error) => {
@@ -73,6 +73,7 @@ const Index = () => {
   const signInWithFacebook = () => {
     signInWithPopup(auth, facebookProvider)
       .then((result) => {
+        router.push('/Auth/RegistrationStepper');
         setUser(result.user);
         console.log(user);
         console.log(profilePicture);
@@ -212,4 +213,5 @@ const Index = () => {
     </PageWrapper>
   );
 };
+
 export default Index;
