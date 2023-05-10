@@ -212,6 +212,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
+          
             {navigationDesktop.map((item) => (
               <Link
                 key={item.name}
@@ -265,9 +266,9 @@ const Navbar = () => {
                       key={item.name}
                       href={item.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="-mx-3 block text-center rounded-lg px-3 py-2 text-base font leading-7 text-gray-900 hover:text-orange-400"             
+                      className="-mx-3 block text-center rounded-lg px-3 py-2 text-base font leading-7 text-gray-900 hover:text-orange-400"
                     >
-                      <p > {item.name}</p>
+                      <p> {item.name}</p>
                     </Link>
                   ))}
                 </div>

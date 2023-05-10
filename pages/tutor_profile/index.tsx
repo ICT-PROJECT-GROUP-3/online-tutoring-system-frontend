@@ -1,8 +1,8 @@
-import TutorsBio from '/components/pagecomponents/tutor_profile/bio';
-import TutorsBrief from '/components/pagecomponents/tutor_profile/brief';
-import Recommended from '/components/pagecomponents/tutor_profile/recommended';
-import ProfileSummary from '/components/pagecomponents/tutor_profile/summary';
-import Background from '/components/shared/background/background';
+import TutorsBio from '../../components/pagecomponents/tutor_profile/bio';
+import TutorsBrief from '../../components/pagecomponents/tutor_profile/brief';
+import Recommended from '../../components/pagecomponents/tutor_profile/recommended';
+import ProfileSummary from '../../components/pagecomponents/tutor_profile/summary';
+import Background from '../../components/shared/background/background';
 
 const TutorProfile = () => {
   return (
