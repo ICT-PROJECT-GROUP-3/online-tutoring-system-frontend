@@ -3,7 +3,7 @@ import {
   signOut as authSignOut,
   onAuthStateChanged,
 } from 'firebase/auth';
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from './index';
 
 type AuthUser = {
