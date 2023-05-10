@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import CardDropShadow from '../../components/common/cards/card-dropshadow';
+import CardDropShadow from '../../../components/common/cards/card-dropshadow';
 
 const Recommended = () => {
   return (
