@@ -1,27 +1,103 @@
-// 'use client';
-import { signIn } from 'next-auth/react';
+// 'use client
+import {
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from 'firebase/auth';
+import 'firebase/compat/auth';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
+import { Loader } from '../../components/shared/Loader';
 import PageWrapper from '../../components/shared/PageWrapper';
+import { signInToAccount } from '../../lib/helpers/reducers/userReducer';
+import { useAppDispatch } from '../../lib/hooks/index';
+import { useAuth } from '../../lib/services/firebase/auth';
+import { auth } from '../../lib/services/firebase/index';
+
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
 
 // Define the component
 const Index = () => {
-  const email = useRef('');
-  const password = useRef('');
-
-  const onSubmit = async () => {
-    await signIn('credentials', {
-      username: email.current,
-      password: password.current,
-      redirect: true,
-      callbackUrl: '/',
-    });
-  };
-  // Define the state
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const [showPassword, setshowPassword] = useState(false);
-  return (
+  const { authUser, isLoading } = useAuth();
+  const [user, setUser] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+  useEffect(() => {
+    if (!isLoading && authUser) {
+      router.push('/');
+    }
+  });
+
+  // sign in user with email and password
+  const loginUser = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        dispatch(signInToAccount(userCredential.user));
+        router.push('/');
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(`${errorMessage}`);
+      });
+  };
+
+  //sign in with google
+  const signInWithGoogle = async () => {
+    const { user }: any = await signInWithPopup(auth, googleProvider)
+      .then(() => {
+        router.push('/');
+        alert('User signed in successfully');
+      })
+      .catch((error) => {
+        const errorMessage =
+          error && error.message ? error.message : 'An unknown error occurred';
+        alert(`${errorMessage}`);
+      });
+
+    console.log(user);
+  };
+
+  //sign in with facebook
+  const signInWithFacebook = () => {
+    signInWithPopup(auth, facebookProvider)
+      .then((result) => {
+        setUser(result.user);
+        console.log(user);
+        console.log(profilePicture);
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        // fetch facebook graph api to get user actual profile picture
+        fetch(
+          `https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
+        )
+          .then((response) => response.blob())
+          .then((blob) => {
+            setProfilePicture(URL.createObjectURL(blob));
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // Define the state
+
+  return isLoading || (!isLoading && !!authUser) ? (
+    <Loader />
+  ) : (
     // Top level container
     <PageWrapper>
       <div className="flex flex-col items-center justify-center min-h-screen py-5 mx-4 pt-5 sm:pt-0 sm:mx-2">
@@ -41,14 +117,14 @@ const Index = () => {
                 <div className="flex justify-center my-2">
                   {/* Facebook login button */}
                   <button
-                    onClick={() => signIn('facebook', { callbackUrl: '/' })}
+                    onClick={signInWithFacebook}
                     className=" text-orange-500 border-2 mr-4 border-gray-200 rounded-full p-3 mx-1 "
                   >
                     <ImFacebook className="text-sm" />
                   </button>
                   {/* Google login button */}
                   <button
-                    onClick={() => signIn('google', { callbackUrl: '/' })}
+                    onClick={signInWithGoogle}
                     className=" text-orange-500 mr-4 border-2 border-gray-200 rounded-full p-3 mx-1 "
                   >
                     <ImGoogle className="text-sm" />
@@ -65,7 +141,7 @@ const Index = () => {
                       type="text"
                       name="email"
                       required
-                      onChange={(e) => (email.current = e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                       placeholder="email"
                       className="bg-gray-200 outline-none w-full text-sm text-gray-600"
                     />
@@ -77,7 +153,7 @@ const Index = () => {
                       type={showPassword ? 'text' : 'password'}
                       name="password"
                       required
-                      onChange={(e) => (password.current = e.target.value)}
+                      onChange={(e) => setPassword(e.target.value)}
                       placeholder="password"
                       className="bg-gray-200 outline-none w-full text-sm text-gray-600"
                     />
@@ -108,7 +184,7 @@ const Index = () => {
                   </div>
                   {/* Sign in button */}
                   <button
-                    onClick={onSubmit}
+                    onClick={(e) => loginUser(e)}
                     className="text-orange-500 border-2 border-orange-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out"
                   >
                     Sign In
@@ -124,7 +200,7 @@ const Index = () => {
                 You want to join the elite community? Sign up now and get access
               </p>
               <Link
-                href="./Auth/SignUp"
+                href="/Auth/SignUp"
                 className="text-white border-2 border-white rounded-full px-12 py-2 inline-block font-semibold hover:bg-white hover:text-orange-600 transition duration-300 ease-in-out"
               >
                 Sign Up

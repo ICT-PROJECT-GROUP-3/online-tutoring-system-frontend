@@ -1,46 +1,141 @@
-// import { hash } from 'bcrypt';
+import {
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  updateProfile,
+} from 'firebase/auth';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import { FormEvent, useEffect, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';
 import PageWrapper from '../../components/shared/PageWrapper';
-// import Prisma from '../../backend/users/createUser';
-// import { GetServerSideProps } from 'next';
+// import db from '../../lib/services/firebase/firestore';
+import {} from 'firebase/auth';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { Loader } from '../../components/shared/Loader';
+import { useAuth } from '../../lib/services/firebase/auth';
+import { auth, db } from '../../lib/services/firebase/index';
+
+const facebookProvider = new FacebookAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 // Define the component
 const Index = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setshowPassword] = useState(false);
   const [showConfirmPassword, setshowConfirmPassword] = useState(false);
   const [type, setType] = useState('');
-
-  //logic to submit form to database
-  async function handleSubmit(event) {
-    event.preventDefault();
-
-    const response = await fetch(
-      'http://localhost:3000/api/backend/createUser',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password, type }),
-      }
-    );
-
-    if (response.ok) {
-      const user = await response.json();
-      console.log(user);
-    } else {
-      console.error(response.statusText);
+  const router = useRouter();
+  const { authUser, isLoading, setAuthUser } = useAuth();
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [user, setUser] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
+  useEffect(() => {
+    if (!isLoading && authUser) {
+      router.push('/');
     }
-  }
+  });
 
-  return (
+  const registerUser = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // check if the fields are not null
+    if (!name || !email || !password || !type) return;
+    // check if the passwords do not match
+    else if (password != confirmPassword) {
+      if (password !== confirmPassword) {
+        setPasswordsMatch(false);
+        return;
+      }
+    }
+
+    // create the user in firebase
+    try {
+      const { user }: any = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      ).then(() => {
+        // addDoc(collection(db, 'users'), {
+        //   owner: authUser.uid,
+        //   type: type,
+        //   completed: false,
+        // });
+        setDoc(doc(collection(db, 'users'), authUser.uid), {
+          type: type,
+        });
+        alert('user created');
+        // router.push('/
+      });
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+      });
+
+      setAuthUser({
+        uid: user.uid,
+        email: user.email,
+        name: name,
+      });
+
+      //     .then(() => {
+      //       console.log('User created');
+      //     })
+      //     .catch((error) => {
+      //       console.error('Error creating user: ', error);
+      //     });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //sign in with google
+  const signInWithGoogle = async () => {
+    const { user }: any = await signInWithPopup(auth, googleProvider)
+      .then(() => {
+        router.push('/');
+        alert('User signed in successfully');
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        alert(`${errorMessage}`);
+      });
+
+    console.log(user);
+  };
+
+  //sign in with facebook
+  const signInWithFacebook = () => {
+    signInWithPopup(auth, facebookProvider)
+      .then((result) => {
+        setUser(result.user);
+        console.log(user);
+        console.log(profilePicture);
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        const credential = FacebookAuthProvider.credentialFromResult(result);
+        const accessToken = credential.accessToken;
+        // fetch facebook graph api to get user actual profile picture
+        fetch(
+          `https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
+        )
+          .then((response) => response.blob())
+          .then((blob) => {
+            setProfilePicture(URL.createObjectURL(blob));
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  // return the loading spinner the render the page
+  return isLoading || (!isLoading && !!authUser) ? (
+    <Loader />
+  ) : (
     // Top level containerConf
     <PageWrapper>
       <div className="flex flex-col items-center justify-center min-h-screen  py-5 mx-4 pt-5 sm:pt-0 sm:mx-2">
@@ -59,19 +154,19 @@ const Index = () => {
                 <div className="border-2 w-10 border-orange-500 inline-block mb-2"></div>
                 <div className="flex justify-center my-2">
                   {/* Facebook signup button */}
-                  <Link
-                    href="#"
+                  <button
+                    onClick={signInWithFacebook}
                     className=" text-orange-500 border-2 mr-4 border-gray-200 rounded-full p-3 mx-1 "
                   >
                     <ImFacebook className="text-sm" />
-                  </Link>
+                  </button>
                   {/* Google signup button */}
-                  <Link
-                    href="#"
+                  <button
+                    onClick={signInWithGoogle}
                     className=" text-orange-500 mr-4 border-2 border-gray-200 rounded-full p-3 mx-1 "
                   >
                     <ImGoogle className="text-sm" />
-                  </Link>
+                  </button>
                   {/* signup section */}
                 </div>
                 <p className="text-orange-500 mb-2"> or </p>
@@ -97,7 +192,7 @@ const Index = () => {
               </h2>
               <div className="border-2 w-10 border-white-600 inline-block mb-2"></div>
               {/* form */}
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={registerUser}>
                 <div>
                   {/* Name input field */}
                   <div className="bg-gray-100 w-full p-2 flex items-center rounded-lg mb-3">
@@ -116,7 +211,7 @@ const Index = () => {
                   <div className="bg-gray-100 w-full p-2 flex items-center rounded-lg mb-3">
                     <ImEnvelop className="text-gray-300 m-2 " />
                     <input
-                      type="text"
+                      type="email"
                       name="email"
                       value={email}
                       required
@@ -154,15 +249,15 @@ const Index = () => {
                     </div>
                   </div>
                   {/* Password input field */}
-                  {/* <div className="bg-gray-100 w-full p-2 flex items-center rounded-lg mb-3">
+                  <div className="bg-gray-100 w-full p-2 flex items-center rounded-lg mb-3">
                     <GiPadlock className="text-gray-300 m-2 " />
                     <input
                       type={showConfirmPassword ? 'text' : 'password'}
                       name="confirmPassword"
-                      value={password}
+                      value={confirmPassword}
                       required
                       placeholder="confirm password"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
                       className="bg-gray-100 outline-none w-full text-sm text-gray-600"
                     />
                     <div className="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -182,7 +277,7 @@ const Index = () => {
                         ></path>
                       </svg>
                     </div>
-                  </div> */}
+                  </div>
                   {/* tutor or student input field */}
                   <div className="bg-gray-100 w-full p-2 flex items-center rounded-lg mb-8">
                     <MdSupervisorAccount className="text-gray-300 m-2 " />
@@ -205,7 +300,7 @@ const Index = () => {
                     </datalist>
                   </div>
                 </div>
-
+                {!passwordsMatch && <p>Passwords do not match.</p>}
                 <button
                   type="submit"
                   className="text-white border-2 border-white rounded-full px-12 py-2 inline-block font-semibold hover:bg-white hover:text-orange-600 transition duration-300 ease-in-out"

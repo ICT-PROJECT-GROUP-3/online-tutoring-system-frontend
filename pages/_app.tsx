@@ -1,15 +1,16 @@
+import { Provider } from 'react-redux';
+import { store } from '../lib/helpers/store';
+import { AuthUserProvider } from '../lib/services/firebase/auth';
 import '../styles/globals.css';
-import { SessionProvider } from 'next-auth/react';
 
-export default function App({
-  Component,
-  pageProps: { session, ...pageProps },
-}) {
+export default function App({ Component, pageProps: { ...pageProps } }) {
   return (
     <main>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      <AuthUserProvider>
+        <Provider store={store}>
+          <Component {...pageProps} />
+        </Provider>
+      </AuthUserProvider>
     </main>
   );
 }
