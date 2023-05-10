@@ -17,7 +17,7 @@ const PageWrapper = ({ children }) => {
         stiffness: 50,
       },
     },
-    hidden: { opacity: 0, x: 500 },
+    hidden: { opacity: 0, x: -200 },
   };
   const controls = useAnimation();
   const [ref, inView] = useInView();
@@ -28,7 +28,7 @@ const PageWrapper = ({ children }) => {
   }, [controls, inView]);
 
   return (
-    <div className="w-full">
+    <div className="w-screen px-10">
       <AnimatePresence>
         <motion.div
           ref={ref}
