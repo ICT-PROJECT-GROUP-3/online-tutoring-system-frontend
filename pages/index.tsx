@@ -8,7 +8,7 @@ import Team from '../components/pagecomponents/home_page/Team';
 export default function Home() {
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 `}
+      className={`flex min-h-screen w-screen flex-col items-center justify-between p-24 `}
     >
       <Hero />
       <About />
