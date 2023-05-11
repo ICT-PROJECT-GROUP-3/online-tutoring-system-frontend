@@ -4,9 +4,9 @@ import background from '../../../public/image/shared/background.png';
 
 const Background = ({ children }) => {
   return (
-    <div>
+    <div className='w-screen'>
       <Image
-        className="z-[-50] overflow-hidden fixed h-full w-full"
+        className="z-[-50] overflow-hidden fixed h-full w-screen"
         src={background}
         width={1000}
         height={1000}
