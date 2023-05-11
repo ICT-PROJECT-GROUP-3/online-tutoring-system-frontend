@@ -16,15 +16,66 @@ import { Switch } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useState } from 'react';
 import HomePageWrapper from './HomePageWrapper';
-
+import emailjs from "emailjs-com";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Contact() {
-  const [agreed, setAgreed] = useState(false);
 
+  const [agreed, setAgreed] = useState(false);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // Perform form submission or other actions with the form data
+    console.log('Form submitted with the following data:');
+    console.log('First name:', firstName);
+    console.log('Last name:', lastName);
+    console.log('Email:', email);
+    console.log('phone:',phone)
+
+    // Clear the form fields
+   
+  const templateParams = {
+    firstName,
+    phone,
+    email,
+    message,
+  };
+
+  emailjs
+  .send(
+    "service_z121ngu",
+    "template_nkndb6l",
+    templateParams,
+    "VA195bvVGLxs4TCit"
+  )
+  .then((response) => {
+    console.log("SUCCESS!", response.status, response.text);
+    toast.success("Message sent successfully!");
+  })
+  .catch((error) => {
+    console.error("FAILED...", error);
+  })
+  .finally(() => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setMessage("");
+    window.location.reload(); // Refresh the page
+  });
+};
+
+   
   return (
     <HomePageWrapper>
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8 my-6 mt-10 shadow-lg rounded-lg w-full">
@@ -48,7 +99,7 @@ export default function Contact() {
             Reach out to us for any questions or assistance.
           </p>
         </div>
-        <form
+        <form onSubmit={handleSubmit}
           action="#"
           method="POST"
           className="mx-auto mt-16 max-w-xl sm:mt-20"
@@ -67,9 +118,11 @@ export default function Contact() {
                   name="first-name"
                   id="first-name"
                   autoComplete="given-name"
+                  onChange={(event) => setFirstName(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+             
             </div>
             <div>
               <label
@@ -84,9 +137,11 @@ export default function Contact() {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
+                  onChange={(event) => setLastName(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+             
             </div>
             <div className="sm:col-span-2">
               <label
@@ -101,6 +156,7 @@ export default function Contact() {
                   name="email"
                   id="email"
                   autoComplete="email"
+                  onChange={(event) => setEmail(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -133,9 +189,10 @@ export default function Contact() {
                 </div>
                 <input
                   type="tel"
-                  name="phone-number"
-                  id="phone-number"
+                  name="phone"
+                  id="phone"
                   autoComplete="tel"
+                  onChange={(event) => setPhone(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -152,6 +209,7 @@ export default function Contact() {
                   name="message"
                   id="message"
                   rows={4}
+                  onChange={(event) => setMessage(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   defaultValue={''}
                 />
@@ -189,7 +247,10 @@ export default function Contact() {
           <div className="mt-10">
             <button
               type="submit"
-              className="block w-full rounded-md bg-orange-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="block w-full rounded-md bg-orange-500 px-3.5 py-2.5 text-center
+               text-sm font-semibold text-white shadow-sm hover:bg-orange-400 
+               focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-indigo-600"
             >
               Let&apos;s talk
             </button>
