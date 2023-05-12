@@ -3,6 +3,7 @@ import { FaMoneyBill } from 'react-icons/fa';
 import { IoLanguage, IoLocationSharp } from 'react-icons/io5';
 import { TbClockFilled } from 'react-icons/tb';
 import CardFlatEdgeless from '../../common/cards/card-flat-edgeless';
+import client from '../../../lib/services/sanity/sanity';
 
 const TutorCheckoutSummary = () => {
   return (

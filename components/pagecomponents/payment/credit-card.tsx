@@ -1,8 +1,14 @@
+import { useRouter } from 'next/router';
 import { HiCreditCard } from 'react-icons/hi';
-import { CreditCard, PaymentForm } from 'react-square-web-payments-sdk';
+import {
+  // ApplePay,
+  CreditCard,
+  // GooglePay,
+  PaymentForm,
+} from 'react-square-web-payments-sdk';
 import CardDropShadow from '../../common/cards/card-dropshadow';
-
 const VisaCard = () => {
+  const router = useRouter();
   return (
     <>
       <CardDropShadow>
@@ -15,9 +21,9 @@ const VisaCard = () => {
           </div>
           <div className="w-1/3 mb-4">
             <PaymentForm
-              applicationId="sandbox-sq0idb-lla6F4wtjdejc5-qlhMzRw"
+              applicationId="sandbox-sq0idb-lla6F4wtjdejc5-qlhMzRw" // {process.env.SQUARE_APPLICATION_ID}
               cardTokenizeResponseReceived={async (token, verifiedBuyer) => {
-                const response = await fetch('/api/payment', {
+                const response = await fetch('/api/payments/payment', {
                   method: 'POST',
                   headers: {
                     'Content-type': 'application/json',
@@ -26,11 +32,15 @@ const VisaCard = () => {
                     sourceId: token.token,
                     payment_amount: 500,
                   }),
+                }).then(() => {
+                  router.push('/checkout');
                 });
-                console.log(await response.json());
+                // console.log(await response.));
               }}
-              locationId="LPPWJ2K9XFR34"
+              locationId="LPPWJ2K9XFR34" // {process.env.LOCATION_ID}
             >
+              {/* <ApplePay /> */}
+              {/* <GooglePay /> */}
               <CreditCard
                 buttonProps={{
                   css: {
