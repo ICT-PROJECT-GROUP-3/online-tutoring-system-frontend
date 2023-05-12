@@ -35,34 +35,34 @@ const RegistrationStepper = () => {
   const handleClick = (direction) => {
     let newStep = currentStep;
 
-    direction === 'next' ? newStep++ : newStep--;
+    direction === 'Next' ? newStep++ : newStep--;
     // check if steps are within bounds
     newStep > 0 && newStep <= steps.length && setcurrentStep(newStep);
   };
 
   return (
     <PageWrapper>
-      <div className="mx-full rounded-2xl bg-white pb-2 shadow-xl  md:w-full min-h-screen">
-        {/* Stepper */}
-        <div className="horizontal container mt-5 px:4 md:px-24">
-          <Stepper steps={steps} currentStep={currentStep} />
+      <StepperContextProvider>
+        <div className="mx-full rounded-2xl bg-white pb-2 shadow-xl  md:w-full min-h-screen">
+          {/* Stepper */}
+          <div className="horizontal container mt-5 px:4 md:px-24">
+            <Stepper steps={steps} currentStep={currentStep} />
 
-          <div className="my-10 p-10 md:w-2/3 w-full mx-auto">
-            <StepperContextProvider>
+            <div className="my-10 p-10 md:w-2/3 w-full mx-auto">
               {displaySteps(currentStep)}
-            </StepperContextProvider>
+            </div>
           </div>
-        </div>
 
-        {/* navigation button */}
-        {currentStep !== steps.length && (
-          <StepperControl
-            handleClick={handleClick}
-            currentStep={currentStep}
-            steps={steps}
-          />
-        )}
-      </div>
+          {/* navigation button */}
+          {currentStep !== steps.length && (
+            <StepperControl
+              handleClick={handleClick}
+              currentStep={currentStep}
+              steps={steps}
+            />
+          )}
+        </div>
+      </StepperContextProvider>
     </PageWrapper>
   );
 };
