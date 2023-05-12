@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   try {
     const { url, data, headers } = getRequestParams(email);
 
-    const response = await fetch(url, {
+    await fetch(url, {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
