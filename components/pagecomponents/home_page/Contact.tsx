@@ -15,7 +15,9 @@
 import emailjs from '@emailjs/browser';
 import { Switch } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import HomePageWrapper from './HomePageWrapper';
 
 function classNames(...classes) {
@@ -23,37 +25,57 @@ function classNames(...classes) {
 }
 
 export default function Contact() {
-  const form = useRef();
 
   const [agreed, setAgreed] = useState(false);
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
-  const [country] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  // send email to the server
-  const sendEmail = (e) => {
-    e.preventDefault();
+    // Perform form submission or other actions with the form data
+    console.log('Form submitted with the following data:');
+    console.log('First name:', firstName);
+    console.log('Last name:', lastName);
+    console.log('Email:', email);
+    console.log('phone:',phone)
 
-    emailjs
-      .sendForm(
-        process.env.SERVICE_ID,
-        process.env.TEMPLATE_ID,
-        form.current,
-        process.env.PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    // Clear the form fields
+   
+  const templateParams = {
+    firstName,
+    phone,
+    email,
+    message,
   };
 
+  emailjs
+  .send(
+    "service_z121ngu",
+    "template_nkndb6l",
+    templateParams,
+    "VA195bvVGLxs4TCit"
+  )
+  .then((response) => {
+    console.log("SUCCESS!", response.status, response.text);
+    toast.success("Message sent successfully!");
+  })
+  .catch((error) => {
+    console.error("FAILED...", error);
+  })
+  .finally(() => {
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setMessage("");
+    window.location.reload(); // Refresh the page
+  });
+};
+
+   
   return (
     <HomePageWrapper>
       <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8 my-6 mt-10 shadow-lg rounded-lg w-full">
@@ -77,9 +99,9 @@ export default function Contact() {
             Reach out to us for any questions or assistance.
           </p>
         </div>
-        <form
-          ref={form}
-          onSubmit={sendEmail}
+        <form onSubmit={handleSubmit}
+          action="#"
+          method="POST"
           className="mx-auto mt-16 max-w-xl sm:mt-20"
         >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -98,9 +120,11 @@ export default function Contact() {
                   // onChange={(e) => setFirstName(e.target.value)}
                   id="first_name"
                   autoComplete="given-name"
+                  onChange={(event) => setFirstName(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+             
             </div>
             <div>
               <label
@@ -117,9 +141,11 @@ export default function Contact() {
                   // onChange={(e) => setLastName(e.target.value)}
                   id="last_name"
                   autoComplete="family-name"
+                  onChange={(event) => setLastName(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
+             
             </div>
             <div className="sm:col-span-2">
               <label
@@ -136,6 +162,7 @@ export default function Contact() {
                   // onChange={(e) => setEmail(e.target.value)}
                   id="email"
                   autoComplete="email"
+                  onChange={(event) => setEmail(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -169,11 +196,10 @@ export default function Contact() {
                 </div>
                 <input
                   type="tel"
-                  name="phone_number"
-                  // value={phoneNumber}
-                  id="phone-number"
-                  // onChange={(e) => setPhoneNumber(e.target.value)}
+                  name="phone"
+                  id="phone"
                   autoComplete="tel"
+                  onChange={(event) => setPhone(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
@@ -192,6 +218,7 @@ export default function Contact() {
                   // value={message}
                   // onChange={(e) => setMessage(e.target.value)}
                   rows={4}
+                  onChange={(event) => setMessage(event.target.value)}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   defaultValue={''}
                 />
@@ -229,7 +256,10 @@ export default function Contact() {
           <div className="mt-10">
             <button
               type="submit"
-              className="block w-full rounded-md bg-orange-500 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="block w-full rounded-md bg-orange-500 px-3.5 py-2.5 text-center
+               text-sm font-semibold text-white shadow-sm hover:bg-orange-400 
+               focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+                focus-visible:outline-indigo-600"
             >
               Let&apos;s talk
             </button>

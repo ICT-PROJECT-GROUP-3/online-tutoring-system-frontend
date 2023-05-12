@@ -6,31 +6,31 @@ const people = [
     name: 'Madalo ChikuKhuzeni',
     role: 'Co-Founder / CEO',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      '/image/team/Profilepic.png',
   },
   {
     name: 'Isaac Chingancheke',
     role: 'Co-Founder / CEO',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      '/image/team/isaac.webp',
   },
   {
     name: 'Bright Nthala',
     role: 'Co-Founder / CEO',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      '/image/team/isaac.webp',
   },
   {
     name: 'Chance Mshani',
     role: 'Co-Founder / CEO',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+    '/image/team/themba.jpg',
   },
   {
     name: 'Themba Tizifa',
     role: 'Co-Founder / CEO',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      '/image/team/themba.jpg',
   },
 ];
 

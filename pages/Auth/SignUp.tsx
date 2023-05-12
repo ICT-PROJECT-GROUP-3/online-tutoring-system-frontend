@@ -37,7 +37,7 @@ const Index = () => {
 
   useEffect(() => {
     if (!isLoading && authUser) {
-      router.push('/Auth/RegistrationStepper');
+      router.push('/Auth');
     }
   });
 
@@ -65,7 +65,7 @@ const Index = () => {
           type: type,
         });
         alert('user created');
-        router.push('/Auth/RegistrationStepper');
+        router.push('/Auth');
       });
       await updateProfile(auth.currentUser, {
         displayName: name,
@@ -86,7 +86,7 @@ const Index = () => {
     const { user }: any = await signInWithPopup(auth, googleProvider)
       .then(() => {
         alert('User signed in successfully');
-        router.push('/Auth/RegistrationStepper');
+        router.push('/Auth');
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -101,7 +101,7 @@ const Index = () => {
     signInWithPopup(auth, facebookProvider)
       .then((result) => {
         setUser(result.user);
-        router.push('/Auth/RegistrationStepper');
+        router.push('/Auth');
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const accessToken = credential.accessToken;
