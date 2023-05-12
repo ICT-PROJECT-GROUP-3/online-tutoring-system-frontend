@@ -55,9 +55,9 @@ const FindTutor = () => {
   return (
     <Background>
       <div className="flex flex-col">
-        <div className="flex flex-row w-screen h-screen">
+        <div className="flex flex-row w-screen h-full">
           <div className="w-1/5">
-            <div className="w-96 h-screen fixed bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80">
+            <div className="w-96 h-screen fixed pt-16 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80 -z-10">
               <div className="flex flex-col items-center justify-center w-auto mx-auto my-8">
                 <div className="flex flex-col justify-start w-4/5">
                   <div className="flex flex-row items-center mb-4">
@@ -141,7 +141,7 @@ const FindTutor = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-col content-center w-4/5">
+          <div className="flex flex-col content-center w-4/5 pt-16">
             <Search />
             <div className="grid content-start w-auto grid-cols-1 gap-8 p-2 justify-items-center">
               {/* Map tutors over here */}
