@@ -5,18 +5,22 @@ import StepsAnimateFramer from "../StepsAnimateFramer"
 const fieldConfig = [
   {
     label: 'Full Name',
-    name: 'fullName',
+    name: 'fullname',
     placeholder: 'Full Name',
   },
+
+  {
+    label: 'Phone Number',
+    name: 'phone_number',
+    placeholder: 'Enter your phone number',
+  },
+
+  { label: 'Location', name: 'location', placeholder: 'Enter your location' },
+
   {
     label: 'Email',
     name: 'email',
     placeholder: 'Email',
-  },
-  {
-    label: 'Phone Number',
-    name: 'phoneNumber',
-    placeholder: 'Phone Number',
   },
   {
     label: 'Gender',
@@ -24,14 +28,10 @@ const fieldConfig = [
     placeholder: 'Gender',
     options: ['Male', 'Female'],
   },
-  {
-    label: 'Address',
-    name: 'address',
-    placeholder: 'Address',
-  },
+
   {
     label: 'Date of Birth',
-    name: 'dateOfBirth',
+    name: 'date_of_birth',
     placeholder: 'Date of Birth',
     type: 'date',
   },

@@ -1,34 +1,39 @@
 import React, { useState } from 'react';
 import { useAuthStepperContext } from '../../../../context/auth/StepperContext';
-import StepsAnimateFramer from "../StepsAnimateFramer"
+import StepsAnimateFramer from '../StepsAnimateFramer';
 
 const timeZones = ['GMT', 'EST', 'CST', 'PST']; // Example time zones, replace with your own list
 
 const fieldConfig = [
   {
     label: 'Weekly Availability',
-    name: 'weeklyAvailability',
+    name: 'weekly_availability',
     placeholder: 'Weekly Availability',
   },
   {
     label: 'Preferred Time Slots',
-    name: 'preferredTimeSlots',
+    name: 'time_slots',
     placeholder: 'Preferred Time Slots',
   },
   {
-    label: 'Time Zone',
-    name: 'timeZone',
-    placeholder: 'Time Zone',
-    selectOptions: timeZones,
+    label: 'Total Teaching Experience',
+    name: 'total_teaching_experience',
+    placeholder: 'Enter your total teaching experience',
   },
+  // {
+  //   // label: 'Time Zone',
+  //   name: 'time-zone',
+  //   placeholder: 'Time Zone',
+  //   selectOptions: timeZones,
+  // },
   {
     label: 'Session Duration',
-    name: 'sessionDuration',
+    name: 'session_duration',
     placeholder: 'Session Duration',
   },
   {
     label: 'Maximum Number of Sessions',
-    name: 'maxSessions',
+    name: 'maximum_number_of_sessions',
     placeholder: 'Maximum Number of Sessions',
   },
 ];
@@ -68,14 +73,14 @@ export default function Scheduling(): JSX.Element {
       >
         Scheduling
       </div>
-      {fieldConfig.map(({ label, name, placeholder, selectOptions }) => (
+      {fieldConfig.map(({ label, name, placeholder }) => (
         <div key={name} className="mx-2 w-full flex-1">
           {/* Field label */}
           <div className="mt-3 h-6 font-bold leading-8 capitalize text-md text-gray-500">
             {label}
           </div>
           {/* Input or Select field */}
-          {name === 'preferredTimeSlots' ? (
+          {name === 'time_slots' ? (
             <div className="my-2 flex flex-col gap-2">
               {timeSlots.map((timeSlot, index) => (
                 <div key={index} className="flex items-center my-1 w-full">
@@ -96,7 +101,7 @@ export default function Scheduling(): JSX.Element {
             </div>
           ) : (
             <div className="my-2 flex rounded border border-gray-200 bg-white p-1">
-              {selectOptions ? (
+              {name == "timeee" ? (
                 <select
                   onChange={(e) => handleChange(e, name)}
                   value={tutorData[name] || ''}
@@ -104,11 +109,11 @@ export default function Scheduling(): JSX.Element {
                   className="w-full appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                 >
                   <option value="">Select {label}</option>
-                  {selectOptions.map((option) => (
+                  {/* {selectOptions.map((option) => (
                     <option key={option} value={option}>
                       {option}
                     </option>
-                  ))}
+                  ))} */}
                 </select>
               ) : (
                 <input
