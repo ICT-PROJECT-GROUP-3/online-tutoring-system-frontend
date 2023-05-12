@@ -2,15 +2,13 @@
 import { createClient } from 'next-sanity';
 
 const client = createClient({
-        projectId: '3iouolde',
-        dataset: 'production', 
-        useCdn: true
-      })
+  projectId: '3iouolde',
+  dataset: 'production',
+  useCdn: true,
+});
 
 export async function fetchData() {
-
-    
-    const query = `*[_type == "tutor"] {
+  const query = `*[_type == "tutor"] {
         fullname,
         bio,
         languages,
@@ -40,7 +38,7 @@ export async function fetchData() {
         phone_number,
         email,
  }`;
-      const tutor = await client.fetch(query);
-      console.log(tutor);
-      return tutor;
+  const tutor = await client.fetch(query);
+  console.log(tutor);
+  return tutor;
 }
