@@ -1,57 +1,22 @@
+import { useEffect, useState } from 'react';
 import { BiMaleFemale } from 'react-icons/bi';
 import { HiFilter } from 'react-icons/hi';
 import Search from '../../components/pagecomponents/find_tutor/search';
 import TutorCard from '../../components/pagecomponents/find_tutor/tutor-card';
 import Background from '../../components/shared/background/background';
 import SideFooter from '../../components/shared/footer/side-footer';
+import { fetchData } from './connect';
 
 const FindTutor = () => {
-  const tutors = [
-    {
-      pic: '/assets/images/Profile pic 2.png',
-      name: 'Alex Mwafungo',
-      link: '/',
-      bio: 'As someone who loves education, possesses excellent organizational skills and can connect easily with students, this is the perfect opportunity for me to continue my professional development.',
-      subjects: [
-        { label: 'History', url: 'https://flowbite.com/' },
-        { label: 'Geography', url: 'https://tailwindcss.com/' },
-      ],
-      location: 'Balaka',
-      amount: 7000,
-      experience: 15,
-      language: [{ title: 'Chichewa' }, { title: 'Chitumbuka' }],
-    },
-    {
-      pic: '/assets/images/Profile pic.png',
-      name: 'Yamikani Namphande',
-      link: '/',
-      bio: 'I do individuadivzed assistance to help students learn new concepts and complete assignments. I do study lessons and review textbooks for better understanding as a way of preparing for a lesson.',
-      subjects: [
-        { label: 'Biology', url: 'https://flowbite.com/' },
-        { label: 'Mathematics', url: 'https://tailwindcss.com/' },
-        { label: 'Agriculture', url: 'https://tailwindcss.com/' },
-      ],
-      location: 'Lilongwe',
-      amount: 10000,
-      experience: 5,
-      language: [{ title: 'Chichewa' }, { title: 'Engdivsh' }],
-    },
-    {
-      pic: '/assets/images/Profile pic 3.png',
-      name: 'Edivas Katema',
-      link: '/',
-      bio: 'I am based on instructor centered teaching and student centered teaching styles. Well designed presentations with pure Engdivsh and practical.',
-      subjects: [
-        { label: 'Accounting', url: 'https://flowbite.com/' },
-        { label: 'Economics', url: 'https://tailwindcss.com/' },
-        { label: 'Mathematics', url: 'https://tailwindcss.com/' },
-      ],
-      location: 'Mzuzu',
-      amount: 9000,
-      experience: 7,
-      language: [{ title: 'Engdivsh' }],
-    },
-  ];
+  const [tutordata, setTutorData] = useState([]);
+
+  useEffect(() => {
+    fetchData().then((tutor) => {
+      console.log(tutor);
+      setTutorData(tutor);
+    });
+  }, []);
+
   return (
     <Background>
       <div className="flex flex-col">
@@ -145,8 +110,28 @@ const FindTutor = () => {
             <Search />
             <div className="grid content-start w-auto grid-cols-1 gap-8 p-2 justify-items-center">
               {/* Map tutors over here */}
-              {tutors.map((tutor, key) => (
-                <TutorCard key={key} data={tutor} />
+              {tutordata.map((tutor) => (
+                <TutorCard
+                  key={tutor._id}
+                  bio={tutor.bio}
+                  fullname={tutor.fullname}
+                  areas_of_expertise={tutor.area_of_expertise}
+                  total_teaching_experience={tutor.total_teaching_experience}
+                  rating={tutor.rating}
+                  price={tutor.price}
+                  languages={tutor.languages}
+                  subjects={tutor.subjects}
+                  location={tutor.location}
+                  education_qualifications={tutor.education_qualifications}
+                  session_duration={tutor.session_duration}
+                  weeklyAvailability={tutor.weekly_availability}
+                  timeSlots={tutor.time_slots}
+                  maximum_number_of_sessions={tutor.maximum_number_of_sessions}
+                  homework_help={tutor.homework_help}
+                  can_travel={tutor.can_travel}
+                  phone_number={tutor.phone_number}
+                  email={tutor.email}
+                />
               ))}
             </div>
           </div>
