@@ -12,18 +12,47 @@
   }
   ```
 */
+import emailjs from '@emailjs/browser';
 import { Switch } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import HomePageWrapper from './HomePageWrapper';
-
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Contact() {
+  const form = useRef();
+
   const [agreed, setAgreed] = useState(false);
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [country] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  // send email to the server
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        process.env.SERVICE_ID,
+        process.env.TEMPLATE_ID,
+        form.current,
+        process.env.PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
 
   return (
     <HomePageWrapper>
@@ -49,8 +78,8 @@ export default function Contact() {
           </p>
         </div>
         <form
-          action="#"
-          method="POST"
+          ref={form}
+          onSubmit={sendEmail}
           className="mx-auto mt-16 max-w-xl sm:mt-20"
         >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
@@ -64,8 +93,10 @@ export default function Contact() {
               <div className="mt-2.5">
                 <input
                   type="text"
-                  name="first-name"
-                  id="first-name"
+                  name="first_name"
+                  // value={first_name}
+                  // onChange={(e) => setFirstName(e.target.value)}
+                  id="first_name"
                   autoComplete="given-name"
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -81,8 +112,10 @@ export default function Contact() {
               <div className="mt-2.5">
                 <input
                   type="text"
-                  name="last-name"
-                  id="last-name"
+                  name="last_name"
+                  // value={last_name}
+                  // onChange={(e) => setLastName(e.target.value)}
+                  id="last_name"
                   autoComplete="family-name"
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -99,6 +132,8 @@ export default function Contact() {
                 <input
                   type="email"
                   name="email"
+                  // value={email}
+                  // onChange={(e) => setEmail(e.target.value)}
                   id="email"
                   autoComplete="email"
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -120,6 +155,7 @@ export default function Contact() {
                   <select
                     id="country"
                     name="country"
+                    // value={country}
                     className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                   >
                     <option>MW</option>
@@ -133,8 +169,10 @@ export default function Contact() {
                 </div>
                 <input
                   type="tel"
-                  name="phone-number"
+                  name="phone_number"
+                  // value={phoneNumber}
                   id="phone-number"
+                  // onChange={(e) => setPhoneNumber(e.target.value)}
                   autoComplete="tel"
                   className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -151,6 +189,8 @@ export default function Contact() {
                 <textarea
                   name="message"
                   id="message"
+                  // value={message}
+                  // onChange={(e) => setMessage(e.target.value)}
                   rows={4}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   defaultValue={''}
