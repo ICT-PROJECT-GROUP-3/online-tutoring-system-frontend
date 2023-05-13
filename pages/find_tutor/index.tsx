@@ -5,7 +5,7 @@ import Search from '../../components/pagecomponents/find_tutor/search';
 import TutorCard from '../../components/pagecomponents/find_tutor/tutor-card';
 import Background from '../../components/shared/background/background';
 import SideFooter from '../../components/shared/footer/side-footer';
-import { fetchData } from './connect';
+import { fetchData } from '../../lib/services/sanity/connect';
 
 const FindTutor = () => {
   const [tutordata, setTutorData] = useState([]);
