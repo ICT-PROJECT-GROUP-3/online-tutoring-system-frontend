@@ -205,7 +205,7 @@ const Navbar = () => {
             </button>
           </div>
           <div className="items-center hidden lg:flex lg:gap-x-4">
-            <Link href="/tutor_profile">Find Tutor</Link>
+            <Link href="/find_tutor">Find Tutor</Link>
             <div className="rounded-[5px] bg-[#d03434]  hover:bg-orange-500 p-1 w-auto">
               <Link href="/Auth">
                 <p className="text-md text-center text-[#fbf6e6] ">

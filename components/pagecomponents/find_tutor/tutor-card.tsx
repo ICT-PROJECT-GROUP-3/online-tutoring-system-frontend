@@ -6,7 +6,6 @@ import { TbClockFilled } from 'react-icons/tb';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
 const TutorCard = (tutor) => {
-
   const {
     fullname,
     bio,
@@ -26,14 +25,14 @@ const TutorCard = (tutor) => {
             <Image
               width={280}
               height={280}
-              src='/assets/images/Profile pic 2.png'
+              src="/assets/images/Profile pic 2.png"
               className="object-cover w-56 h-56 rounded-2"
               alt="Profile picture"
             />
 
             <div className="w-3/5 px-4 py-1">
               {/* Place link to the tutor's profile */}
-              <Link href='/'>
+              <Link href="/tutor_profile">
                 <h1 className="text-4xl text-left mb-2 text-[#1c1c1c] hover:underline">
                   {/* Place tutor's name - string */}
                   {fullname}
@@ -41,9 +40,11 @@ const TutorCard = (tutor) => {
               </Link>
               {/* Place a shorten version of the tutor's bio  - string */}
               <p className=" text-md text-left mb-4 text-[#1c1c1c]">
-                  {bio?.map((block) => (
-            <p key={block._key}>{block.children.map((span) => span.text).join('')}</p>
-                 ))}
+                {bio?.map((block) => (
+                  <p key={block._key}>
+                    {block.children.map((span) => span.text).join('')}
+                  </p>
+                ))}
               </p>
 
               {/* Place the subjects the tutor teaches - list,string */}
@@ -52,17 +53,15 @@ const TutorCard = (tutor) => {
                 <li key={0} className="text-[#1c1c1c]">
                   |&nbsp;
                 </li>
-                {area_of_expertise && area_of_expertise.map((area) => (
-                  <li key={area.title} className="m-1">
-                    <Link
-                      href='/'
-                      className="flex flex-row hover:underline"
-                    >
-                      {area.title}
-                      <p className="text-[#1c1c1c]">&nbsp;|&nbsp;</p>
-                    </Link>
-                  </li>
-                ))}
+                {area_of_expertise &&
+                  area_of_expertise.map((area) => (
+                    <li key={area.title} className="m-1">
+                      <Link href="/" className="flex flex-row hover:underline">
+                        {area.title}
+                        <p className="text-[#1c1c1c]">&nbsp;|&nbsp;</p>
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </div>
             <div className="flex flex-col justify-center">
@@ -84,18 +83,14 @@ const TutorCard = (tutor) => {
                   <IoLocationSharp />
                 </div>
                 {/* Place the longest distance tutor can travel - number*/}
-                <p className="text-sm text-left text-[#1c1c1c]">
-                  {location}
-                </p>
+                <p className="text-sm text-left text-[#1c1c1c]">{location}</p>
               </div>
               <div className="flex flex-row my-1">
                 <div className="mr-2">
                   <FaMoneyBill />
                 </div>
                 {/* Place the minimum and maximum amount the tutor asks for - number  */}
-                <p className="text-sm text-left text-[#1c1c1c]">
-                  K{price}/hr
-                </p>
+                <p className="text-sm text-left text-[#1c1c1c]">K{price}/hr</p>
               </div>
               <div className="flex flex-row my-1">
                 <div className="mr-2">
@@ -112,9 +107,7 @@ const TutorCard = (tutor) => {
                 </div>
                 {/* Place the language the tutor knows  - string  */}
                 <ul className="flex flex-wrap text-left text-sm text-[#1c1c1c]">
-                
-                    {languages.join(", ")}
-                  
+                  {languages.join(', ')}
                 </ul>
               </div>
             </div>
