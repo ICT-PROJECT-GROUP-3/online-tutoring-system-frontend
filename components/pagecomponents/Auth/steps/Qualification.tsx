@@ -7,26 +7,37 @@ const fieldConfig = [
     label: 'Educational Qualifications',
     name: 'education_qualification',
     placeholder: 'Educational Qualifications',
+    type: 'text',
   },
   {
     label: 'Teaching Experience',
     name: 'teaching_experience',
-    placeholder: 'Teaching Experience',
+    placeholder: 'where have you teached before',
+    type: 'text',
+  },
+  {
+    label: 'Personal Identifiers',
+    name: 'identity',
+    placeholder: 'National ID, passport, Drivers licence file',
+    type: 'file',
   },
   {
     label: 'Areas of Expertise',
     name: 'area_of_expertise',
-    placeholder: 'Areas of Expertise',
+    placeholder: 'what are your areas of Expertise',
+    type: 'text',
   },
   {
     label: 'Certifications or Credentials',
     name: 'certification_of_credentials',
-    placeholder: 'Certifications or Credentials',
+    placeholder: 'Certifications or Credential files ',
+    type: 'file',
   },
   {
     label: 'References',
     name: 'reference',
-    placeholder: 'References',
+    placeholder: 'Who are your references',
+    type: 'text',
   },
 ];
 
@@ -62,7 +73,7 @@ export default function Qualifications(): JSX.Element {
         >
           Qualification
         </div>
-        {fieldConfig.map(({ label, name, placeholder }) => (
+        {fieldConfig.map(({ label, name, placeholder, type }) => (
           <div key={name} className="mx-2 w-full flex-1">
             {/* Field label */}
             <div className="mt-3 h-6 capitalize font-bold leading-8 text-gray-500 text-md">
@@ -80,6 +91,7 @@ export default function Qualifications(): JSX.Element {
                     value={value}
                     name={name}
                     placeholder={placeholder}
+                    type={type}
                     className="w-full appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                   />
                   {index === tutorData[name].length - 1 && (

@@ -8,7 +8,7 @@ const fieldConfig = [
   {
     label: 'Weekly Availability',
     name: 'weekly_availability',
-    placeholder: 'Weekly Availability',
+    placeholder: 'how many days a week',
   },
   {
     label: 'Preferred Time Slots',
@@ -18,7 +18,7 @@ const fieldConfig = [
   {
     label: 'Total Teaching Experience',
     name: 'total_teaching_experience',
-    placeholder: 'Enter your total teaching experience',
+    placeholder: 'Enter your total number of teaching experience in years',
   },
   // {
   //   // label: 'Time Zone',
@@ -29,12 +29,18 @@ const fieldConfig = [
   {
     label: 'Session Duration',
     name: 'session_duration',
-    placeholder: 'Session Duration',
+    placeholder: 'how long will your sessions take',
   },
   {
     label: 'Maximum Number of Sessions',
     name: 'maximum_number_of_sessions',
-    placeholder: 'Maximum Number of Sessions',
+    placeholder: 'Maximum Number of Sessions a day',
+  },
+  {
+    label: 'Mock Video',
+    name: 'mock_video',
+    placeholder: 'send a 30 second video of you teaching',
+    type: 'file',
   },
 ];
 
@@ -73,7 +79,7 @@ export default function Scheduling(): JSX.Element {
       >
         Scheduling
       </div>
-      {fieldConfig.map(({ label, name, placeholder }) => (
+      {fieldConfig.map(({ label, name, placeholder,type }) => (
         <div key={name} className="mx-2 w-full flex-1">
           {/* Field label */}
           <div className="mt-3 h-6 font-bold leading-8 capitalize text-md text-gray-500">
@@ -121,6 +127,7 @@ export default function Scheduling(): JSX.Element {
                   value={tutorData[name] || ''}
                   name={name}
                   placeholder={placeholder}
+                  type={type}
                   className="w-full appearance-none text-sm p-1 px-2 text-gray-800 outline-none"
                 />
               )}
