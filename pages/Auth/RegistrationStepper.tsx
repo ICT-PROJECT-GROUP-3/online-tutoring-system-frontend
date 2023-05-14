@@ -43,12 +43,12 @@ const RegistrationStepper = () => {
   return (
     <PageWrapper>
       <StepperContextProvider>
-        <div className="mx-full rounded-2xl bg-white pb-2 shadow-xl  md:w-full min-h-screen">
+        <div className="relative rounded-2xl bg-white pb-2 shadow-xl min-h-fit md:w-4/6 ">
           {/* Stepper */}
-          <div className="horizontal container mt-5 px:4 md:px-24">
+          <div className="container mt-5 px:4 md:px-24">
             <Stepper steps={steps} currentStep={currentStep} />
 
-            <div className="my-10 p-10 md:w-2/3 w-full mx-auto">
+            <div className="my-10 p-10 md:w-7/8 w-full mx-auto">
               {displaySteps(currentStep)}
             </div>
           </div>

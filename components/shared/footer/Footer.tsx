@@ -42,8 +42,8 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-white dark:bg-gray-800 px-10 items-center">
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+    <footer className="z-30 items-center px-10 bg-white dark:bg-gray-800">
+      <div className="w-full max-w-screen-xl p-4 py-6 mx-auto lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
             <Link href="/" passHref className="flex items-center">
@@ -62,7 +62,7 @@ const Footer = () => {
                 <h2 className="mb-6 text-sm font-semibold text-gray-900 capitalize dark:text-white">
                   {section.title}
                 </h2>
-                <ul className="text-gray-600 text-xs dark:text-gray-300 font-light">
+                <ul className="text-xs font-light text-gray-600 dark:text-gray-300">
                   {section.links.map((link) => (
                     <li key={link.label} className="mb-4">
                       <Link href={link.url} className="hover:underline">
@@ -90,7 +90,7 @@ const Footer = () => {
                 href="https://github.com/myusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-orange-500 ml-6"
+                className="ml-6 text-white hover:text-orange-500"
               >
                 <FaGithub size={20} />
               </a>
@@ -98,7 +98,7 @@ const Footer = () => {
                 href="https://twitter.com/myusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-orange-500 ml-6"
+                className="ml-6 text-white hover:text-orange-500"
               >
                 <FaTwitter size={20} />
               </a>
@@ -106,7 +106,7 @@ const Footer = () => {
                 href="https://twitter.com/myusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:text-orange-500 ml-6"
+                className="ml-6 text-white hover:text-orange-500"
               >
                 <FaFacebook size={20} />
               </a>

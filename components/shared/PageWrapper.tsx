@@ -18,6 +18,7 @@ const PageWrapper = ({ children }) => {
             bounce: 0.4,
             stiffness: 70,
           }}
+          className='w-screen flex flex-col items-center justify-between p-0 md:p-2'
         >
           {children}
         </motion.div>
