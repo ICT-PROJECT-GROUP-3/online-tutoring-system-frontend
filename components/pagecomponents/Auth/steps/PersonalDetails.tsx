@@ -1,19 +1,20 @@
 import React from 'react';
 import { useAuthStepperContext } from '../../../../context/auth/StepperContext';
 import StepsAnimateFramer from '../StepsAnimateFramer';
-import { profile } from 'console';
 
 const fieldConfig = [
   {
     label: 'Full Name',
     name: 'fullname',
     placeholder: 'Full Name',
+    type: 'text',
   },
 
   {
     label: 'Phone Number',
     name: 'phone_number',
     placeholder: 'Enter your phone number',
+    type: 'tel',
   },
 
   { label: 'Location', name: 'location', placeholder: 'Enter your location' },
@@ -22,6 +23,7 @@ const fieldConfig = [
     label: 'Email',
     name: 'email',
     placeholder: 'Email',
+    type: 'email',
   },
   {
     label: 'Gender',
@@ -40,14 +42,14 @@ const fieldConfig = [
     label: 'Bio',
     name: 'bio',
     placeholder: 'A short bio about yourself',
-    type: 'textArea',
+    type: 'text',
   },
-  {
-    label: 'Profile Picture',
-    name: 'profile_picture',
-    placeholder: 'Profile Picture',
-    type: 'file',
-  }
+  // {
+  //   label: 'Profile Picture',
+  //   name: 'profile_picture',
+  //   placeholder: 'Profile Picture',
+  //   type: 'file',
+  // }
 ];
 
 const countryCodes = [
@@ -90,6 +92,7 @@ export default function PersonalProfile(): JSX.Element {
                   onChange={(e) => handleChange(e, 'countryCode')}
                   value={tutorData['countryCode'] || ''}
                   name="countryCode"
+                  required
                   className="w-1/4 appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                 >
                   <option value="">Select Country Code</option>
@@ -103,6 +106,7 @@ export default function PersonalProfile(): JSX.Element {
                   onChange={(e) => handleChange(e, 'phoneNumber')}
                   value={tutorData['phoneNumber'] || ''}
                   name="phoneNumber"
+                  required
                   placeholder="Phone Number"
                   className="w-3/4 ml-2 appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                 />
@@ -114,6 +118,7 @@ export default function PersonalProfile(): JSX.Element {
                     onChange={(e) => handleChange(e, name)}
                     value={tutorData[name] || ''}
                     name={name}
+                    required
                     className="w-full appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                   >
                     <option value="">{placeholder}</option>
@@ -132,6 +137,7 @@ export default function PersonalProfile(): JSX.Element {
                         onChange={(e) => handleChange(e, name)}
                         value={tutorData[name] || ''}
                         name={name}
+                        required
                         placeholder={placeholder}
                         // className="w-full appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                       />
@@ -142,6 +148,7 @@ export default function PersonalProfile(): JSX.Element {
                         name={name}
                         type={type || 'text'}
                         placeholder={placeholder}
+                        required
                         className="w-full appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                       />
                     )}

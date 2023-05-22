@@ -12,7 +12,7 @@ const fieldConfig = [
   {
     label: 'Teaching Experience',
     name: 'teaching_experience',
-    placeholder: 'where have you teached before',
+    placeholder: 'where have you taught before',
     type: 'text',
   },
   {
@@ -92,6 +92,7 @@ export default function Qualifications(): JSX.Element {
                     name={name}
                     placeholder={placeholder}
                     type={type}
+                    required
                     className="w-full appearance-none p-1 px-2 text-gray-800 outline-none text-sm"
                   />
                   {index === tutorData[name].length - 1 && (
