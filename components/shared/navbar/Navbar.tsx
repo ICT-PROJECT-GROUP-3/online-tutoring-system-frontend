@@ -171,7 +171,7 @@ const Navbar = () => {
 
   return (
     <div
-      className="fixed top-0 w-screen h-16 bg-[#f4f3f2] flex flex-col justify-center z-30"
+      className="fixed w-screen h-16 bg-[#f4f3f2] flex flex-col justify-center z-30 top-0"
       style={{ boxShadow: '0px 10px 50px 0 #ebe8e4' }}
     >
       <header className="relative inset-x-0 top-0 z-50">
