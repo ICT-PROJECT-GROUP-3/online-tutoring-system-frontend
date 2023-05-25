@@ -1,12 +1,12 @@
 import Fuse from 'fuse.js';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiMaleFemale } from 'react-icons/bi';
 import { HiFilter } from 'react-icons/hi';
 import Search from '../../components/pagecomponents/find_tutor/search';
 import TutorCard from '../../components/pagecomponents/find_tutor/tutor-card';
 import Background from '../../components/shared/background/background';
 import SideFooter from '../../components/shared/footer/side-footer';
-import { fetchData } from './connect';
+import { fetchData } from '../../lib/services/sanity/connect';
 
 const FindTutor = () => {
   const [tutorData, setTutorData] = useState([]);
@@ -22,6 +22,7 @@ const FindTutor = () => {
   }, []);
 
   const handleSearch = (searchTerm, locationTerm) => {
+    
     if (!searchTerm && !locationTerm) {
       setFilteredTutors(tutorData);
       setNoResults(false);
@@ -83,10 +84,8 @@ const FindTutor = () => {
                     <div>
                       <div className="flex items-center my-2 ml-12">
                         <input
-                          checked
                           id="male-checkbox"
                           type="checkbox"
-                          value=""
                           className="w-4 h-4 accent-[#F4E4D2] text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
                         <label
@@ -98,10 +97,8 @@ const FindTutor = () => {
                       </div>
                       <div className="flex items-center my-2 ml-12">
                         <input
-                          checked
                           id="female-checkbox"
                           type="checkbox"
-                          value=""
                           className="w-4 h-4 accent-[#F4E4D2] text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
                         <label
@@ -113,10 +110,8 @@ const FindTutor = () => {
                       </div>
                       <div className="flex items-center my-2 ml-12">
                         <input
-                          checked
                           id="other-checkbox"
                           type="checkbox"
-                          value=""
                           className="w-4 h-4 accent-[#F4E4D2] text-orange-500 bg-gray-100 border-gray-300 rounded focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         />
                         <label
@@ -139,7 +134,6 @@ const FindTutor = () => {
                       type="range"
                       min="0"
                       max="100"
-                      value="40"
                       className="fill-[#F4E4D2]"
                     />
                   </div>

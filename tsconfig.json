@@ -18,7 +18,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "lib/services/firebase/auth.tsx"
+    "lib/services/firebase/auth.tsx",
+    "pages/api/mux/uploadFile.js"
   ],
   "exclude": ["node_modules"]
 }

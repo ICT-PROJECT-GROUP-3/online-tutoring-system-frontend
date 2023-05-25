@@ -171,7 +171,7 @@ const Navbar = () => {
 
   return (
     <div
-      className="fixed w-screen h-16 bg-[#f4f3f2] flex flex-col justify-center z-30"
+      className="fixed w-screen h-16 bg-[#f4f3f2] flex flex-col justify-center z-30 top-0"
       style={{ boxShadow: '0px 10px 50px 0 #ebe8e4' }}
     >
       <header className="relative inset-x-0 top-0 z-50">
@@ -205,7 +205,7 @@ const Navbar = () => {
             </button>
           </div>
           <div className="items-center hidden lg:flex lg:gap-x-4">
-            <Link href="/tutor_profile">Find Tutor</Link>
+            <Link href="/find_tutor">Find Tutor</Link>
             <div className="rounded-[5px] bg-[#d03434]  hover:bg-orange-500 p-1 w-auto">
               <Link href="/Auth">
                 <p className="text-md text-center text-[#fbf6e6] ">
