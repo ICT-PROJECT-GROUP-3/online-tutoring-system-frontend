@@ -6,19 +6,22 @@ import Navbar from '../components/shared/navbar/Navbar';
 import { store } from '../lib/helpers/store';
 import { AuthUserProvider } from '../lib/services/firebase/auth';
 import '../styles/globals.css';
+import PageContainer from '../components/shared/PageContainer';
 
-const poppins = Comfortaa({
+const comfortaa = Comfortaa({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
 });
 export default function App({ Component, pageProps: { ...pageProps } }) {
   return (
-    <main className={poppins.className}>
+    <main className={comfortaa.className}>
       <AuthUserProvider>
         <Provider store={store}>
-          <Background>
+          <Background >
             <Navbar />
+            <PageContainer>
             <Component {...pageProps} />
+            </PageContainer>
             <Footer />
           </Background>
         </Provider>

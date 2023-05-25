@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import Fuse from 'fuse.js';
+import React, { useEffect, useState } from 'react';
 import { BiMaleFemale } from 'react-icons/bi';
 import { HiFilter } from 'react-icons/hi';
 import Search from '../../components/pagecomponents/find_tutor/search';
@@ -8,14 +9,56 @@ import SideFooter from '../../components/shared/footer/side-footer';
 import { fetchData } from '../../lib/services/sanity/connect';
 
 const FindTutor = () => {
-  const [tutordata, setTutorData] = useState([]);
+  const [tutorData, setTutorData] = useState([]);
+  const [filteredTutors, setFilteredTutors] = useState([]);
+  const [noResults, setNoResults] = useState(false);
 
   useEffect(() => {
     fetchData().then((tutor) => {
       console.log(tutor);
       setTutorData(tutor);
+      setFilteredTutors(tutor);
     });
   }, []);
+
+  const handleSearch = (searchTerm, locationTerm) => {
+    
+    if (!searchTerm && !locationTerm) {
+      setFilteredTutors(tutorData);
+      setNoResults(false);
+      return;
+    }
+
+    const options = {
+      includeScore: true,
+      keys: ['area_of_expertise', 'location'],
+    };
+
+    const fuse = new Fuse(tutorData, options);
+    let filteredResults = tutorData;
+
+    if (searchTerm) {
+      const searchResults = fuse.search(searchTerm);
+      filteredResults = searchResults
+        .filter((result) => result.score < 0.3) // Adjust the threshold as needed
+        .map((result) => result.item);
+    }
+
+    if (locationTerm) {
+      filteredResults = filteredResults.filter(
+        (tutor) =>
+          tutor.location &&
+          tutor.location.toLowerCase().includes(locationTerm.toLowerCase())
+      );
+    }
+
+    if (filteredResults.length === 0) {
+      setNoResults(true);
+    } else {
+      setNoResults(false);
+    }
+    setFilteredTutors(filteredResults);
+  };
 
   return (
     <Background>
@@ -100,32 +143,42 @@ const FindTutor = () => {
             </div>
           </div>
           <div className="flex flex-col content-center w-4/5 pt-16">
-            <Search />
+            <Search handleSearch={handleSearch} />
+
             <div className="grid content-start w-auto grid-cols-1 gap-8 p-2 justify-items-center">
+              {/*Search result here */}
+
               {/* Map tutors over here */}
-              {tutordata.map((tutor) => (
-                <TutorCard
-                  key={tutor._id}
-                  bio={tutor.bio}
-                  fullname={tutor.fullname}
-                  areas_of_expertise={tutor.area_of_expertise}
-                  total_teaching_experience={tutor.total_teaching_experience}
-                  rating={tutor.rating}
-                  price={tutor.price}
-                  languages={tutor.languages}
-                  subjects={tutor.subjects}
-                  location={tutor.location}
-                  education_qualifications={tutor.education_qualifications}
-                  session_duration={tutor.session_duration}
-                  weeklyAvailability={tutor.weekly_availability}
-                  timeSlots={tutor.time_slots}
-                  maximum_number_of_sessions={tutor.maximum_number_of_sessions}
-                  homework_help={tutor.homework_help}
-                  can_travel={tutor.can_travel}
-                  phone_number={tutor.phone_number}
-                  email={tutor.email}
-                />
-              ))}
+
+              {noResults ? (
+                <div>No Results</div>
+              ) : (
+                filteredTutors.map((tutor) => (
+                  <TutorCard
+                    key={tutor._id}
+                    bio={tutor.bio}
+                    fullname={tutor.fullname}
+                    area_of_expertise={tutor.area_of_expertise}
+                    total_teaching_experience={tutor.total_teaching_experience}
+                    rating={tutor.rating}
+                    price={tutor.price}
+                    languages={tutor.languages}
+                    subjects={tutor.subjects}
+                    location={tutor.location}
+                    education_qualifications={tutor.education_qualifications}
+                    session_duration={tutor.session_duration}
+                    weeklyAvailability={tutor.weekly_availability}
+                    timeSlots={tutor.time_slots}
+                    maximum_number_of_sessions={
+                      tutor.maximum_number_of_sessions
+                    }
+                    homework_help={tutor.homework_help}
+                    can_travel={tutor.can_travel}
+                    phone_number={tutor.phone_number}
+                    email={tutor.email}
+                  />
+                ))
+              )}
             </div>
           </div>
         </div>

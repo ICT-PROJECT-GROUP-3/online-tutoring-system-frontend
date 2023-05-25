@@ -8,7 +8,7 @@ import {
 import { collection, doc, setDoc } from 'firebase/firestore';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FormEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';
@@ -16,7 +16,6 @@ import { Loader } from '../../components/shared/Loader';
 import PageWrapper from '../../components/shared/PageWrapper';
 import { useAuth } from '../../lib/services/firebase/auth';
 import { auth, db } from '../../lib/services/firebase/index';
-
 const facebookProvider = new FacebookAuthProvider();
 const googleProvider = new GoogleAuthProvider();
 

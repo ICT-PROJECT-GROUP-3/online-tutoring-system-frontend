@@ -1,21 +1,48 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import React from 'react';
 import { FaMoneyBill } from 'react-icons/fa';
 import { IoLanguage, IoLocationSharp } from 'react-icons/io5';
 import { TbClockFilled } from 'react-icons/tb';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
-const TutorCard = (tutor) => {
-  const {
-    fullname,
-    bio,
-    languages,
-    location,
-    price,
-    area_of_expertise,
-    total_teaching_experience,
-  } = tutor;
+interface TutorCardProps {
+  fullname: string;
+  rating: string;
+  bio?: {
+    _key: string;
+    children: { text: string }[];
+  }[];
+  languages: string[];
+  location: string;
+  price: number;
+  subjects: string;
+  education_qualifications: string[];
+  session_duration: number;
+  timeSlots: string;
+  homework_help: string;
+  maximum_number_of_sessions: number;
+  weeklyAvailability: number;
+  can_travel: boolean;
+  phone_number: string;
+  email: string;
+  area_of_expertise?: {
+    title: string;
+  }[];
+  total_teaching_experience: number;
+}
 
+const TutorCard: React.FC<TutorCardProps> = ({
+  fullname,
+  bio,
+  rating,
+  languages,
+  location,
+  price,
+  subjects,
+  area_of_expertise,
+  total_teaching_experience,
+}) => {
   return (
     <>
       <div className="max-w-6xl ">
@@ -32,6 +59,7 @@ const TutorCard = (tutor) => {
 
             <div className="w-3/5 px-4 py-1">
               {/* Place link to the tutor's profile */}
+              <Link href="/" />
               <Link href="/tutor_profile">
                 <h1 className="text-4xl text-left mb-2 text-[#1c1c1c] hover:underline">
                   {/* Place tutor's name - string */}
@@ -40,11 +68,17 @@ const TutorCard = (tutor) => {
               </Link>
               {/* Place a shorten version of the tutor's bio  - string */}
               <p className=" text-md text-left mb-4 text-[#1c1c1c]">
-                {bio?.map((block) => (
+                {/* {bio?.map((block) => (
                   <p key={block._key}>
                     {block.children.map((span) => span.text).join('')}
                   </p>
-                ))}
+                ))} */}
+                {Array.isArray(bio) &&
+                  bio.map((block) => (
+                    <p key={block._key}>
+                      {block.children.map((span) => span.text).join('')}
+                    </p>
+                  ))}
               </p>
 
               {/* Place the subjects the tutor teaches - list,string */}
@@ -60,6 +94,7 @@ const TutorCard = (tutor) => {
                         {area.title}
                         <p className="text-[#1c1c1c]">&nbsp;|&nbsp;</p>
                       </Link>
+                      \
                     </li>
                   ))}
               </ul>
@@ -84,12 +119,14 @@ const TutorCard = (tutor) => {
                 </div>
                 {/* Place the longest distance tutor can travel - number*/}
                 <p className="text-sm text-left text-[#1c1c1c]">{location}</p>
+                <p className="text-sm text-left text-[#1c1c1c]">{location}</p>
               </div>
               <div className="flex flex-row my-1">
                 <div className="mr-2">
                   <FaMoneyBill />
                 </div>
                 {/* Place the minimum and maximum amount the tutor asks for - number  */}
+                <p className="text-sm text-left text-[#1c1c1c]">K{price}/hr</p>
                 <p className="text-sm text-left text-[#1c1c1c]">K{price}/hr</p>
               </div>
               <div className="flex flex-row my-1">
@@ -108,6 +145,7 @@ const TutorCard = (tutor) => {
                 {/* Place the language the tutor knows  - string  */}
                 <ul className="flex flex-wrap text-left text-sm text-[#1c1c1c]">
                   {languages.join(', ')}
+                  {/* {languages.join(', ')} */}
                 </ul>
               </div>
             </div>
