@@ -40,6 +40,7 @@
     "fuse.js": "^6.6.2",
     "mock-aws-s3": "^4.0.2",
     "next": "13.3.4",
+    "next-auth": "^4.22.1",
     "next-sanity": "^4.3.2",
     "postcss": "8.4.23",
     "react": "^18.2.0",

@@ -1,11 +1,3 @@
-// import {
-//   FacebookAuthProvider,
-//   GoogleAuthProvider,
-//   createUserWithEmailAndPassword,
-//   signInWithPopup,
-//   updateProfile,
-// } from 'firebase/auth';
-// import { collection, doc, setDoc } from 'firebase/firestore';
 import bcrypt from 'bcryptjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -14,10 +6,6 @@ import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';
 import PageWrapper from '../../components/shared/PageWrapper';
-// import { useAuth } from '../../lib/services/firebase/auth';
-// import { auth, db } from '../../lib/services/firebase/index';
-// const facebookProvider = new FacebookAuthProvider();
-// const googleProvider = new GoogleAuthProvider();
 
 // Define the component
 const Index = () => {
@@ -29,10 +17,7 @@ const Index = () => {
   const [showConfirmPassword, setshowConfirmPassword] = useState(false);
   const [role, setRole] = useState('');
   const router = useRouter();
-  // const { authUser, isLoading, setAuthUser } = useAuth();
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [setUser] = useState(null);
-  const [setProfilePicture] = useState(null);
 
   const registerUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,70 +86,6 @@ const Index = () => {
         }
       }
     });
-
-    // create the user in firebase
-    //   try {
-    //     const { user }: any = await createUserWithEmailAndPassword(
-    //       auth,
-    //       email,
-    //       password
-    //     ).then(() => {
-    //       setDoc(doc(collection(db, 'users'), authUser.uid), {
-    //         type: type,
-    //       });
-    //       alert('user created');
-    //       router.push('/Auth');
-    //     });
-    //     await updateProfile(auth.currentUser, {
-    //       displayName: name,
-    //     });
-
-    //     setAuthUser({
-    //       uid: user.uid,
-    //       email: user.email,
-    //       name: name,
-    //     });
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // };
-
-    //sign in with google
-    // const signInWithGoogle = async () => {
-    //   const { user }: any = await signInWithPopup(auth, googleProvider)
-    //     .then(() => {
-    //       alert('User signed in successfully');
-    //       router.push('/Auth');
-    //     })
-    //     .catch((error) => {
-    //       const errorMessage = error.message;
-    //       alert(`${errorMessage}`);
-    //     });
-
-    //   console.log(user);
-    // };
-
-    //sign in with facebook
-    // const signInWithFacebook = () => {
-    //   signInWithPopup(auth, facebookProvider)
-    //     .then((result) => {
-    //       setUser(result.user);
-    //       router.push('/Auth');
-    //       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    //       const credential = FacebookAuthProvider.credentialFromResult(result);
-    //       const accessToken = credential.accessToken;
-    //       // fetch facebook graph api to get user actual profile picture
-    //       fetch(
-    //         `https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
-    //       )
-    //         .then((response) => response.blob())
-    //         .then((blob) => {
-    //           setProfilePicture(URL.createObjectURL(blob));
-    //         });
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
   };
 
   // return the loading spinner the render the page
@@ -347,6 +268,3 @@ const Index = () => {
 };
 
 export default Index;
-function useEffect(arg0: () => void) {
-  throw new Error('Function not implemented.');
-}

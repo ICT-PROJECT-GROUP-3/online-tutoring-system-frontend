@@ -1,101 +1,81 @@
-// 'use client
-// import {
-//   FacebookAuthProvider,
-//   GoogleAuthProvider,
-//   signInWithEmailAndPassword,
-//   signInWithPopup,
-// } from 'firebase/auth';
-// import 'firebase/compat/auth';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
 import PageWrapper from '../../components/shared/PageWrapper';
-// import { signInToAccount } from '../../lib/helpers/reducers/userReducer';
-// import { useAppDispatch } from '../../lib/hooks/index';
-// import { useAuth } from '../../lib/services/firebase/auth';
-// import { auth } from '../../lib/services/firebase/index';
+import { useRouter } from 'next/router';
+import { AuthContext } from '../../context/auth/SessionContext';
 
-// const googleProvider = new GoogleAuthProvider();
-// const facebookProvider = new FacebookAuthProvider();
+interface IProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
 
 // Define the component
-const Index = () => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+const Index = ({ searchParams }: IProps) => {
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const router = useRouter();
-  // const dispatch = useAppDispatch();
   const [showPassword, setshowPassword] = useState(false);
-  // const { authUser, isLoading } = useAuth();
-  const [user, setUser] = useState(null);
-  const [profilePicture, setProfilePicture] = useState(null);
 
-  // useEffect(() => {
-  //   if (!isLoading && authUser) {
-  //     router.push('/Auth/RegistrationStepper');
-  //   }
-  // });
+  const { login } = useContext(AuthContext);
 
   // sign in user with email and password
-  const loginUser = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const loginUser = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     e.preventDefault();
-    if (!email || !password) return;
+    if (!name || !password) return;
+    console.log(name);
+    console.log(password);
+    const data = JSON.stringify({ user: name, pwd: password });
 
-    //   signInWithEmailAndPassword(auth, email, password)
-    //     .then((userCredential) => {
-    //       dispatch(signInToAccount(userCredential.user));
-    //       router.push('/Auth/RegistrationStepper');
-    //     })
-    //     .catch((error) => {
-    //       const errorMessage = error.message;
-    //       alert(`${errorMessage}`);
-    //     });
-    // };
+    try {
+      const response = await fetch('http://localhost:3500/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: data,
+      });
 
-    //sign in with google
-    // const signInWithGoogle = async () => {
-    //   const { user }: any = await signInWithPopup(auth, googleProvider)
-    //     .then(() => {
-    //       router.push('/Auth/RegistrationStepper');
-    //       alert('User signed in successfully');
-    //     })
-    //     .catch((error) => {
-    //       const errorMessage =
-    //         error && error.message ? error.message : 'An unknown error occurred';
-    //       alert(`${errorMessage}`);
-    //     });
-
-    //   console.log(user);
-    // };
-
-    //sign in with facebook
-    // const signInWithFacebook = () => {
-    //   signInWithPopup(auth, facebookProvider)
-    //     .then((result) => {
-    //       router.push('/Auth/RegistrationStepper');
-    //       setUser(result.user);
-    //       console.log(user);
-    //       console.log(profilePicture);
-    //       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-    //       const credential = FacebookAuthProvider.credentialFromResult(result);
-    //       const accessToken = credential.accessToken;
-    //       // fetch facebook graph api to get user actual profile picture
-    //       fetch(
-    //         `https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
-    //       )
-    //         .then((response) => response.blob())
-    //         .then((blob) => {
-    //           setProfilePicture(URL.createObjectURL(blob));
-    //         });
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // };
+      if (response.ok) {
+        const body = await response.json();
+        //session context
+        try {
+          login(body);
+          console.log('context created');
+        } catch (error) {
+          console.log('Context not created followed by this error: ' + error);
+        }
+        // redirecting to the required pages
+        if (body['user']['role'] == 'admin') {
+          router.push('/user/admin/Dashboard');
+        } else if (body['user']['role'] == 'tutor') {
+          router.push('/user/tutor/Dashboard');
+        } else if (body['user']['role'] == 'student') {
+          router.push('/user/student/Dashboard');
+        }
+      } else if (response.status == 400) {
+        var body = response.json();
+        alert(body['message']);
+        console.log('status code' + response.status);
+        // Login failed, handle error
+        // You can display an error message to the user
+      } else if (response.status == 500) {
+        const body = response.json();
+        alert(body['message']);
+        console.log('response statuscode' + response.status);
+      } else if (response.status == 401) {
+        const body = response.json();
+        alert(body['message']);
+        console.log('response statuscode' + response.status);
+      }
+    } catch (error) {
+      // Handle any error that occurred during the request
+    }
   };
-  // Define the state
 
+  // Define the state
   return (
     // Top level container
     <PageWrapper>
@@ -132,15 +112,21 @@ const Index = () => {
                 </div>
                 <p className="text-orange-500"> or </p>
                 <p className="text-gray-500 mb-3"> Use your email account</p>
+                {searchParams?.message && (
+                  <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">
+                    {searchParams?.message}
+                  </p>
+                )}
                 <div className="flex flex-col items-center">
                   {/* Email input field */}
                   <div className="bg-gray-200 w-64 p-2 flex items-center rounded-lg mb-3">
                     <ImEnvelop className="text-gray-400 m-2 " />
                     <input
                       type="text"
-                      name="email"
+                      name="user"
+                      value={name}
                       required
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => setName(e.target.value)}
                       placeholder="email"
                       className="bg-gray-200 outline-none w-full text-sm text-gray-600"
                     />
@@ -150,7 +136,8 @@ const Index = () => {
                     <GiPadlock className="text-gray-400 m-2 " />
                     <input
                       type={showPassword ? 'text' : 'password'}
-                      name="password"
+                      name="pwd"
+                      value={password}
                       required
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="password"
