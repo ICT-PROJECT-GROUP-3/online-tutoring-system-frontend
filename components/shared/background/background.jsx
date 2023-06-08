@@ -6,7 +6,7 @@ const Background = ({ children }) => {
   return (
     <div className='w-screen'>
       <Image
-        className="z-[-50] overflow-hidden fixed h-full w-screen"
+        className="z-[-50] fixed h-full w-screen bg-cover bg-center bg-no-repeat"
         src={background}
         width={1000}
         height={1000}
