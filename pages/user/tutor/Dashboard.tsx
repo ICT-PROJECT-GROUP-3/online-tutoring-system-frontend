@@ -1,17 +1,15 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import PageWrapper from '../../../components/shared/PageWrapper';
-import { useAuth } from '../../../lib/services/firebase/auth';
+// import { useAuth } from '../../../lib/services/firebase/auth';
 
 const Dashboard = () => {
-  const router = useRouter();
-  const { authUser, isLoading, signOut } = useAuth();
-  useEffect(() => {
-    if (!isLoading && !authUser) {
-      router.push('/');
-    }
-  });
+  // const router = useRouter();
+  // const { authUser, isLoading, signOut } = useAuth();
+  // useEffect(() => {
+  //   if (!isLoading && !authUser) {
+  //     router.push('/');
+  //   }
+  // });
 
   return (
     <PageWrapper>
@@ -19,7 +17,7 @@ const Dashboard = () => {
         <div>Dashboard</div>
         <button
           className="p-4 text-white bg-blue-500 rounded btn btn-secondary "
-          onClick={() => signOut()}
+          // onClick={() => signOut()}
         >
           {' '}
           log out
