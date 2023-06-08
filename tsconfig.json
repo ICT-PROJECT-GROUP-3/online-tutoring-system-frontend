@@ -18,7 +18,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "lib/services/firebase/auth.tsx"
+    "lib/services/firebase/auth.tsx",
+    "pages/api/mux/uploadFile.js",
+    "components/pagecomponents/video_session/Settings.tsx"
   ],
   "exclude": ["node_modules"]
 }
