@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';

@@ -6,6 +6,7 @@ import Footer from '../components/shared/footer/Footer';
 import Navbar from '../components/shared/navbar/Navbar';
 import SessionContext from '../context/auth/SessionContext';
 import '../styles/globals.css';
+import PageContainer from '../components/shared/PageContainer';
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
