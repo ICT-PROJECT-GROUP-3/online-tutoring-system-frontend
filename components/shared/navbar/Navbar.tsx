@@ -153,6 +153,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
+import Language from './language';
 
 const navigationDesktop = [
   { name: 'Sign In', href: '/Auth' },
@@ -224,6 +225,7 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
+            <Language />
             <Link href="/auth">
               <MdDarkMode className="w-6 h-6 text-gray-700" />{' '}
             </Link>
