@@ -1,7 +1,6 @@
 import Link from 'next/link';
 // import path from 'path';
 import { useAuthStepperContext } from '../../../context/auth/StepperContext';
-const path = require('path');
 
 const postData = async (data) => {
   const sanityApiKey =
@@ -42,9 +41,9 @@ const postData = async (data) => {
   }
 };
 
-function isStepValid(stepData: Record<string, string>): boolean {
-  return Object.values(stepData).every((value) => value.trim() !== '');
-}
+// function isStepValid(stepData: Record<string, string>): boolean {
+//   return Object.values(stepData).every((value) => value.trim() !== '');
+// }
 export default function StepperControl({ handleClick, currentStep, steps }) {
   let { tutorData } = useAuthStepperContext();
 
