@@ -7,6 +7,7 @@ import Scheduling from '../../components/pagecomponents/Auth/steps/Scheduling';
 import Verification from '../../components/pagecomponents/Auth/steps/Verification';
 import PageWrapper from '../../components/shared/PageWrapper';
 import { StepperContextProvider } from '../../context/auth/StepperContext';
+import Navbar from '../../components/shared/navbar/Navbar';
 // import Link from 'next/link';
 
 const RegistrationStepper = () => {
@@ -43,7 +44,8 @@ const RegistrationStepper = () => {
   return (
     <PageWrapper>
       <StepperContextProvider>
-        <div className="relative rounded-2xl bg-white pb-2 shadow-xl min-h-fit md:w-4/6 ">
+        <Navbar />
+        <div className="relative rounded-2xl bg-white pb-2 shadow-xl min-h-fit md:w-4/6 mt-20">
           {/* Stepper */}
           <div className="container mt-5 px:4 md:px-24">
             <Stepper steps={steps} currentStep={currentStep} />

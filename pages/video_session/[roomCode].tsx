@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/auth/SessionContext';
 
 // import plugin
 // import { ZegoSuperBoardManager } from "zego-superboard-web";
@@ -9,6 +10,8 @@ import { useEffect } from 'react';
 const RoomCode = ({ roomCode }) => {
   const router = useRouter();
   const { RoomCode } = router.query;
+
+  const { user } = useContext(AuthContext);
 
   const myMeeting = async (element) => {
     // generate Kit Token
@@ -22,20 +25,20 @@ const RoomCode = ({ roomCode }) => {
       serverSecret,
       RoomCode.toString(),
       Date.now().toString(),
-      'ramama'
+      user? user.user.name.toString() : "joe"
     );
     const zp = ZegoUIKitPrebuilt.create(kitToken);
-    const { ZegoSuperBoardManager } = await import('zego-superboard-web')
+    const { ZegoSuperBoardManager } = await import('zego-superboard-web');
 
-    zp.addPlugins({ZegoSuperBoardManager});
+    zp.addPlugins({ ZegoSuperBoardManager });
     zp.joinRoom({
       container: element,
       scenario: {
         mode: ZegoUIKitPrebuilt.VideoConference,
       },
-      whiteboardConfig: {            
-        showAddImageButton: true, 
-     },
+      whiteboardConfig: {
+        showAddImageButton: true,
+      },
       showTurnOffRemoteCameraButton: false,
       showTurnOffRemoteMicrophoneButton: false,
       showRemoveUserButton: false,
@@ -43,8 +46,10 @@ const RoomCode = ({ roomCode }) => {
   };
 
   return (
-    <div className='w-full h-full' ref={myMeeting}>
-    </div>
+    <div
+      className="w-full max-h-screen h-screen rounded-2xl bg-transparent"
+      ref={myMeeting}
+    ></div>
   );
 };
 

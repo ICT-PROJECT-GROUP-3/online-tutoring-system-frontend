@@ -4,12 +4,15 @@ import Features from '../components/pagecomponents/home_page/Features';
 import Hero from '../components/pagecomponents/home_page/Hero';
 import NewsLetter from '../components/pagecomponents/home_page/Newsletter';
 import Team from '../components/pagecomponents/home_page/Team';
+import MainFooter from '../components/shared/footer/main-footer';
+import Navbar from '../components/shared/navbar/Navbar';
 
 export default function Home() {
   return (
     <main
-      className={`flex min-h-screen w-screen flex-col items-center justify-between p-0 md:p-2 `}
+      className={`flex min-h-screen w-screen flex-col items-center justify-between p-0 md:p-2 mt-20 `}
     >
+      <Navbar/>
       <Hero />
       <About />
       <Features />

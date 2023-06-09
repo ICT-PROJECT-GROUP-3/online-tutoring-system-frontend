@@ -16,12 +16,9 @@ export default function App({ Component, pageProps: { ...pageProps } }) {
     <main className={comfortaa.className}>
       <SessionContext>
         <Background>
-          <MainFooter>
-            <Navbar />
             <PageContainer>
               <Component {...pageProps} />
             </PageContainer>
-          </MainFooter>
         </Background>
       </SessionContext>
     </main>

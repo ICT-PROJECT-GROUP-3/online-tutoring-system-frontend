@@ -167,6 +167,11 @@ const navigation = [
   { name: 'Sign In', href: '/Auth' },
   { name: 'Register', href: '/Auth/SignUp' },
 ];
+const navigationWhilstLoggedIn = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/' },
+  { name: 'tutor Page', href: '/' },
+];
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -280,18 +285,30 @@ const Navbar = () => {
             </div>
             <div className="flow-root mt-6">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="py-24 space-y-2 ">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block px-3 py-2 -mx-3 text-base leading-7 text-center text-gray-900 rounded-lg font hover:text-orange-400"
-                    >
-                      <p> {item.name}</p>
-                    </Link>
-                  ))}
+                <div className="py-24 space-y-2">
+                  {user
+                    ? navigationWhilstLoggedIn.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block px-3 py-2 -mx-3 text-base leading-7 text-center text-gray-900 rounded-lg font hover:text-orange-400"
+                        >
+                          <p>{item.name}</p>
+                        </Link>
+                      ))
+                    : navigation.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block px-3 py-2 -mx-3 text-base leading-7 text-center text-gray-900 rounded-lg font hover:text-orange-400"
+                        >
+                          <p>{item.name}</p>
+                        </Link>
+                      ))}
                 </div>
+
                 {/* <div className="py-6">
                   <a
                     href="#"

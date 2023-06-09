@@ -6,6 +6,7 @@ import TutorCard from '../../components/pagecomponents/find_tutor/tutor-card';
 import Background from '../../components/shared/background/background';
 import SideFooter from '../../components/shared/footer/side-footer';
 import { fetchData } from '../../lib/services/sanity/connect';
+import Navbar from '../../components/shared/navbar/Navbar';
 
 const FindTutor = () => {
   const [tutorData, setTutorData] = useState([]);
@@ -60,7 +61,8 @@ const FindTutor = () => {
 
   return (
     <Background>
-      <div className="flex flex-col">
+      <Navbar />
+      <div className="flex flex-col mt-20">
         <div className="flex flex-row w-screen h-full">
           <div className="w-1/5">
             <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80 -z-10">
