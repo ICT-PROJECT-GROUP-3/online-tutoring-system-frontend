@@ -59,7 +59,7 @@ export default async function handler(req, res) {
           password: MUX_API_SECRET,
         },
       });
-      status = status;
+      status;
     }
 
     // Step 4: Retrieve the Mux URL of the converted video

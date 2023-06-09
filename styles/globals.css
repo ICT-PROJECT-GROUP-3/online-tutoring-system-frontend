@@ -16,6 +16,10 @@
   }
 }
 
+/* * {
+  cursor: none;
+} */
+
 body {
   background-attachment: fixed;
   background-image: url('/img/shared/background.jpg');

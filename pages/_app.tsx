@@ -1,12 +1,11 @@
 import { Comfortaa } from '@next/font/google';
-import { Provider } from 'react-redux';
-import Background from '../components/shared/background/background';
-import Footer from '../components/shared/footer/Footer';
-import Navbar from '../components/shared/navbar/Navbar';
-import { store } from '../lib/helpers/store';
-import { AuthUserProvider } from '../lib/services/firebase/auth';
-import '../styles/globals.css';
+// import { Provider } from 'react-redux';
 import PageContainer from '../components/shared/PageContainer';
+import Background from '../components/shared/background/background';
+import MainFooter from '../components/shared/footer/main-footer';
+import Navbar from '../components/shared/navbar/Navbar';
+import SessionContext from '../context/auth/SessionContext';
+import '../styles/globals.css';
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -15,17 +14,13 @@ const comfortaa = Comfortaa({
 export default function App({ Component, pageProps: { ...pageProps } }) {
   return (
     <main className={comfortaa.className}>
-      <AuthUserProvider>
-        <Provider store={store}>
-          <Background >
-            <Navbar />
+      <SessionContext>
+        <Background>
             <PageContainer>
-            <Component {...pageProps} />
+              <Component {...pageProps} />
             </PageContainer>
-            <Footer />
-          </Background>
-        </Provider>
-      </AuthUserProvider>
+        </Background>
+      </SessionContext>
     </main>
   );
 }

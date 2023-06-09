@@ -61,18 +61,8 @@ const ProfileSummary = () => {
 
               {/* This button should take the user to payment options of the tutor */}
               <Link href="/payment">
-                <RegularButton name="Get Contact" />
+                <RegularButton name="Purchase the Contact Details" />
               </Link>
-
-              <p className="my-1 text-xl text-black">
-                <span className="text-xl text-black">Response time:</span>
-
-                {/* Place the average response time of tutors responding - time  */}
-                <span className="text-xl font-bold text-black">
-                  {' '}
-                  39 minutes
-                </span>
-              </p>
             </div>
           </div>
         </CardFlat>

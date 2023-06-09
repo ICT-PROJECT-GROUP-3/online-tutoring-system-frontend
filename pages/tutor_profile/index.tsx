@@ -3,12 +3,14 @@ import TutorsBrief from '../../components/pagecomponents/tutor_profile/brief';
 import Recommended from '../../components/pagecomponents/tutor_profile/recommended';
 import ProfileSummary from '../../components/pagecomponents/tutor_profile/summary';
 import Background from '../../components/shared/background/background';
+import Navbar from '../../components/shared/navbar/Navbar';
 
 const TutorProfile = () => {
   return (
     <>
       <Background>
-        <div className="flex flex-row justify-center mx-auto my-8 max-w-screen-2xl">
+        <Navbar />
+        <div className="flex flex-row justify-center mx-auto my-8 max-w-screen-2xl mt-20">
           <div className="flex flex-col gap-4">
             <TutorsBrief />
             <TutorsBio />

@@ -1,23 +1,12 @@
-import {
-  FacebookAuthProvider,
-  GoogleAuthProvider,
-  createUserWithEmailAndPassword,
-  signInWithPopup,
-  updateProfile,
-} from 'firebase/auth';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import bcrypt from 'bcryptjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
-import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
+import { ImEnvelop } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';
-import { Loader } from '../../components/shared/Loader';
+import { BallTriangle } from 'react-loader-spinner';
 import PageWrapper from '../../components/shared/PageWrapper';
-import { useAuth } from '../../lib/services/firebase/auth';
-import { auth, db } from '../../lib/services/firebase/index';
-const facebookProvider = new FacebookAuthProvider();
-const googleProvider = new GoogleAuthProvider();
 
 // Define the component
 const Index = () => {
@@ -27,24 +16,17 @@ const Index = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setshowPassword] = useState(false);
   const [showConfirmPassword, setshowConfirmPassword] = useState(false);
-  const [type, setType] = useState('');
+  const [role, setRole] = useState('');
   const router = useRouter();
-  const { authUser, isLoading, setAuthUser } = useAuth();
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [setUser] = useState(null);
-  const [setProfilePicture] = useState(null);
-
-  useEffect(() => {
-    if (!isLoading && authUser) {
-      router.push('/Auth');
-    }
-  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // check if the fields are not null
-    if (!name || !email || !password || !type) return;
+    if (!name || !email || !password || !role) return;
     // check if the passwords do not match
     else if (password != confirmPassword) {
       if (password !== confirmPassword) {
@@ -52,80 +34,70 @@ const Index = () => {
         return;
       }
     }
+    const saltRounds = 10;
 
-    // create the user in firebase
-    try {
-      const { user }: any = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      ).then(() => {
-        setDoc(doc(collection(db, 'users'), authUser.uid), {
-          type: type,
-        });
-        alert('user created');
-        router.push('/Auth');
-      });
-      await updateProfile(auth.currentUser, {
-        displayName: name,
-      });
+    bcrypt.hash(password, saltRounds, async function (err, hash) {
+      if (err) {
+        // Handle error
+      } else {
+        // Use the generated hash
+        console.log(hash);
+        console.log('THE HASHED PASSWORD IS:' + hash);
 
-      setAuthUser({
-        uid: user.uid,
-        email: user.email,
-        name: name,
-      });
-    } catch (error) {
-      console.error(error);
-    }
+        const data = {
+          name: name,
+          email: email,
+          password: hash,
+          role: role,
+        };
+        const sanityApiKey =
+          'skHK4SXyIt4zKcU6X6OIOaG2Zsb2ZYMvQk3oCMakw6KutBjRDje8EtUZVcDpIBSiGbF3cH26h46T9oH6GWg0VH6eDCHDg6uUX669PviEvtqfwTdrE4W7PuB00Mc6aWVq8S3up1LqUPkTeZOmVrtBX6yduClsbvwAceBJQTtRKzpnVZ5FGMuK';
+        const sanityProjectId = '3iouolde';
+        const sanityDataset = 'production';
+
+        try {
+          const response = await fetch(
+            `https://${sanityProjectId}.api.sanity.io/v1/data/mutate/${sanityDataset}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${sanityApiKey}`,
+              },
+              body: JSON.stringify({
+                mutations: [
+                  {
+                    create: {
+                      _type: 'user', // Replace with your existing schema type "tutor"
+                      // Map the data fields to the corresponding fields in your "tutor" schema
+                      ...data, // Spread the tutorData object to include all fields
+                    },
+                  },
+                ],
+              }),
+            }
+          );
+
+          if (response.ok) {
+            console.log('account created successfully!');
+            router.push('/Auth');
+          } else {
+            console.error('Error creating user:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error posting data:', error);
+        }
+      }
+    });
   };
 
-  //sign in with google
-  const signInWithGoogle = async () => {
-    const { user }: any = await signInWithPopup(auth, googleProvider)
-      .then(() => {
-        alert('User signed in successfully');
-        router.push('/Auth');
-      })
-      .catch((error) => {
-        const errorMessage = error.message;
-        alert(`${errorMessage}`);
-      });
-
-    console.log(user);
-  };
-
-  //sign in with facebook
-  const signInWithFacebook = () => {
-    signInWithPopup(auth, facebookProvider)
-      .then((result) => {
-        setUser(result.user);
-        router.push('/Auth');
-        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-        const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-        // fetch facebook graph api to get user actual profile picture
-        fetch(
-          `https://graph.facebook.com/${result.user.providerData[0].uid}/picture?type=large&access_token=${accessToken}`
-        )
-          .then((response) => response.blob())
-          .then((blob) => {
-            setProfilePicture(URL.createObjectURL(blob));
-          });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   // return the loading spinner the render the page
-  return isLoading || (!isLoading && !!authUser) ? (
-    <Loader />
-  ) : (
+  return (
     // Top level containerConf
     <PageWrapper>
-      <div className="flex flex-col items-center justify-center min-h-screen  py-5 mx-4 pt-5 sm:pt-0 sm:mx-2">
+      <div className="flex flex-col items-center justify-center max-h-screen py-5 mt-10 mx-4 pt-5 sm:pt-0 sm:mx-2">
         <main className="flex flex-col items-center justify-center flex-1 px-0 sm:px-20 text-center w-full">
-          <div className="bg-white shadow-2xl rounded-2xl flex sm:w-2/3 w-full max-w-4xl flex-col sm:flex-row">
+          <div className="bg-white shadow-2xl rounded-2xl flex sm:w-6/7 w-full max-w-4xl flex-col sm:flex-row">
             {/* Left side of the container */}
             <div className="sm:w-3/5 w-full sm:p-5 p-10">
               <div className="text-left font-bold text-gray-400">
@@ -137,25 +109,7 @@ const Index = () => {
                   Lets Create your account
                 </h2>
                 <div className="border-2 w-10 border-orange-500 inline-block mb-2"></div>
-                <div className="flex justify-center my-2">
-                  {/* Facebook signup button */}
-                  <button
-                    onClick={signInWithFacebook}
-                    className=" text-orange-500 border-2 mr-4 border-gray-200 rounded-full p-3 mx-1 "
-                  >
-                    <ImFacebook className="text-sm" />
-                  </button>
-                  {/* Google signup button */}
-                  <button
-                    onClick={signInWithGoogle}
-                    className=" text-orange-500 mr-4 border-2 border-gray-200 rounded-full p-3 mx-1 "
-                  >
-                    <ImGoogle className="text-sm" />
-                  </button>
-                  {/* signup section */}
-                </div>
-                <p className="text-orange-500 mb-2"> or </p>
-                <p className="text-gray-500 mb-10 sm:mb-8 flex sm:flex-col items-center ">
+                <p className="text-gray-500 mb-20 sm:mb-8 flex sm:flex-col items-center ">
                   {' '}
                   Use your email account to sign up{' '}
                 </p>
@@ -266,31 +220,45 @@ const Index = () => {
                   {/* tutor or student input field */}
                   <div className="bg-gray-100 w-full p-2 flex items-center rounded-lg mb-8">
                     <MdSupervisorAccount className="text-gray-300 m-2 " />
-                    <input
-                      type="text"
-                      name="account type"
-                      value={type}
+                    <select
+                      name="role"
+                      value={role}
                       required
                       placeholder="Tutor or Student?"
-                      onChange={(e) => setType(e.target.value)}
+                      onChange={(e) => setRole(e.target.value)}
                       className="bg-gray-100 outline-none w-full text-sm text-gray-600"
-                      list="cityname"
-                    />
-                    <datalist
-                      id="cityname"
-                      className="bg-gray-100 outline-none w-full text-sm text-gray-600"
+                      // list="cityname"
                     >
-                      <option value="Tutor" className="text-orange" />
-                      <option value="Student" />
-                    </datalist>
+                      <option className="text-orange">Tutor or Student?</option>
+                      <option value="tutor" className="text-orange">
+                        Tutor
+                      </option>
+                      <option value="student">Student</option>
+                    </select>
                   </div>
                 </div>
                 {!passwordsMatch && <p>Passwords do not match.</p>}
                 <button
                   type="submit"
-                  className="text-white border-2 border-white rounded-full px-12 py-2 inline-block font-semibold hover:bg-white hover:text-orange-600 transition duration-300 ease-in-out"
+                  className="text-white border-2 border-white rounded-full px-12 py-2 inline-block font-semibold hover:bg-white hover:text-orange-600 transition duration-300 ease-in-out w-64"
                 >
-                  Sign Up
+                  {isLoading ? (
+                    <div className="flex justify-between items-center gap-3">
+                      <BallTriangle
+                        height={25}
+                        width={25}
+                        radius={6}
+                        color="orange"
+                        ariaLabel="ball-triangle-loading"
+                        // wrapperClass={{}}
+                        // wrapperStyle=""
+                        visible={true}
+                      />{' '}
+                      <p className="flex h-full w-full items-center">loading</p>{' '}
+                    </div>
+                  ) : (
+                    'Sign Up'
+                  )}
                 </button>
               </form>
             </div>

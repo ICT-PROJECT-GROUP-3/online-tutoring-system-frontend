@@ -152,9 +152,11 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
+import { AuthContext } from '../../../context/auth/SessionContext';
+import Language from './language';
 
 const navigationDesktop = [
   { name: 'Sign In', href: '/Auth' },
@@ -167,9 +169,23 @@ const navigation = [
   { name: 'Sign In', href: '/Auth' },
   { name: 'Register', href: '/Auth/SignUp' },
 ];
+const navigationWhilstLoggedIn = [
+  { name: 'Home', href: '/' },
+  { name: 'About', href: '/' },
+  { name: 'tutor Page', href: '/' },
+];
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  //getting user session context from context provider
+  const { user } = useContext(AuthContext);
+
+  if (user) {
+    console.log(user.user.name);
+  } else {
+    console.log('no user');
+  }
 
   return (
     <div
@@ -217,17 +233,24 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
-            {navigationDesktop.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium leading-6 text-gray-900"
-              >
-                {item.name}
-              </Link>
-            ))}
+            {user ? (
+              <span className="text-sm font-medium leading-6 text-gray-900">
+                {user.user.name}
+              </span>
+            ) : (
+              navigationDesktop.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium leading-6 text-gray-900"
+                >
+                  {item.name}
+                </Link>
+              ))
+            )}
+            <Language />
             <Link href="/auth">
-              <MdDarkMode className="w-6 h-6 text-gray-700" />{' '}
+              <MdDarkMode className="w-6 h-6 text-gray-700" />
             </Link>
           </div>
         </nav>
@@ -264,18 +287,30 @@ const Navbar = () => {
             </div>
             <div className="flow-root mt-6">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="py-24 space-y-2 ">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="block px-3 py-2 -mx-3 text-base leading-7 text-center text-gray-900 rounded-lg font hover:text-orange-400"
-                    >
-                      <p> {item.name}</p>
-                    </Link>
-                  ))}
+                <div className="py-24 space-y-2">
+                  {user
+                    ? navigationWhilstLoggedIn.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block px-3 py-2 -mx-3 text-base leading-7 text-center text-gray-900 rounded-lg font hover:text-orange-400"
+                        >
+                          <p>{item.name}</p>
+                        </Link>
+                      ))
+                    : navigation.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="block px-3 py-2 -mx-3 text-base leading-7 text-center text-gray-900 rounded-lg font hover:text-orange-400"
+                        >
+                          <p>{item.name}</p>
+                        </Link>
+                      ))}
                 </div>
+
                 {/* <div className="py-6">
                   <a
                     href="#"
