@@ -32,7 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSidebarClick }) => {
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="fixed sm:sticky flex left-0 top-16 z-20"
+      className="fixed sm:sticky flex left-0 top-16"
     >
       <div
         className={`left-3 mt-2 rounded-r-lg p-1 animate-pulse ${

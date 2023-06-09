@@ -19,7 +19,7 @@
     "@emailjs/browser": "^3.11.0",
     "@firebase/firestore": "^3.11.0",
     "@headlessui/react": "^1.7.14",
-    "@heroicons/react": "^2.0.17",
+    "@heroicons/react": "^2.0.18",
     "@mux/mux-node": "^7.3.0",
     "@next/font": "^13.4.0",
     "@reduxjs/toolkit": "^1.9.5",
