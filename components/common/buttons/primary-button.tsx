@@ -1,9 +1,25 @@
-const Regulardiv = ({ name }) => {
+import { useAnimate } from 'framer-motion';
+
+const RegularButton = ({ name }) => {
+  const [scope, animate] = useAnimate();
+
+  const onButtonClick = () => {
+    animate([
+      ['button', { scale: 0.9 }, { duration: 0.2 }],
+      ['button', { scale: 1 }, { duration: 0.2 }],
+    ]);
+  };
+
   return (
-    <div className="rounded-[2px] bg-[#d03434] p-2 w-auto">
-      <p className="text-lg text-center text-[#fbf6e6]">{name}</p>
+    <div ref={scope}>
+      <button
+        onClick={onButtonClick}
+        className="rounded-[2px] bg-[#d03434] p-2 w-auto"
+      >
+        <p className="text-lg text-center text-[#fbf6e6]">{name}</p>
+      </button>
     </div>
   );
 };
 
-export default Regulardiv;
+export default RegularButton;

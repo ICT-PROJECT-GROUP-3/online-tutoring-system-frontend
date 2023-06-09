@@ -1,10 +1,24 @@
+import { useAnimate } from 'framer-motion';
+
 const SecondaryButton = ({ name }) => {
+  const [scope, animate] = useAnimate();
+
+  const onButtonClick = () => {
+    animate([
+      ['button', { scale: 0.9 }, { duration: 0.2 }],
+      ['button', { scale: 1 }, { duration: 0.2 }],
+    ]);
+  };
+
   return (
-    <>
-      <div className="rounded-[2px]  border border-[#d03434] p-2 w-auto">
+    <div ref={scope}>
+      <button
+        onClick={onButtonClick}
+        className="rounded-[2px]  border border-[#d03434] p-2 w-auto"
+      >
         <p className="text-lg text-center text-[#d03434]">{name}</p>
-      </div>
-    </>
+      </button>
+    </div>
   );
 };
 
