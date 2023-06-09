@@ -15,7 +15,7 @@ const PayPal = () => {
           {/* Connect to paypal using this button*/}
           <div className="w-1/3 mb-4">
             <Link href="/checkout">
-              <SecondaryButton name={'Pay'} />
+              <SecondaryButton name={'Purchase'} />
             </Link>
           </div>
           <p className="text-lg text-left text-[#aba7a1]">

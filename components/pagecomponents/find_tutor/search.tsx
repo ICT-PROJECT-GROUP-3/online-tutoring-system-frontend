@@ -17,12 +17,11 @@ const Search = ({ handleSearch }) => {
   const handleSearchClick = () => {
     handleSearch(searchTerm, locationTerm);
   };
-
   return (
     <>
-      <div className="flex flex-row justify-center mx-4 my-16">
+      <div className="">
         {/* This search field is for the subject */}
-        <form>
+        <form className="flex flex-row justify-center mx-4 mb-16">
           <div className="">
             <div className="">
               <input
