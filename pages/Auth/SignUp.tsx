@@ -80,7 +80,11 @@ const Index = () => {
 
           if (response.ok) {
             console.log('account created successfully!');
-            router.push('/Auth');
+            // redirect to the next page
+            // const dataString = JSON.stringify(data);
+
+            const dataString = JSON.stringify(data);
+            router.push('/Auth/AccountSetUpBuilder?data=' + encodeURIComponent(dataString));
           } else {
             console.error('Error creating user:', response.statusText);
           }

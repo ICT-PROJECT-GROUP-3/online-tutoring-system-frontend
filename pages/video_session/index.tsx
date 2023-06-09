@@ -17,7 +17,7 @@ const Room = () => {
   return (
     <PageWrapper>
     <div
-     className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-white w-1/2 shadow-2xl p-24 rounded-xl">
+     className="flex min-h-full flex-col justify-center items-center mt-28 px-6 py-12 lg:px-8 bg-white w-1/2 shadow-2xl p-24 rounded-xl">
       <div className="flex flex-col justify-center sm:mx-auto sm:w-full sm:max-w-sm">
         <Image
           className="h-10 w-10 mx-auto"

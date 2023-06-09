@@ -6,6 +6,7 @@ import MainFooter from '../components/shared/footer/main-footer';
 import Navbar from '../components/shared/navbar/Navbar';
 import SessionContext from '../context/auth/SessionContext';
 import '../styles/globals.css';
+import { StepperContextProvider } from '../context/auth/StepperContext';
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -15,11 +16,14 @@ export default function App({ Component, pageProps: { ...pageProps } }) {
   return (
     <main className={comfortaa.className}>
       <SessionContext>
+        <StepperContextProvider>
         <Background>
             <PageContainer>
               <Component {...pageProps} />
             </PageContainer>
         </Background>
+        </StepperContextProvider>
+
       </SessionContext>
     </main>
   );

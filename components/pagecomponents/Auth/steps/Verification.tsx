@@ -27,13 +27,13 @@ export default function Final() {
             </svg>
           </div>
 
-          <div className="mt-3 text-xl font-semibold uppercase text-green-500">
+          <div className="mt-3 text-xl font-semibold uppercase text-orange-500">
             Congratulations!
           </div>
           <div className="text-lg font-semibold text-gray-500">
-            Your Account has been created.
+            Your Account has been created. You can now login to your account.
           </div>
-          <Link className="mt-10" href="/user/tutor/Dashboard">
+          <Link className="mt-10" href="/Auth">
             <button className="h-10 px-5 text-[#d03434] transition-colors duration-150 border border-gray-300 rounded-lg focus:shadow-outline hover:bg-[#d03434] hover:text-green-100">
               Close
             </button>
