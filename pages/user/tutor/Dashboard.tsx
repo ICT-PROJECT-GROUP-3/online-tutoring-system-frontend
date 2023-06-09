@@ -1,24 +1,15 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import PageWrapper from '../../../components/shared/PageWrapper';
-// import { useAuth } from '../../../lib/services/firebase/auth';
 
 const Dashboard = () => {
-  // const router = useRouter();
-  // const { authUser, isLoading, signOut } = useAuth();
-  // useEffect(() => {
-  //   if (!isLoading && !authUser) {
-  //     router.push('/');
-  //   }
-  // });
+  const router = useRouter();
 
   return (
     <PageWrapper>
       <div className="flex flex-col items-center justify-center min-h-screen py-5 pt-5 mx-4 sm:pt-0 sm:mx-2">
         <div>Dashboard</div>
-        <button
-          className="p-4 text-white bg-blue-500 rounded btn btn-secondary "
-          // onClick={() => signOut()}
-        >
+        <button className="p-4 text-white bg-blue-500 rounded btn btn-secondary ">
           {' '}
           log out
         </button>

@@ -1,10 +1,11 @@
 import bcrypt from 'bcryptjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
-import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
+import { ImEnvelop } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';
+import { BallTriangle } from 'react-loader-spinner';
 import PageWrapper from '../../components/shared/PageWrapper';
 
 // Define the component
@@ -18,9 +19,11 @@ const Index = () => {
   const [role, setRole] = useState('');
   const router = useRouter();
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // check if the fields are not null
     if (!name || !email || !password || !role) return;
@@ -94,7 +97,7 @@ const Index = () => {
     <PageWrapper>
       <div className="flex flex-col items-center justify-center min-h-screen  py-5 mx-4 pt-5 sm:pt-0 sm:mx-2">
         <main className="flex flex-col items-center justify-center flex-1 px-0 sm:px-20 text-center w-full">
-          <div className="bg-white shadow-2xl rounded-2xl flex sm:w-2/3 w-full max-w-4xl flex-col sm:flex-row">
+          <div className="bg-white shadow-2xl rounded-2xl flex sm:w-6/7 w-full max-w-4xl flex-col sm:flex-row">
             {/* Left side of the container */}
             <div className="sm:w-3/5 w-full sm:p-5 p-10">
               <div className="text-left font-bold text-gray-400">
@@ -106,25 +109,7 @@ const Index = () => {
                   Lets Create your account
                 </h2>
                 <div className="border-2 w-10 border-orange-500 inline-block mb-2"></div>
-                <div className="flex justify-center my-2">
-                  {/* Facebook signup button */}
-                  <button
-                    // onClick={signInWithFacebook}
-                    className=" text-orange-500 border-2 mr-4 border-gray-200 rounded-full p-3 mx-1 "
-                  >
-                    <ImFacebook className="text-sm" />
-                  </button>
-                  {/* Google signup button */}
-                  <button
-                    // onClick={signInWithGoogle}
-                    className=" text-orange-500 mr-4 border-2 border-gray-200 rounded-full p-3 mx-1 "
-                  >
-                    <ImGoogle className="text-sm" />
-                  </button>
-                  {/* signup section */}
-                </div>
-                <p className="text-orange-500 mb-2"> or </p>
-                <p className="text-gray-500 mb-10 sm:mb-8 flex sm:flex-col items-center ">
+                <p className="text-gray-500 mb-20 sm:mb-8 flex sm:flex-col items-center ">
                   {' '}
                   Use your email account to sign up{' '}
                 </p>
@@ -244,6 +229,7 @@ const Index = () => {
                       className="bg-gray-100 outline-none w-full text-sm text-gray-600"
                       // list="cityname"
                     >
+                      <option className="text-orange">Tutor or Student?</option>
                       <option value="tutor" className="text-orange">
                         Tutor
                       </option>
@@ -254,9 +240,25 @@ const Index = () => {
                 {!passwordsMatch && <p>Passwords do not match.</p>}
                 <button
                   type="submit"
-                  className="text-white border-2 border-white rounded-full px-12 py-2 inline-block font-semibold hover:bg-white hover:text-orange-600 transition duration-300 ease-in-out"
+                  className="text-white border-2 border-white rounded-full px-12 py-2 inline-block font-semibold hover:bg-white hover:text-orange-600 transition duration-300 ease-in-out w-64"
                 >
-                  Sign Up
+                  {isLoading ? (
+                    <div className="flex justify-between items-center gap-3">
+                      <BallTriangle
+                        height={25}
+                        width={25}
+                        radius={6}
+                        color="orange"
+                        ariaLabel="ball-triangle-loading"
+                        // wrapperClass={{}}
+                        // wrapperStyle=""
+                        visible={true}
+                      />{' '}
+                      <p className="flex h-full w-full items-center">loading</p>{' '}
+                    </div>
+                  ) : (
+                    'Sign Up'
+                  )}
                 </button>
               </form>
             </div>
