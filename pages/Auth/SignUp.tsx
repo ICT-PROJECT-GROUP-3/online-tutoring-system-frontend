@@ -80,7 +80,7 @@ const Index = () => {
 
           if (response.ok) {
             console.log('account created successfully!');
-            router.push('/Auth');
+            router.push('/Auth/RegistrationStepper');
           } else {
             console.error('Error creating user:', response.statusText);
           }
@@ -95,7 +95,7 @@ const Index = () => {
   return (
     // Top level containerConf
     <PageWrapper>
-      <div className="flex flex-col items-center justify-center min-h-screen  py-5 mx-4 pt-5 sm:pt-0 sm:mx-2">
+      <div className="flex flex-col items-center justify-center max-h-screen py-5 mt-10 mx-4 pt-5 sm:pt-0 sm:mx-2">
         <main className="flex flex-col items-center justify-center flex-1 px-0 sm:px-20 text-center w-full">
           <div className="bg-white shadow-2xl rounded-2xl flex sm:w-6/7 w-full max-w-4xl flex-col sm:flex-row">
             {/* Left side of the container */}
