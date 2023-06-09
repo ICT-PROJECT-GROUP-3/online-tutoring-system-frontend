@@ -5,6 +5,9 @@ import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
 import PageWrapper from '../../components/shared/PageWrapper';
 import { useRouter } from 'next/router';
 import { AuthContext } from '../../context/auth/SessionContext';
+import { BallTriangle } from 'react-loader-spinner';
+
+
 
 interface IProps {
   searchParams?: { [key: string]: string | string[] | undefined };
@@ -16,6 +19,7 @@ const Index = ({ searchParams }: IProps) => {
   const [password, setPassword] = useState('');
   const router = useRouter();
   const [showPassword, setshowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { login } = useContext(AuthContext);
 
@@ -24,6 +28,7 @@ const Index = ({ searchParams }: IProps) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    setIsLoading(true);
     if (!name || !password) return;
     console.log(name);
     console.log(password);
@@ -79,9 +84,9 @@ const Index = ({ searchParams }: IProps) => {
   return (
     // Top level container
     <PageWrapper>
-      <div className="flex flex-col items-center justify-center min-h-screen py-5 mx-4 pt-5 sm:pt-0 sm:mx-2">
+      <div className="flex flex-col items-center justify-center min-h-screen py-5 mx-4 pt-5 sm:pt-0 sm:mx-2 w-4/5">
         <main className="flex flex-col items-center justify-center flex-1 px-0 sm:px-20 text-center w-full">
-          <div className="bg-white shadow-2xl rounded-2xl flex sm:w-2/3 w-full max-w-4xl flex-col sm:flex-row">
+          <div className="bg-white shadow-2xl rounded-2xl flex sm:w-6/7 w-full max-w-4xl flex-col sm:flex-row">
             {/* Left side of the container */}
             <div className="sm:w-3/5 w-full sm:p-5 p-10">
               <div className="text-left font-bold text-gray-400">
@@ -93,24 +98,6 @@ const Index = ({ searchParams }: IProps) => {
                   Welcome Back
                 </h2>
                 <div className="border-2 w-10 border-orange-500 inline-block mb-2"></div>
-                <div className="flex justify-center my-2">
-                  {/* Facebook login button */}
-                  <button
-                    // onClick={}
-                    className=" text-orange-500 border-2 mr-4 border-gray-200 rounded-full p-3 mx-1 "
-                  >
-                    <ImFacebook className="text-sm" />
-                  </button>
-                  {/* Google login button */}
-                  <button
-                    // onClick={}
-                    className=" text-orange-500 mr-4 border-2 border-gray-200 rounded-full p-3 mx-1 "
-                  >
-                    <ImGoogle className="text-sm" />
-                  </button>
-                  {/* Login section */}
-                </div>
-                <p className="text-orange-500"> or </p>
                 <p className="text-gray-500 mb-3"> Use your email account</p>
                 {searchParams?.message && (
                   <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">
@@ -171,9 +158,25 @@ const Index = ({ searchParams }: IProps) => {
                   {/* Sign in button */}
                   <button
                     onClick={(e) => loginUser(e)}
-                    className="text-orange-500 border-2 border-orange-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out"
+                    className="text-orange-500 border-2 border-orange-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out w-64"
                   >
-                    Sign In
+                  {isLoading ? (
+                    <div className="flex justify-between items-center gap-3">
+                      <BallTriangle
+                        height={25}
+                        width={25}
+                        radius={6}
+                        color="orange"
+                        ariaLabel="ball-triangle-loading"
+                        // wrapperClass={{}}
+                        // wrapperStyle=""
+                        visible={true}
+                      />{' '}
+                      <p className="flex h-full w-full items-center">loading</p>{' '}
+                    </div>
+                  ) : (
+                    'Sign In'
+                  )}
                   </button>
                 </div>
               </div>

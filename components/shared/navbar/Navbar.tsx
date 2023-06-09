@@ -150,9 +150,10 @@ import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
+import { AuthContext } from '../../../context/auth/SessionContext';
 
 const navigationDesktop = [
   { name: 'Sign In', href: '/Auth' },
@@ -168,6 +169,15 @@ const navigation = [
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  //getting user session context from context provider
+  const { user } = useContext(AuthContext);
+
+  if (user) {
+    console.log(user.user.name);
+  } else {
+    console.log('no user');
+  }
 
   return (
     <div
@@ -215,17 +225,23 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
-            {navigationDesktop.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium leading-6 text-gray-900"
-              >
-                {item.name}
-              </Link>
-            ))}
+            {user ? (
+              <span className="text-sm font-medium leading-6 text-gray-900">
+                {user.user.name}
+              </span>
+            ) : (
+              navigationDesktop.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-sm font-medium leading-6 text-gray-900"
+                >
+                  {item.name}
+                </Link>
+              ))
+            )}
             <Link href="/auth">
-              <MdDarkMode className="w-6 h-6 text-gray-700" />{' '}
+              <MdDarkMode className="w-6 h-6 text-gray-700" />
             </Link>
           </div>
         </nav>
