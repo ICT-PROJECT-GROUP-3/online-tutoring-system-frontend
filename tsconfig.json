@@ -21,6 +21,6 @@
     "lib/services/firebase/auth.tsx",
     "pages/api/mux/uploadFile.js",
     "components/pagecomponents/video_session/Settings.tsx"
-  ],
+, "pages/chat/index.js"  ],
   "exclude": ["node_modules"]
 }

@@ -157,6 +157,7 @@ import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
 import { AuthContext } from '../../../context/auth/SessionContext';
 import Language from './language';
+import { useRouter } from 'next/router';
 
 const navigationDesktop = [
   { name: 'Sign In', href: '/Auth' },
@@ -181,11 +182,20 @@ const Navbar = () => {
   //getting user session context from context provider
   const { user } = useContext(AuthContext);
 
-  if (user) {
-    console.log(user.user.name);
-  } else {
-    console.log('no user');
-  }
+  const toDashboard = () => {
+    if (user.user.role === 'tutor') {
+      window.location.href ='/user/tutor/Dashboard';
+    } else if (user.user.role === 'student') {
+      window.location.href = '/user/student/Dashboard';
+    }
+  };
+
+  // if (user) {
+  //   console.log(user.user.name);
+  // } else {
+  //   console.log('no user');
+  // }
+
 
   return (
     <div
@@ -234,7 +244,7 @@ const Navbar = () => {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
             {user ? (
-              <span className="text-sm font-medium leading-6 text-gray-900">
+              <span onClick={toDashboard} className="text-sm cursor-pointer font-medium leading-6 text-gray-900">
                 {user.user.name}
               </span>
             ) : (

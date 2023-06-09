@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import { AuthContext } from './SessionContext';
 
 interface StepperContextData {
   tutorData: TutorData;
@@ -73,6 +74,10 @@ export const StepperContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
   const [tutorData, setUserData] = useState<TutorData>(initialUserData);
+  const {user} = useContext(AuthContext);
+
+  tutorData['fullname'] = user?.user.name || '';
+  tutorData['email'] = user?.user.email || '';
 
   const addField = (fieldName: string) => {
     setUserData((prevUserData) => ({

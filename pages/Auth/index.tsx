@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React, { useContext, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
-import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
+import { ImEnvelop } from 'react-icons/im';
 import PageWrapper from '../../components/shared/PageWrapper';
 import { useRouter } from 'next/router';
 import { AuthContext } from '../../context/auth/SessionContext';
