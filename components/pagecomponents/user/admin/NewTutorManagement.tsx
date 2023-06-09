@@ -1,78 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewTutors from './NewTutors';
-// import { createClient } from 'next-sanity';
+// Importing the sanity client
+import { createClient } from '@sanity/client';
 
-
-// const client = createClient({
-//   projectId: '3iouolde',
-//   dataset: 'production',
-//   apiVersion: '2021-09-18'
-// })
-
-const users = [
-  {
-    id: 1,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    paymentStatus: "Paid",
-    photo: "john-doe.jpg",
-    reviewStatus: "Pending",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    paymentStatus: "Unpaid",
-    photo: "jane-smith.jpg",
-    reviewStatus: "Approved",
-  },
-  {
-    id: 3,
-    name: "David Johnson",
-    email: "david.johnson@example.com",
-    paymentStatus: "Paid",
-    photo: "david-johnson.jpg",
-    reviewStatus: "Pending",
-  },
-  {
-    id: 4,
-    name: "Emily Brown",
-    email: "emily.brown@example.com",
-    paymentStatus: "Paid",
-    photo: "emily-brown.jpg",
-    reviewStatus: "Rejected",
-  },
-  {
-    id: 5,
-    name: "Michael Wilson",
-    email: "michael.wilson@example.com",
-    paymentStatus: "Unpaid",
-    photo: "michael-wilson.jpg",
-    reviewStatus: "Approved",
-  },
-];
-
+const client = createClient({
+  projectId: '3iouolde',
+  dataset: 'production',
+  apiVersion: '2021-09-18'
+});
 
 const NewTutorManagement: React.FC = () => {
-  // Sample list of users
+  const [tutors, setTutors] = useState([]);
 
-  // const fetchUsers = async () => {
-  //   const query = '*[_type == "tutor"]{fullname, email, paymentstatus, reviewstatus} [0...20]';
-  //   const result = await client.fetch(query);
-  //   return result;
-  // };
+  useEffect(() => {
+    // Fetch the user data
+    client
+      //  .fetch('*[_type == "tutor"]{...}[0...4]')
+      .fetch('*[_type == "tutor"]{...}{..., "rating": coalesce(rating, "unknown")}[0...4]')
+       .then((data) => {
+        // Handle the fetched data
+        console.log(data);
+        setTutors(data); // Update the tutors state with fetched data
+      })
+      .catch((error) => {
+        console.error('Error fetching tutors:', error);
+      });
+  }, []);
 
-  // const [users,setUsers] = useState(client.fetch('*[_type == "tutor"]{fullname, email, paymentstatus, reviewstatus} [0...20]'))
-
-  const handleDeleteUser = (userId: number) => {
-    // Handle delete logic for the user with the given userId
-    console.log(`Deleting user with ID ${userId}`);
-    // Implement your delete user logic here
+  const handleDeleteTutor = (tutorId: number) => {
+    // Handle delete logic for the tutor with the given tutorId
+    console.log(`Deleting tutor with ID ${tutorId}`);
+    // Implement your delete tutor logic here
   };
 
   return (
     <div className="">
-      <NewTutors users={users} onDeleteUser={handleDeleteUser} />
+      <NewTutors tutors={tutors} onDeleteTutor={handleDeleteTutor} />
     </div>
   );
 };

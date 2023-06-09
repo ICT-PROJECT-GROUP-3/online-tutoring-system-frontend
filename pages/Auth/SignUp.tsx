@@ -80,7 +80,7 @@ const Index = () => {
 
           if (response.ok) {
             console.log('account created successfully!');
-            router.push('/Auth');
+            router.push('/Auth/RegistrationStepper');
           } else {
             console.error('Error creating user:', response.statusText);
           }
