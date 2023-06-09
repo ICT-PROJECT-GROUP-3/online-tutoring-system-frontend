@@ -4,11 +4,13 @@ import ContactDetails from '../../components/pagecomponents/checkout/contact-det
 import Map from '../../components/pagecomponents/checkout/map';
 import TutorCheckoutSummary from '../../components/pagecomponents/payment/summary';
 import Background from '../../components/shared/background/background';
+import Navbar from '../../components/shared/navbar/Navbar';
 
 const Checkout = () => {
   return (
     <Background>
-      <div className="flex flex-row mx-auto justify-evenly max-w-screen-2xl">
+      <Navbar/>
+      <div className="flex flex-row mx-auto justify-evenly max-w-screen-2xl mt-20">
         <div className="relative flex flex-col justify-center w-full">
           <div className="flex flex-col my-auto">
             <div className="flex flex-col max-w-5xl mb-8">
