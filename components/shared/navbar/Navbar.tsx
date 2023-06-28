@@ -178,6 +178,7 @@ const navigationWhilstLoggedIn = [
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const router = useRouter();
 
   //getting user session context from context provider
   const { user } = useContext(AuthContext);
