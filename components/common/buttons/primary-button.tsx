@@ -14,7 +14,7 @@ const RegularButton = ({ name }) => {
     <div ref={scope}>
       <button
         onClick={onButtonClick}
-        className="rounded-[2px] bg-[#d03434] p-2 w-auto"
+        className="rounded-[2px] border bg-[#d03434] border-[#d03434] p-2 w-full"
       >
         <p className="text-lg text-center text-[#fbf6e6]">{name}</p>
       </button>

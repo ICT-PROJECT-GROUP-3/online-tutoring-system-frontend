@@ -4,7 +4,7 @@ import asset2 from '../../../public/image/shared/bg-asset-2.png';
 
 const Background = ({ children }) => {
   return (
-    <div className="w-screen">
+    <div className="">
       {/* <Image
         className="z-[-50] fixed h-full w-screen bg-cover bg-center bg-no-repeat"
         src={background}
@@ -12,7 +12,7 @@ const Background = ({ children }) => {
         height={1000}
         alt='....'
       /> */}
-      <div className="z-[-50] fixed bg-[#f4f3f2] h-full w-screen">
+      <div className="z-[-50] fixed bg-[#f4f3f2] h-screen w-screen">
         <Image
           className="absolute top-0 left-64 h-80 w-80"
           src={asset1}

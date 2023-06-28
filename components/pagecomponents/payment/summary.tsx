@@ -3,12 +3,29 @@ import { FaMoneyBill } from 'react-icons/fa';
 import { IoLanguage, IoLocationSharp } from 'react-icons/io5';
 import { TbClockFilled } from 'react-icons/tb';
 import CardFlatEdgeless from '../../common/cards/card-flat-edgeless';
-import client from '../../../lib/services/sanity/sanity';
 
-const TutorCheckoutSummary = () => {
+interface TutorSummaryProps {
+  fullname: string;
+  languages: string[];
+  location: string;
+  price: number;
+  subjects: string;
+  last_login: Date;
+  total_teaching_experience: number;
+}
+
+const TutorCheckoutSummary: React.FC<TutorSummaryProps> = ({
+  fullname,
+  languages,
+  location,
+  price,
+  subjects,
+  last_login,
+  total_teaching_experience,
+}) => {
   return (
     <>
-      <div className="w-80">
+      <div className="fixed w-80">
         <CardFlatEdgeless>
           <div className="max-w-md my-20">
             <h1 className="text-lg text-center text-[#1c1c1c] font-semibold mt-8 mb-2">
@@ -23,11 +40,9 @@ const TutorCheckoutSummary = () => {
                 alt="Profile picture"
               />
               <div className="w-64 my-4">
-                <p className="text-2xl text-center text-black">
-                  Yamikani Namphande
-                </p>
+                <p className="text-2xl text-center text-black">{fullname}</p>
                 <p className="text-md text-center text-[#1c1c1c] mb-4">
-                  Biology, Mathematics and agriculture
+                  {subjects}
                 </p>
                 <svg
                   width={280}
@@ -46,14 +61,18 @@ const TutorCheckoutSummary = () => {
                       <IoLocationSharp />
                     </div>
                     {/* Place the longest distance tutor can travel - number*/}
-                    <p className="text-sm text-left text-[#1c1c1c]">Lilongwe</p>
+                    <p className="text-sm text-left text-[#1c1c1c]">
+                      {location}
+                    </p>
                   </div>
                   <div className="flex flex-row my-1">
                     <div className="mr-2">
                       <TbClockFilled />
                     </div>
                     {/* Total teaching experience - number  */}
-                    <p className="text-sm text-right text-[#1c1c1c]">5.0 yrs</p>
+                    <p className="text-sm text-right text-[#1c1c1c]">
+                      {total_teaching_experience}yrs
+                    </p>
                   </div>
                   <div className="flex flex-row my-1">
                     <div className="mr-2">
@@ -61,7 +80,7 @@ const TutorCheckoutSummary = () => {
                     </div>
                     {/* Place the language the tutor knows  - string  */}
                     <p className="text-sm text-left text-[#1c1c1c]">
-                      Chichewa, Tumbuka
+                      {languages}
                     </p>
                   </div>
                   <div className="flex flex-row my-1">
@@ -70,7 +89,7 @@ const TutorCheckoutSummary = () => {
                     </div>
                     {/* Place the minimum and maximum amount the tutor asks for - number  */}
                     <p className="text-sm text-left text-[#1c1c1c]">
-                      K10000/hr
+                      MWK{price}/hr
                     </p>
                   </div>
                 </div>

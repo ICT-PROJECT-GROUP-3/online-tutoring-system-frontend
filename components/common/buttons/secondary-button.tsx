@@ -14,7 +14,7 @@ const SecondaryButton = ({ name }) => {
     <div ref={scope}>
       <button
         onClick={onButtonClick}
-        className="rounded-[2px]  border border-[#d03434] p-2 w-auto"
+        className="rounded-[2px]  border border-[#d03434] p-2 w-full"
       >
         <p className="text-lg text-center text-[#d03434]">{name}</p>
       </button>
