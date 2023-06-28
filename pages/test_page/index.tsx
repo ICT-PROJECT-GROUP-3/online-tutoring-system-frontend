@@ -1,11 +1,16 @@
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const Reviews = () => {
+function TestNotif() {
+  
+  const notify = () => toast("Wow so easy !");
 
   return (
-    <>
-      <h1> REVIEWS </h1>
-    </>
+    <div>
+      <button onClick={notify}>Notify !</button>
+      <ToastContainer />
+    </div>
   );
-};
-
-export default Reviews;
+  }
+export default TestNotif;
