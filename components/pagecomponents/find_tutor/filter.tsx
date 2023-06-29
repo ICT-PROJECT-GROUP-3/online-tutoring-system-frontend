@@ -4,21 +4,62 @@ import { FaChalkboardTeacher, FaMoneyBillAlt } from 'react-icons/fa';
 import { HiFilter } from 'react-icons/hi';
 import { IoLanguageSharp } from 'react-icons/io5';
 
-const Filter = () => {
+interface FilterProps {
+  handleFilter: (filterOptions: FilterOptions) => void;
+  
+}
+
+interface FilterOptions {
+  gender: string[];
+  homework_help: string[];
+  language: string;
+
+ 
+}
+
+const Filter: React.FC<FilterProps> = ({ handleFilter }) => {
+
+const [selectedGender, setSelectedGender] = useState<string[]>([]);
+const [selectedHomework, setSelectedHomework] = useState<string[]>([]);
+const [femaleChecked, setFemaleChecked] = useState(false);
+const [selectedLanguage, setSelectedLanguage] = useState<string>('');
+
+
   const [maleChecked, setMaleChecked] = useState(false);
+
   const maleCheckHandler = () => {
     setMaleChecked(!maleChecked);
+    setSelectedGender(["Male"]);
+    applyFilter();
   };
-
-  const [femaleChecked, setFemaleChecked] = useState(false);
+  
   const femaleCheckHandler = () => {
     setFemaleChecked(!femaleChecked);
+    setSelectedGender(["Female"]);
+    applyFilter();
   };
 
   const [otherChecked, setOtherChecked] = useState(false);
   const otherCheckHandler = () => {
     setOtherChecked(!otherChecked);
   };
+
+  const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedLanguage = event.target.value;
+    setSelectedLanguage(selectedLanguage);
+    applyFilter();
+  };
+
+  const applyFilter = () => {
+    const filterOptions: FilterOptions = {
+      gender: selectedGender,
+      homework_help: selectedHomework,
+      language: selectedLanguage
+    };
+    console.log('gender selected')
+    console.log(selectedGender)
+    handleFilter(filterOptions);
+  }
 
   const [inPersonChecked, setInPersonChecked] = useState(false);
   const inPersonCheckHandler = () => {
@@ -33,6 +74,8 @@ const Filter = () => {
   const [homeworkHelpChecked, setHomeworkHelpChecked] = useState(false);
   const homeworkHelpCheckHandler = () => {
     setHomeworkHelpChecked(!homeworkHelpChecked);
+  setSelectedHomework(["true"]);
+  applyFilter();
   };
 
   const progressRef = useRef(null);
@@ -90,6 +133,7 @@ const Filter = () => {
                   id="male-checkbox"
                   name="male checkbox"
                   type="checkbox"
+                  value="Male"
                   onChange={maleCheckHandler}
                   checked={maleChecked}
                   className="w-4 h-4 accent-[#F4AB4E] text-[#F4AB4E] bg-[#F4E4D2] border-[#F4E4D2] rounded focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"

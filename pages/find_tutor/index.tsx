@@ -8,10 +8,18 @@ import SideFooter from '../../components/shared/footer/side-footer';
 import Navbar from '../../components/shared/navbar/Navbar';
 import { fetchData } from '../../lib/services/sanity/connect';
 
-const FindTutor = () => {
+interface FilterOptions {
+  gender: string[];
+  homework_help: string[];
+  
+}
+
+const FindTutor = () => { 
   const [tutorData, setTutorData] = useState([]);
   const [filteredTutors, setFilteredTutors] = useState([]);
   const [noResults, setNoResults] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+
 
   useEffect(() => {
     fetchData().then((tutor) => {
@@ -20,6 +28,33 @@ const FindTutor = () => {
       setFilteredTutors(tutor);
     });
   }, []);
+
+  const handleFilter = (filterOptions: FilterOptions) => {
+    let filteredResults = tutorData;
+
+    if (filterOptions.gender.length > 0) {
+      filteredResults = filteredResults.filter((tutor) =>
+        filterOptions.gender.includes(tutor.gender)
+      );
+    }
+    if (filterOptions.homework_help.length > 0) {
+      filteredResults = filteredResults.filter((tutor) =>
+      filterOptions.homework_help.includes(tutor.homework_help)
+      );
+    }
+
+    if (selectedLanguage) {
+      const normalizeSelectedLanguage = selectedLanguage.toLowerCase().trim();
+      filteredResults = filteredResults.filter((tutor) =>
+        tutor.languages.some((lang) => lang.toLowerCase().trim() === normalizeSelectedLanguage)
+        
+      );
+    }
+
+    setFilteredTutors(filteredResults);
+    console.log(filteredResults)
+    console.log(selectedLanguage)
+  };
 
   const handleSearch = (searchTerm, locationTerm) => {
     if (!searchTerm && !locationTerm) {
@@ -65,9 +100,13 @@ const FindTutor = () => {
       <div className="flex flex-col mt-16">
         <div className="flex flex-row w-screen h-screen">
           <div className="w-1/5">
+<<<<<<< HEAD
             <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80">
+=======
+            <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80 ">
+>>>>>>> fa10c4748199007ab401512a5bab7d47f50b2c68
               <div className="flex flex-col items-center justify-center w-auto mx-auto my-8">
-                <Filter />
+                <Filter handleFilter={handleFilter} />
                 <SideFooter />
               </div>
             </div>
@@ -103,10 +142,12 @@ const FindTutor = () => {
                     maximum_number_of_sessions={
                       tutor.maximum_number_of_sessions
                     }
-                    homework_help={tutor.homework_help}
                     can_travel={tutor.can_travel}
                     phone_number={tutor.phone_number}
                     email={tutor.email}
+                    gender={tutor.gender}
+                    teaches_at_home={tutor.teaches_at_home}
+                    homework_help={tutor.homework_help}
                   />
                 ))
               )}

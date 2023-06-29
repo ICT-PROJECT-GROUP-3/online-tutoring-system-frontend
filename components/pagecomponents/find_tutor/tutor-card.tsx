@@ -24,12 +24,14 @@ interface TutorCardProps {
   education_qualifications: string[];
   session_duration: number;
   timeSlots: string;
-  homework_help: string;
+  homework_help: boolean;
   maximum_number_of_sessions: number;
   weeklyAvailability: number;
   can_travel: boolean;
   phone_number: string;
+  gender: string;
   email: string;
+  teaches_at_home: boolean;
   area_of_expertise?: {
     title: string;
   }[];
@@ -41,10 +43,14 @@ const TutorCard: React.FC<TutorCardProps> = ({
   bio,
   slug,
   rating,
+  can_travel,
+  teaches_at_home,
+  homework_help,
   languages,
   location,
   price,
   subjects,
+  gender,
   area_of_expertise,
   total_teaching_experience,
 }) => {
@@ -69,6 +75,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
                   {/* Place tutor's name - string */}
                   {fullname}
                 </h1>
+                
               </Link>
               {/* Place a shorten version of the tutor's bio  - string */}
               <p className=" text-md text-left mb-2 text-[#1c1c1c] overflow-hidden text-ellipsis h-[124px]">
@@ -83,6 +90,15 @@ const TutorCard: React.FC<TutorCardProps> = ({
                       {block.children.map((span) => span.text).join('')}
                     </p>
                   ))}
+              </p>
+              <p>
+                {gender}
+              </p>
+              <p>
+                {homework_help ? 'Yes' : 'No'}
+              </p>
+              <p>
+                {can_travel ? 'Yes' : 'No'}
               </p>
 
               {/* Place the subjects the tutor teaches - list,string */}
@@ -116,6 +132,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
               </svg>
             </div>
             <div className="flex flex-col justify-center w-auto mx-4 my-auto h-4/5">
+             
               <div className="flex flex-row my-1">
                 <div className="mr-2">
                   <IoLocationSharp />
@@ -145,10 +162,10 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 </div>
                 {/* Place the language the tutor knows  - string  */}
                 <ul className="flex flex-wrap text-left text-sm text-[#1c1c1c]">
-                  {languages.join(', ')}
-                  {/* {languages.join(', ')} */}
+                  {languages ? languages.join(', ') : 'No languages specified'}
                 </ul>
               </div>
+
             </div>
           </div>
         </CardDropShadow>

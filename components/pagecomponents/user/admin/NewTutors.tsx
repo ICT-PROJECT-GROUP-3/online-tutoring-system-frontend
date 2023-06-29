@@ -141,7 +141,7 @@ const NewTutors: React.FC<UsersTableProps> = ({ users, onDeleteUser }) => {
                 <AiOutlineCloseCircle className="w-5 h-5" />
               </button>
             </div>
-            <UseModal user={selectedUser} onClose={handleCloseUseModal} />
+            {/* <UseModal user={selectedUser} onClose={handleCloseUseModal} /> */}
           </div>
         </div>
       )}

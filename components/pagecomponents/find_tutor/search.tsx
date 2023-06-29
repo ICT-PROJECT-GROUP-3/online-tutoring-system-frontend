@@ -9,7 +9,7 @@ const Search = ({ handleSearch }) => {
     setSearchTerm(e.target.value);
     handleSearch(e.target.value);
   };
-
+ 
   const handleLocationChange = (e) => {
     setLocationTerm(e.target.value);
   };
