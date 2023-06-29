@@ -17,13 +17,12 @@ export default function App({ Component, pageProps: { ...pageProps } }) {
     <main className={comfortaa.className}>
       <SessionContext>
         <StepperContextProvider>
-        <Background>
+          <Background>
             <PageContainer>
               <Component {...pageProps} />
             </PageContainer>
-        </Background>
+          </Background>
         </StepperContextProvider>
-
       </SessionContext>
     </main>
   );

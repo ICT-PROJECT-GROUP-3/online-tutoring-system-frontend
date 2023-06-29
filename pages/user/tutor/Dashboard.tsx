@@ -1,16 +1,27 @@
+import { createClient } from '@sanity/client';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import TutorSideNav from '../../../components/pagecomponents/user/tutor/TutorSideNav';
 import TutorDashboard from '../../../components/pagecomponents/user/tutor/pages/TutorDashboard';
+import TutorPayments from '../../../components/pagecomponents/user/tutor/pages/TutorPayments';
 import TutorProfileDashboard from '../../../components/pagecomponents/user/tutor/pages/TutorProfileDashboard';
-import { AuthContext } from '../../../context/auth/SessionContext';
 import TutorSessions from '../../../components/pagecomponents/user/tutor/pages/TutorSessions';
 import TutorSupport from '../../../components/pagecomponents/user/tutor/pages/TutorSupport';
-import TutorPayments from '../../../components/pagecomponents/user/tutor/pages/TutorPayments';
+import { AuthContext } from '../../../context/auth/SessionContext';
 
+const client = createClient({
+  projectId: '3iouolde',
+  dataset: 'production',
+  apiVersion: '2021-09-18', // The API version you are using
+  useCdn: false, // Set to true if you want to enable the Content Delivery Network (CDN)
+});
 const Dashboard = () => {
   const router = useRouter();
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, tutor } = useContext(AuthContext);
+  // const { tutor } = useContext(AuthContext);
+  const id = tutor?._id;
+  // console.log('THE TUTOR ID FROM SESSION IS: ' + id);
+  // console.log('THE TUTOR ID FROM SESSION IS:' + data);
 
   const handleLogout = async () => {
     logout;
@@ -23,6 +34,8 @@ const Dashboard = () => {
     setActiveComponent(componentName);
   };
 
+  const students = [];
+  // const students = JSON.stringify(response);
   const renderComponent = () => {
     switch (activeComponent) {
       case 'Dashboard':
@@ -186,6 +199,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-function preventDefault() {
-  throw new Error('Function not implemented.');
-}

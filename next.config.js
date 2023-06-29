@@ -16,4 +16,7 @@ const nextConfig = {
 };
 module.exports = {
   ...nextConfig,
+  api: {
+    externalResolver: true,
+  },
 };
