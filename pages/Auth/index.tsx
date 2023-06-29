@@ -35,7 +35,7 @@ const Index = ({ searchParams }: IProps) => {
     const data = JSON.stringify({ user: name, pwd: password });
 
     try {
-      const response = await fetch('http://localhost:3500/auth', {
+      const response = await fetch('https://authentication-backend-4m4xdz5bj-mphunzitsi-backend.vercel.app/auth', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

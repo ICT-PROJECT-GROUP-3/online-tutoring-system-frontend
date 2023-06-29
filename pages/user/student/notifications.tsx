@@ -19,7 +19,7 @@ const notifications = () => {
               >
                 All
               </div>
-              <div className="bg-[#eee9e2] w-auto max-w-5xl">
+              <div className="bg-[#eee9e2] w-auto max-w-5xl"> 
                 <MessageNotification />
                 <VideoChatNotification />
                 <RecommendationNotification />

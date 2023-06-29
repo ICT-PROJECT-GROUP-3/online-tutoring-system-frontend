@@ -11,6 +11,7 @@ const RoomCode = ({ roomCode }) => {
   const router = useRouter();
   const { RoomCode } = router.query;
 
+
   const { user } = useContext(AuthContext);
 
   const myMeeting = async (element) => {

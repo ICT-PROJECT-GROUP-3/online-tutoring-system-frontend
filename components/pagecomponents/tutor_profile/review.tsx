@@ -1,33 +1,30 @@
 import { HiStar } from 'react-icons/hi';
 import { MdRateReview } from 'react-icons/md';
+import { useState, useEffect } from 'react';
+import { fetchReviews } from '../../../lib/services/sanity/reviewservice';
 
 const Review = () => {
-  const reviews = [
-    {
-      _id: 1,
-      title: 'Yamikani is a Super Rockstar Tutor!',
-      description:
-        'Yamikani was fantastic at helping me understand how to approach a problem and was able to clearly explain new concepts. Extremely knowledgeable on a lot when it comes to maths. He takes the time to go over anything you need help with. Made sure I had complete understanding of all the topic we reviewed. Definitely would work with again.',
-      date_posted: 'March 18, 2023',
-      rating: 4.2,
-    },
-    {
-      _id: 2,
-      title: 'Great teacher',
-      description:
-        ' A very productive session as always and he always finds a time that is right for me can’t ask for better. After being exposed to some much needed background information corrections were made and the final output was fixed to be correct.',
-      date_posted: 'September 28, 2022',
-      rating: 3.6,
-    },
-    {
-      _id: 3,
-      title: 'Patient and knowledgeable',
-      description:
-        'He gave in-depth explanations and never made me feel like my questions weren’t warranted. He is a very good teacher!  I reached out to him last minute and he reached out in a timely and efficient manner and made sure we got it done on time.',
-      date_posted: 'June 8, 2022',
-      rating: 4.8,
-    },
-  ];
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviewData = async () => {
+      try {
+        const reviewsData = await fetchReviews();
+        setReviews(reviewsData);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchReviewData();
+  }, []);
+
+  const calculateAverageRating = (questions) => {
+    const ratings = questions.map((question) => question.rating);
+    const sum = ratings.reduce((acc, rating) => acc + rating, 0);
+    const averageRating = sum / ratings.length;
+    return averageRating.toFixed(2); // Limit to 2 decimal places
+  };
   return (
     <>
       <div className="flex flex-col max-w-4xl">
@@ -42,24 +39,34 @@ const Review = () => {
             <h3 className="text-2xl font-bold text-left text-black">Review</h3>
             <div>
               <ul className="text-xs font-light text-gray-600 dark:text-gray-300">
+                {/* Render fetched reviews */}
                 {reviews.map((review) => (
                   <li key={review._id} className="mb-1 sm:mb-4">
+                    {/* Render individual review fields */}
                     <div className="flex">
                       <h4 className="mr-2 font-bold text-left text-black text-md md:text-lg">
                         {review.title}
                       </h4>
                       <div className="flex">
-                        <HiStar className="text-[#FDD500] mt-[1px] h-6 w-6" />
                         <h4 className="mr-2 text-md md:text-lg font-bold text-left text-[#FDD500]">
-                          {review.rating}
+                        {calculateAverageRating(review.questions)}
                         </h4>
+                        <HiStar className="text-[#FDD500] mt-[1px] h-6 w-6" />
                       </div>
                     </div>
                     <p className="text-xs md:text-base text-left text-[#adaba8]">
                       {review.date_posted}
                     </p>
                     <p className="text-xs italic text-left text-black md:text-base">
-                      {review.description}
+                    <ul>
+                        {review.review.map((block) => (
+                          <li key={block._key}>
+                            {block.children.map((child) => (
+                              <p key={child._key}>{child.text}</p>
+                            ))}
+                          </li>
+                        ))}
+                      </ul>
                     </p>
                   </li>
                 ))}

@@ -14,7 +14,7 @@ interface FilterOptions {
   
 }
 
-const FindTutor = () => { 
+const FindTutor = () => {
   const [tutorData, setTutorData] = useState([]);
   const [filteredTutors, setFilteredTutors] = useState([]);
   const [noResults, setNoResults] = useState(false);
@@ -100,15 +100,13 @@ const FindTutor = () => {
       <div className="flex flex-col mt-16">
         <div className="flex flex-row w-screen h-screen">
           <div className="w-1/5">
-<<<<<<< HEAD
-            <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80">
-=======
             <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80 ">
->>>>>>> fa10c4748199007ab401512a5bab7d47f50b2c68
+            <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80">
               <div className="flex flex-col items-center justify-center w-auto mx-auto my-8">
                 <Filter handleFilter={handleFilter} />
                 <SideFooter />
               </div>
+            </div>
             </div>
           </div>
           <div className="flex flex-col content-center w-4/5 pt-16">
