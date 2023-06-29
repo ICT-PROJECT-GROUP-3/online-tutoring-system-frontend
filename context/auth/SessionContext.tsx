@@ -56,7 +56,6 @@ interface ContextStudent {
   first_name: string;
   tutor: string[];
   payments: object;
-  subjects: object;
 }
 
 interface AuthContextProps {
@@ -90,7 +89,7 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
     const userSessionData = localStorage.getItem('userSession');
     const tutorSessionData = localStorage.getItem('tutorSession');
     const studentSessionData = localStorage.getItem('studentSession');
-   
+
     // Checking the user session data
     if (userSessionData) {
       const userData = JSON.parse(userSessionData);
@@ -116,7 +115,7 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
         setTutor(tutorData);
       }
     }
-    
+
     // checking if there is student session data
     if (studentSessionData) {
       const studentData = JSON.parse(studentSessionData);
