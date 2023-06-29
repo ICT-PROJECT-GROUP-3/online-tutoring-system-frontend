@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     // Step 1: Get an upload URL from Mux
     console.log('1.......');
     const {
-      data: { url, data },
+      data: { url },
     } = await axios.post(
       'https://api.mux.com/video/uploads',
       {

@@ -1,18 +1,22 @@
+import { createClient } from '@sanity/client';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
-import { ImEnvelop, ImFacebook, ImGoogle } from 'react-icons/im';
-import PageWrapper from '../../components/shared/PageWrapper';
-import { useRouter } from 'next/router';
-import { AuthContext } from '../../context/auth/SessionContext';
+import { ImEnvelop } from 'react-icons/im';
 import { BallTriangle } from 'react-loader-spinner';
-
-
+import PageWrapper from '../../components/shared/PageWrapper';
+import { AuthContext } from '../../context/auth/SessionContext';
 
 interface IProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
-
+const client = createClient({
+  projectId: '3iouolde',
+  dataset: 'production',
+  apiVersion: '2021-09-18', // The API version you are using
+  useCdn: false, // Set to true if you want to enable the Content Delivery Network (CDN)
+});
 // Define the component
 const Index = ({ searchParams }: IProps) => {
   const [name, setName] = useState('');
@@ -21,7 +25,7 @@ const Index = ({ searchParams }: IProps) => {
   const [showPassword, setshowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { login } = useContext(AuthContext);
+  const { login, setTutorData, setStudentData } = useContext(AuthContext);
 
   // sign in user with email and password
   const loginUser = async (
@@ -35,29 +39,69 @@ const Index = ({ searchParams }: IProps) => {
     const data = JSON.stringify({ user: name, pwd: password });
 
     try {
-      const response = await fetch('http://localhost:3500/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: data,
-      });
+      const response = await fetch(
+        'https://authentication-backend-4m4xdz5bj-mphunzitsi-backend.vercel.app/auth',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: data,
+        }
+      );
 
+      // Checking if the log in is successful
       if (response.ok) {
         const body = await response.json();
-        //session context
-        try {
-          login(body);
-          console.log('context created');
-        } catch (error) {
-          console.log('Context not created followed by this error: ' + error);
-        }
-        // redirecting to the required pages
+        const emailAddress = body['user']['email'];
+
+        //adding the authenticated user to the session context
+        login(body);
+
+        // Checking if the authenticated user is an admin
         if (body['user']['role'] == 'admin') {
           router.push('/user/admin/Dashboard');
-        } else if (body['user']['role'] == 'tutor') {
+        }
+        // Checking if the authenticated user is a tutor
+        else if (body['user']['role'] == 'tutor') {
+          try {
+            client
+              .fetch('*[_type == "tutor" && email == $emailAddress]', {
+                emailAddress,
+              })
+              .then((data) => {
+                console.log(data);
+                // console.log('THE TUTOR IS:::::::' + tutor);
+                setTutorData(data);
+                const tutor = JSON.stringify(data);
+                console.log('THE TUTOR DATA IS::::::::' + tutor);
+              });
+
+            console.log('context created');
+          } catch (error) {
+            console.log('Context not created followed by this error: ' + error);
+          }
           router.push('/user/tutor/Dashboard');
-        } else if (body['user']['role'] == 'student') {
+        }
+        // Checking if the authenticated user is a student
+        else if (body['user']['role'] == 'student') {
+          try {
+            client
+              .fetch('*[_type == "student" && email == $emailAddress]', {
+                emailAddress,
+              })
+              .then((data) => {
+                console.log(data);
+                // console.log('THE STUDENT IS:::::::' + tutor);
+                setStudentData(data);
+                const student = JSON.stringify(data);
+                console.log('THE STUDENT DATA IS::::::::' + student);
+              });
+
+            console.log('context created');
+          } catch (error) {
+            console.log('Context not created followed by this error: ' + error);
+          }
           router.push('/user/student/Dashboard');
         }
       } else if (response.status == 400) {
@@ -160,23 +204,25 @@ const Index = ({ searchParams }: IProps) => {
                     onClick={(e) => loginUser(e)}
                     className="text-orange-500 border-2 border-orange-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out w-64"
                   >
-                  {isLoading ? (
-                    <div className="flex justify-between items-center gap-3">
-                      <BallTriangle
-                        height={25}
-                        width={25}
-                        radius={6}
-                        color="orange"
-                        ariaLabel="ball-triangle-loading"
-                        // wrapperClass={{}}
-                        // wrapperStyle=""
-                        visible={true}
-                      />{' '}
-                      <p className="flex h-full w-full items-center">loading</p>{' '}
-                    </div>
-                  ) : (
-                    'Sign In'
-                  )}
+                    {isLoading ? (
+                      <div className="flex justify-between items-center gap-3">
+                        <BallTriangle
+                          height={25}
+                          width={25}
+                          radius={6}
+                          color="orange"
+                          ariaLabel="ball-triangle-loading"
+                          // wrapperClass={{}}
+                          // wrapperStyle=""
+                          visible={true}
+                        />{' '}
+                        <p className="flex h-full w-full items-center">
+                          loading
+                        </p>{' '}
+                      </div>
+                    ) : (
+                      'Sign In'
+                    )}
                   </button>
                 </div>
               </div>

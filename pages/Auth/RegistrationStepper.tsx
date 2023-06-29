@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Stepper from '../../components/pagecomponents/Auth/Stepper';
 import StepperControl from '../../components/pagecomponents/Auth/StepperControl';
@@ -6,11 +7,12 @@ import Qualification from '../../components/pagecomponents/Auth/steps/Qualificat
 import Scheduling from '../../components/pagecomponents/Auth/steps/Scheduling';
 import Verification from '../../components/pagecomponents/Auth/steps/Verification';
 import PageWrapper from '../../components/shared/PageWrapper';
-import { StepperContextProvider } from '../../context/auth/StepperContext';
 import Navbar from '../../components/shared/navbar/Navbar';
+import { StepperContextProvider, useAuthStepperContext } from '../../context/auth/StepperContext';
 // import Link from 'next/link';
 
 const RegistrationStepper = () => {
+  const { tutorData, setUserData } = useAuthStepperContext();
   const [currentStep, setcurrentStep] = useState(1);
   const steps = [
     'Personal Details',
@@ -18,6 +20,14 @@ const RegistrationStepper = () => {
     ' Availability and Schedule',
     'Verification and Review',
   ];
+  const router = useRouter();
+  const { data } = router.query;
+  console.log(data);
+  // // const predata = Array.isArray(data) ? data[0] : data; // Convert array to string if needed
+  // const predata = JSON.parse(data); // Parse string to JSON object
+  // tutorData['fullname'] = predata?.['name'];
+  // tutorData['email'] = predata?.['email'];
+  // console.log(predata);
 
   const displaySteps = (step) => {
     switch (step) {

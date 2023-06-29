@@ -3,7 +3,6 @@
 // import { BsFillPersonFill } from 'react-icons/bs';
 // import { motion } from 'framer-motion';
 
-
 // interface User {
 //   id: number;
 //   name: string;
@@ -19,7 +18,7 @@
 // }
 
 // const NewTutors: React.FC<UsersTableProps> = ({ users, onDeleteUser }) => {
-  
+
 //   return (
 //     <div className="p-2 sm:p-8 ">
 //       <div className="w-full m-auto sm-p-4 py-4 rounded-lg bg-white overflow-y-auto">
@@ -61,11 +60,10 @@
 
 // export default NewTutors;
 
-import React, { useState } from 'react';
-import { BsFillPersonFill } from 'react-icons/bs';
 import { motion } from 'framer-motion';
-import UseModal from './UseModal';
+import React, { useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { BsFillPersonFill } from 'react-icons/bs';
 
 interface User {
   id: number;
@@ -141,7 +139,7 @@ const NewTutors: React.FC<UsersTableProps> = ({ users, onDeleteUser }) => {
                 <AiOutlineCloseCircle className="w-5 h-5" />
               </button>
             </div>
-            <UseModal user={selectedUser} onClose={handleCloseUseModal} />
+            {/* <UseModal user={selectedUser} onClose={handleCloseUseModal} /> */}
           </div>
         </div>
       )}
@@ -150,5 +148,3 @@ const NewTutors: React.FC<UsersTableProps> = ({ users, onDeleteUser }) => {
 };
 
 export default NewTutors;
-
-
