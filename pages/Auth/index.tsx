@@ -25,7 +25,7 @@ const Index = ({ searchParams }: IProps) => {
   const [showPassword, setshowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { login } = useContext(AuthContext);
+  const { login, setTutorData } = useContext(AuthContext);
 
   // sign in user with email and password
   const loginUser = async (
@@ -53,29 +53,31 @@ const Index = ({ searchParams }: IProps) => {
       if (response.ok) {
         const body = await response.json();
         const emailAddress = body['user']['email'];
+
         //session context
-        try {
-          client
-            .fetch('*[_type == "tutor" && email == $emailAddress]', {
-              emailAddress,
-            })
-            .then((data) => {
-              console.log(data);
-              // console.log('THE TUTOR IS:::::::' + tutor);
+        login(body);
 
-              const tutor = JSON.stringify(data);
-              console.log('THE TUTOR DATA IS::::::::' + tutor);
-              login(body, data);
-            });
-
-          console.log('context created');
-        } catch (error) {
-          console.log('Context not created followed by this error: ' + error);
-        }
         // redirecting to the required pages
         if (body['user']['role'] == 'admin') {
           router.push('/user/admin/Dashboard');
         } else if (body['user']['role'] == 'tutor') {
+          try {
+            client
+              .fetch('*[_type == "tutor" && email == $emailAddress]', {
+                emailAddress,
+              })
+              .then((data) => {
+                console.log(data);
+                // console.log('THE TUTOR IS:::::::' + tutor);
+                setTutorData(data);
+                const tutor = JSON.stringify(data);
+                console.log('THE TUTOR DATA IS::::::::' + tutor);
+              });
+
+            console.log('context created');
+          } catch (error) {
+            console.log('Context not created followed by this error: ' + error);
+          }
           router.push('/user/tutor/Dashboard');
         } else if (body['user']['role'] == 'student') {
           router.push('/user/student/Dashboard');

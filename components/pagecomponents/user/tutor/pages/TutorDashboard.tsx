@@ -1,4 +1,3 @@
-import { createClient } from '@sanity/client';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useContext, useEffect, useState } from 'react';
@@ -6,21 +5,19 @@ import { AiOutlineRight } from 'react-icons/ai';
 import { FaMoneyBill, FaUser } from 'react-icons/fa';
 import { MdOutlineStarRate } from 'react-icons/md';
 import { AuthContext } from '../../../../../context/auth/SessionContext';
+import client from '../../../../../lib/services/sanity/sanity';
 import TutorNavbar from '../TutorNavbar';
-const client = createClient({
-  projectId: '3iouolde',
-  dataset: 'production',
-  apiVersion: '2023-06-18', // The API version you are using
-  useCdn: false, // Set to true if you want to enable the Content Delivery Network (CDN)
-});
+
 const TutorDashboard = () => {
   //   const currentYear: number = new Date().getFullYear();
   // console.log(currentYear + ",");
 
   const pageName = 'Dashboard';
   const [students, setStudents] = useState([]);
-  const [subjects, setSubjects] = useState([]);
   const [numberOfSessions, setNumberOfSessions] = useState(0);
+  const [subjects, setSubjects] = useState([]);
+  const [totalNumberOfSessions, setTotalNumberOfSessions] = useState(0);
+  const [totalNumberOfStudents, setTotalNumberOfStudents] = useState(0);
 
   const { tutor } = useContext(AuthContext);
   // console.log('The Tutor is:' + tutor + 'tutor id' + tutor[0]._id);
@@ -35,7 +32,7 @@ const TutorDashboard = () => {
   const TodayCardData = [
     {
       name: 'Students',
-      value: '53',
+      value: totalNumberOfSessions,
       percentage: '+55%',
       since: 'since yesterday',
       reactIcon: <FaUser />,
@@ -51,7 +48,7 @@ const TutorDashboard = () => {
     },
     {
       name: 'Sessions',
-      value: '+3,462',
+      value: totalNumberOfSessions,
       percentage: '-2%',
       since: 'since last quarter',
       reactIcon: <FaUser />,
@@ -99,7 +96,7 @@ const TutorDashboard = () => {
       });
     return numberOfSessions;
   };
-
+  // 9d11251a-60c3-431e-8763-38fbfa9acf4a
   useEffect(() => {
     // Fetch students data
     client
@@ -119,24 +116,9 @@ const TutorDashboard = () => {
           console.log('student data is::' + studentData);
         });
         setStudents(data);
-
-        // setSubjects(data);
       })
       .catch((error) => {
         console.error('Error fetching students data:', error);
-      });
-
-    // Fetch subjects data
-    client
-      .fetch(
-        `*[_type == 'session' && tutor._ref == $tutorId].subject->{subject}`,
-        { tutorId }
-      )
-      .then((data) => {
-        console.log('Subjects from session are :' + data);
-      })
-      .catch((error) => {
-        console.error('Error fetching subjects data:', error);
       });
 
     // Fetch number of sessions
@@ -144,39 +126,30 @@ const TutorDashboard = () => {
       .fetch(`count(*[_type == 'session' && tutor._ref == $tutorId])`, {
         tutorId,
       })
-      .then((data) => {})
+      .then((data) => {
+        console.log('total number of sessions of a tutor:' + data);
+        setTotalNumberOfSessions(data);
+      })
+      .catch((error) => {
+        console.error(
+          'Error occured whilst fetching number of sessions' + error
+        );
+      });
+    // Fetch number of students
+    client
+      .fetch(`count(*[_type == 'session' && tutor._ref == $tutorId].student)`, {
+        tutorId,
+      })
+      .then((data) => {
+        console.log('total number of sessions of a tutor:' + data);
+        setTotalNumberOfStudents(data);
+      })
       .catch((error) => {
         console.error(
           'Error occured whilst fetching number of sessions' + error
         );
       });
   }, [tutorId]);
-  // Student[] = [
-  //   {
-  //     image: 'student1.jpg',
-  //     name: 'John Doe',
-  //     subject: 'Mathematics',
-  //     sessions: 10,
-  //   },
-  //   {
-  //     image: 'student2.jpg',
-  //     name: 'Jane Smith',
-  //     subject: 'Science',
-  //     sessions: 8,
-  //   },
-  //   {
-  //     image: 'student3.jpg',
-  //     name: 'Michael Johnson',
-  //     subject: 'History',
-  //     sessions: 12,
-  //   },
-  //   {
-  //     image: 'student5.jpg',
-  //     name: 'David Wilson',
-  //     subject: 'Computer Science',
-  //     sessions: 9,
-  //   },
-  // ];
 
   //subjects
 
@@ -186,33 +159,6 @@ const TutorDashboard = () => {
     numberOfStudents: number;
     earnings: number;
   }
-
-  // const subjects: Subject[] = [
-  //   {
-  //     reactIcon: <FaBook />,
-  //     name: 'Literature',
-  //     numberOfStudents: 100,
-  //     earnings: 5000,
-  //   },
-  //   {
-  //     reactIcon: <FaFlask />,
-  //     name: 'Science',
-  //     numberOfStudents: 80,
-  //     earnings: 6000,
-  //   },
-  //   {
-  //     reactIcon: <FaCode />,
-  //     name: 'Computer Programming',
-  //     numberOfStudents: 120,
-  //     earnings: 8000,
-  //   },
-  //   {
-  //     reactIcon: <FaLanguage />,
-  //     name: 'Foreign Languages',
-  //     numberOfStudents: 50,
-  //     earnings: 4000,
-  //   },
-  // ];
 
   return (
     <motion.div

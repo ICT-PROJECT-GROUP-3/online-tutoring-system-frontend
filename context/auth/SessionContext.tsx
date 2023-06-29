@@ -47,8 +47,9 @@ interface ContextTutor {
 interface AuthContextProps {
   user: ContextUser | null;
   tutor: ContextTutor | null;
-  login: (userData: ContextUser, tutorData: ContextTutor) => void;
+  login: (userData: ContextUser) => void;
   logout: () => void;
+  setTutorData: (tutorData: ContextTutor) => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -56,6 +57,7 @@ export const AuthContext = createContext<AuthContextProps>({
   tutor: null,
   login: () => {},
   logout: () => {},
+  setTutorData: () => {},
 });
 
 const SessionContext: React.FC<{ children: React.ReactNode }> = ({
@@ -93,13 +95,16 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
-  const login = (userData: ContextUser, tutorData: ContextTutor) => {
+  const login = (userData: ContextUser) => {
     const expiration = Date.now() + 2 * 60 * 60 * 1000; // 2 hours in milliseconds
 
     const sessionData = { ...userData, expiration };
     localStorage.setItem('userSession', JSON.stringify(sessionData));
     setUser(userData);
+  };
 
+  const setTutorData = (tutorData: ContextTutor) => {
+    const expiration = Date.now() + 2 * 60 * 60 * 1000; // 2 hours in milliseconds
     const tutorSessionData = { ...tutorData, expiration };
     localStorage.setItem('tutorSession', JSON.stringify(tutorSessionData));
     setTutor(tutorData);
@@ -113,7 +118,7 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, tutor }}>
+    <AuthContext.Provider value={{ user, login, logout, tutor, setTutorData }}>
       {children}
     </AuthContext.Provider>
   );
