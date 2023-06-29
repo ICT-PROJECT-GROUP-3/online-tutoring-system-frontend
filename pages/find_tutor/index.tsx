@@ -97,10 +97,14 @@ const FindTutor = () => {
   return (
     <Background>
       <Navbar />
-      <div className="flex flex-col mt-20">
-        <div className="flex flex-row w-screen h-full">
+      <div className="flex flex-col mt-16">
+        <div className="flex flex-row w-screen h-screen">
           <div className="w-1/5">
+<<<<<<< HEAD
+            <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80">
+=======
             <div className="w-96 h-screen fixed pt-4 bg-[#f4f3f2] border-t-0 border-r-[1.5px] border-b-0 border-l-0 border-[#e5e3df]/80 ">
+>>>>>>> fa10c4748199007ab401512a5bab7d47f50b2c68
               <div className="flex flex-col items-center justify-center w-auto mx-auto my-8">
                 <Filter handleFilter={handleFilter} />
                 <SideFooter />
@@ -123,6 +127,7 @@ const FindTutor = () => {
                     key={tutor._id}
                     bio={tutor.bio}
                     fullname={tutor.fullname}
+                    slug={tutor.slug}
                     area_of_expertise={tutor.area_of_expertise}
                     total_teaching_experience={tutor.total_teaching_experience}
                     rating={tutor.rating}

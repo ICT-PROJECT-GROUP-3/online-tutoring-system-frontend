@@ -11,6 +11,7 @@ export async function fetchData() {
   const query = `*[_type == "tutor"] {
         fullname,
         bio,
+        slug,
         languages,
         subjects,
         location,

@@ -9,6 +9,10 @@ import CardDropShadow from '../../common/cards/card-dropshadow';
 interface TutorCardProps {
   fullname: string;
   rating: string;
+  slug: {
+    _type: string;
+    current: string;
+  };
   bio?: {
     _key: string;
     children: { text: string }[];
@@ -37,6 +41,7 @@ interface TutorCardProps {
 const TutorCard: React.FC<TutorCardProps> = ({
   fullname,
   bio,
+  slug,
   rating,
   can_travel,
   teaches_at_home,
@@ -51,9 +56,9 @@ const TutorCard: React.FC<TutorCardProps> = ({
 }) => {
   return (
     <>
-      <div className="max-w-6xl ">
+      <div className="">
         <CardDropShadow>
-          <div className="flex flex-row">
+          <div className="flex flex-row w-[1024px] h-56">
             {/* Place tutor's profile pic - image*/}
             <Image
               width={280}
@@ -65,16 +70,15 @@ const TutorCard: React.FC<TutorCardProps> = ({
 
             <div className="w-3/5 px-4 py-1">
               {/* Place link to the tutor's profile */}
-              <Link href="/" />
-              <Link href="/tutor_profile">
-                <h1 className="text-4xl text-left mb-2 text-[#1c1c1c] hover:underline">
+              <Link href={`/tutor_profile/${slug?.current}`}>
+                <h1 className="text-xl overflow-hidden h-8 font-semibold text-left mb-2 text-[#1c1c1c] hover:underline">
                   {/* Place tutor's name - string */}
                   {fullname}
                 </h1>
                 
               </Link>
               {/* Place a shorten version of the tutor's bio  - string */}
-              <p className=" text-md text-left mb-4 text-[#1c1c1c]">
+              <p className=" text-md text-left mb-2 text-[#1c1c1c] overflow-hidden text-ellipsis h-[124px]">
                 {/* {bio?.map((block) => (
                   <p key={block._key}>
                     {block.children.map((span) => span.text).join('')}
@@ -110,7 +114,6 @@ const TutorCard: React.FC<TutorCardProps> = ({
                         {area.title}
                         <p className="text-[#1c1c1c]">&nbsp;|&nbsp;</p>
                       </Link>
-                      \
                     </li>
                   ))}
               </ul>
@@ -136,14 +139,12 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 </div>
                 {/* Place the longest distance tutor can travel - number*/}
                 <p className="text-sm text-left text-[#1c1c1c]">{location}</p>
-                <p className="text-sm text-left text-[#1c1c1c]">{location}</p>
               </div>
               <div className="flex flex-row my-1">
                 <div className="mr-2">
                   <FaMoneyBill />
                 </div>
                 {/* Place the minimum and maximum amount the tutor asks for - number  */}
-                <p className="text-sm text-left text-[#1c1c1c]">K{price}/hr</p>
                 <p className="text-sm text-left text-[#1c1c1c]">K{price}/hr</p>
               </div>
               <div className="flex flex-row my-1">

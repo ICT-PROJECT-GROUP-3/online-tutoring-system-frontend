@@ -191,7 +191,7 @@ const [selectedLanguage, setSelectedLanguage] = useState<string>('');
                   onChange={(e) => setMinValue(parseInt(e.target.value))}
                   type="number"
                   value={minValue}
-                  className="w-24 border border-[#EAE8E4] rounded-md"
+                  className="w-24 border border-[#EAE8E4] rounded-md focus:border-none focus:ring-orange-500 dark:focus:ring-orange-600 focus:ring-2"
                 />
               </div>
               <div className="ml-2 text-lg font-semibold"> - </div>
@@ -201,7 +201,7 @@ const [selectedLanguage, setSelectedLanguage] = useState<string>('');
                   onChange={(e) => setMaxValue(parseInt(e.target.value))}
                   type="number"
                   value={maxValue}
-                  className="w-24 border border-[#EAE8E4] rounded-md"
+                  className="w-24 border border-[#EAE8E4] rounded-md focus:border-none focus:ring-orange-500 dark:focus:ring-orange-600 focus:ring-2"
                 />
               </div>
             </div>
