@@ -6,7 +6,7 @@ import Review from '../../../components/pagecomponents/tutor_profile/review';
 import ProfileSummary from '../../../components/pagecomponents/tutor_profile/summary';
 import Background from '../../../components/shared/background/background';
 import Navbar from '../../../components/shared/navbar/Navbar';
-import { Tutor } from '../../../lib/helpers/typing';
+import { Tutor } from '../../../types/typing';
 
 const client = createClient({
   projectId: '3iouolde',

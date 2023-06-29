@@ -6,7 +6,7 @@ import PayPal from '../../../../components/pagecomponents/payment/paypal';
 import TutorCheckoutSummary from '../../../../components/pagecomponents/payment/summary';
 import Background from '../../../../components/shared/background/background';
 import Navbar from '../../../../components/shared/navbar/Navbar';
-import { Tutor } from '../../../../lib/helpers/typing';
+import { Tutor } from '../../../../types/typing';
 
 const client = createClient({
   projectId: '3iouolde',

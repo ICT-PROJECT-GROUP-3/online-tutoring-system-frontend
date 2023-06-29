@@ -1,9 +1,22 @@
+import { MdMessage } from 'react-icons/md';
 import MessageNotification from '../../../components/pagecomponents/student_dashboard/Notifications/msg-notify';
 import RecommendationNotification from '../../../components/pagecomponents/student_dashboard/Notifications/rec-notify';
 import VideoChatNotification from '../../../components/pagecomponents/student_dashboard/Notifications/vid-notify';
 import Layout from './layout';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const notifications = () => {
+  const notify = () =>
+    toast.info('Wow so easy!', {
+      icon: ({ theme, type }) => (
+        <div className="p-1 w-6 h-6 bg-blue-500 rounded-[3px]">
+          <MdMessage className="w-4 h-4 text-[#eee9e2]" />
+        </div>
+      ),
+    });
+
   return (
     <>
       <Layout>
@@ -25,6 +38,10 @@ const notifications = () => {
                 <RecommendationNotification />
               </div>
             </div>
+          </div>
+          <div>
+            <button onClick={notify}>Send Message</button>
+            <ToastContainer />
           </div>
         </div>
       </Layout>

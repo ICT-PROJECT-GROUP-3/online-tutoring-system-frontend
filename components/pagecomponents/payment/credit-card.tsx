@@ -9,6 +9,9 @@ import {
 import CardDropShadow from '../../common/cards/card-dropshadow';
 const VisaCard = () => {
   const router = useRouter();
+  const slug = router.query.slug;
+  console.log(slug);
+
   return (
     <>
       <CardDropShadow>
@@ -33,7 +36,7 @@ const VisaCard = () => {
                     payment_amount: 500,
                   }),
                 }).then(() => {
-                  router.push('/checkout');
+                  router.push(`/tutor_profile/${slug}/payment/checkout`);
                 });
                 // console.log(await response.));
               }}

@@ -145,7 +145,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 </div>
                 {/* Place the language the tutor knows  - string  */}
                 <ul className="flex flex-wrap text-left text-sm text-[#1c1c1c]">
-                  {languages.join(', ')}
+                  {/* {languages.join(', ')} */}
                   {/* {languages.join(', ')} */}
                 </ul>
               </div>
