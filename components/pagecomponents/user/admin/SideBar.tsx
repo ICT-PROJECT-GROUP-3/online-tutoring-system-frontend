@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { AiOutlineLogout, AiOutlineRight, AiOutlineUser } from 'react-icons/ai';
+import { AiOutlineLogout, AiOutlineUser } from 'react-icons/ai';
 import { HiMenuAlt3 } from 'react-icons/hi';
 import { MdSpaceDashboard } from 'react-icons/md';
 import { FaChevronRight, FaTimes } from 'react-icons/fa';
@@ -23,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSidebarClick }) => {
     // { name: 'payment', component: '#', icon: MdPayment, margin: true },
     // { name: 'support', component: '#', icon: MdSupportAgent },
   ];
-  const [activeComponent, setActiveComponent] = useState('dashboard'); // use the useState hook to keep track of the state of the sidebar
+  // const [activeComponent, setActiveComponent] = useState('dashboard'); // use the useState hook to keep track of the state of the sidebar
   const [open, setOpen] = useState(false); // use the useState hook to keep track of the state of the sidebar
 
   return (

@@ -1,5 +1,4 @@
 import React from 'react';
-import { PaperClipIcon } from '@heroicons/react/solid';
 import { MdAttachFile } from 'react-icons/md';
 
 export default function Example() {

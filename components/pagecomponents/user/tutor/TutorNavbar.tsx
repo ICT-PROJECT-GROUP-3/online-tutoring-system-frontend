@@ -3,14 +3,14 @@ import { useContext } from 'react';
 import { FaBell } from 'react-icons/fa';
 import { IoMdSettings } from 'react-icons/io';
 import { AuthContext } from '../../../../context/auth/SessionContext';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 
 //dashboard nav
 
 const TutorNavbar = ({pageName}) => {
   
-    const { user, logout } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
   return (
     //Navbar
@@ -125,8 +125,11 @@ const TutorNavbar = ({pageName}) => {
                   >
                     <div className="flex py-1">
                       <div className="my-auto">
-                        <img
-                          src="./assets/img/team-2.jpg"
+                        <Image
+                        alt=''
+                          height={500}
+                          width={500}
+                          src="/assets/images/ProfilePic2.png"
                           className="inline-flex items-center justify-center mr-4 text-sm text-white h-9 w-9 max-w-none rounded-xl"
                         />
                       </div>
@@ -151,7 +154,10 @@ const TutorNavbar = ({pageName}) => {
                   >
                     <div className="flex py-1">
                       <div className="my-auto">
-                        <img
+                        <Image
+                        height={500}
+                        width={500}
+                        alt='image'
                           src="./assets/img/small-logos/logo-spotify.svg"
                           className="inline-flex items-center justify-center mr-4 text-sm text-gray-500 bg-gradient-to-tl from-zinc-800 to-zinc-700 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 h-9 w-9 max-w-none rounded-xl"
                         />

@@ -56,7 +56,7 @@ const TutorSideNav = ({ onSidebarClick }) => {
   // logic
   const router = useRouter();
 
-  const { user, logout } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
 
   //routing dashboard component
@@ -95,21 +95,20 @@ const TutorSideNav = ({ onSidebarClick }) => {
         <Link
           className="block px-8 py-6 m-0 text-sm whitespace-nowrap dark:text-white text-slate-700"
           href="/"
-          target="_blank"
         >
           <Image
             src="/assets/images/Logo.png"
             className="inline h-full max-w-full transition-all duration-200 dark:hidden ease-nav-brand max-h-8"
             alt="main_logo"
-            width={50}
-            height={50}
+            width={20}
+            height={20}
           />
           <Image
             src="/assets/images/Logo.png"
             className="hidden h-full max-w-full transition-all duration-200 dark:inline ease-nav-brand max-h-8"
             alt="main_logo"
-            width={50}
-            height={50}
+            width={20}
+            height={20}
           />
           <span className="ml-3 font-bold transition-all duration-200 ease-nav-brand text-gray-700">
             Mphunzitsi
