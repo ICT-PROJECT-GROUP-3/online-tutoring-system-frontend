@@ -25,7 +25,7 @@ const RoomCode = ({ roomCode }) => {
       serverSecret,
       RoomCode.toString(),
       Date.now().toString(),
-      user? user.user.name.toString() : "joe"
+      user ? user.user.name.toString() : 'joe'
     );
     const zp = ZegoUIKitPrebuilt.create(kitToken);
     const { ZegoSuperBoardManager } = await import('zego-superboard-web');

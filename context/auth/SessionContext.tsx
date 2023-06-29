@@ -44,20 +44,39 @@ interface ContextTutor {
   time_slots: string[];
 }
 
+interface ContextStudent {
+  _type: string;
+  last_name: string;
+  _id: string;
+  email: string;
+  phone: string;
+  _createdAt: string;
+  _rev: string;
+  _updatedAt: string;
+  first_name: string;
+  tutor: string[];
+  payments: object;
+  subjects: object;
+}
+
 interface AuthContextProps {
   user: ContextUser | null;
+  student: ContextStudent | null;
   tutor: ContextTutor | null;
   login: (userData: ContextUser) => void;
   logout: () => void;
   setTutorData: (tutorData: ContextTutor) => void;
+  setStudentData: (studentData: ContextStudent) => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
+  student: null,
   tutor: null,
   login: () => {},
   logout: () => {},
   setTutorData: () => {},
+  setStudentData: () => {},
 });
 
 const SessionContext: React.FC<{ children: React.ReactNode }> = ({
@@ -65,11 +84,14 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [user, setUser] = useState<ContextUser | null>(null);
   const [tutor, setTutor] = useState<ContextTutor | null>(null);
+  const [student, setStudent] = useState<ContextStudent | null>(null);
 
   useEffect(() => {
     const userSessionData = localStorage.getItem('userSession');
     const tutorSessionData = localStorage.getItem('tutorSession');
-
+    const studentSessionData = localStorage.getItem('studentSession');
+   
+    // Checking the user session data
     if (userSessionData) {
       const userData = JSON.parse(userSessionData);
       const expiration = userData.expiration;
@@ -82,6 +104,7 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
       }
     }
 
+    // checking if there is tutor session data
     if (tutorSessionData) {
       const tutorData = JSON.parse(tutorSessionData);
       const expiration = tutorData.expiration;
@@ -91,6 +114,19 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
         setTutor(null);
       } else {
         setTutor(tutorData);
+      }
+    }
+    
+    // checking if there is student session data
+    if (studentSessionData) {
+      const studentData = JSON.parse(studentSessionData);
+      const expiration = studentData.expiration;
+
+      if (expiration && expiration < Date.now()) {
+        localStorage.removeItem('studentSession');
+        setStudent(null);
+      } else {
+        setStudent(studentData);
       }
     }
   }, []);
@@ -110,15 +146,34 @@ const SessionContext: React.FC<{ children: React.ReactNode }> = ({
     setTutor(tutorData);
   };
 
+  const setStudentData = (studentData: ContextStudent) => {
+    const expiration = Date.now() + 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+    const studentSessionData = { ...studentData, expiration };
+    localStorage.setItem('studentSession', JSON.stringify(studentSessionData));
+    setStudent(studentData);
+  };
+
   const logout = () => {
     localStorage.removeItem('userSession');
     setUser(null);
     localStorage.removeItem('tutorSession');
     setTutor(null);
+    localStorage.removeItem('studentSession');
+    setStudent(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, tutor, setTutorData }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+        tutor,
+        setTutorData,
+        student,
+        setStudentData,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

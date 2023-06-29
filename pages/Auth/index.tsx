@@ -25,7 +25,7 @@ const Index = ({ searchParams }: IProps) => {
   const [showPassword, setshowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { login, setTutorData } = useContext(AuthContext);
+  const { login, setTutorData, setStudentData } = useContext(AuthContext);
 
   // sign in user with email and password
   const loginUser = async (
@@ -50,17 +50,20 @@ const Index = ({ searchParams }: IProps) => {
         }
       );
 
+      // Checking if the log in is successful
       if (response.ok) {
         const body = await response.json();
         const emailAddress = body['user']['email'];
 
-        //session context
+        //adding the authenticated user to the session context
         login(body);
 
-        // redirecting to the required pages
+        // Checking if the authenticated user is an admin
         if (body['user']['role'] == 'admin') {
           router.push('/user/admin/Dashboard');
-        } else if (body['user']['role'] == 'tutor') {
+        }
+        // Checking if the authenticated user is a tutor
+        else if (body['user']['role'] == 'tutor') {
           try {
             client
               .fetch('*[_type == "tutor" && email == $emailAddress]', {
@@ -79,7 +82,26 @@ const Index = ({ searchParams }: IProps) => {
             console.log('Context not created followed by this error: ' + error);
           }
           router.push('/user/tutor/Dashboard');
-        } else if (body['user']['role'] == 'student') {
+        }
+        // Checking if the authenticated user is a student
+        else if (body['user']['role'] == 'student') {
+          try {
+            client
+              .fetch('*[_type == "student" && email == $emailAddress]', {
+                emailAddress,
+              })
+              .then((data) => {
+                console.log(data);
+                // console.log('THE STUDENT IS:::::::' + tutor);
+                setStudentData(data);
+                const student = JSON.stringify(data);
+                console.log('THE STUDENT DATA IS::::::::' + student);
+              });
+
+            console.log('context created');
+          } catch (error) {
+            console.log('Context not created followed by this error: ' + error);
+          }
           router.push('/user/student/Dashboard');
         }
       } else if (response.status == 400) {
