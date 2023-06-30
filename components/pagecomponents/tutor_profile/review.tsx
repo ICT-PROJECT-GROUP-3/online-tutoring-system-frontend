@@ -20,6 +20,10 @@ const Review = () => {
   }, []);
 
   const calculateAverageRating = (questions) => {
+    if (!questions || questions.length === 0) {
+      return 0;
+    }
+
     const ratings = questions.map((question) => question.rating);
     const sum = ratings.reduce((acc, rating) => acc + rating, 0);
     const averageRating = sum / ratings.length;
@@ -36,37 +40,45 @@ const Review = () => {
         </div>
         <div className="">
           <div className="flex flex-col justify-evenly">
-            <h3 className="text-2xl font-bold text-left text-black">Review</h3>
+            <h3 className="text-2xl font-bold text-left text-black">Reviews</h3>
             <div>
               <ul className="text-xs font-light text-gray-600 dark:text-gray-300">
                 {/* Render fetched reviews */}
                 {reviews.map((review) => (
-                  <li key={review._id} className="mb-1 sm:mb-4">
-                    {/* Render individual review fields */}
-                    <div className="flex">
-                      <h4 className="mr-2 font-bold text-left text-black text-md md:text-lg">
-                        {review.title}
-                      </h4>
-                      <div className="flex">
-                        <h4 className="mr-2 text-md md:text-lg font-bold text-left text-[#FDD500]">
-                        {calculateAverageRating(review.questions)}
-                        </h4>
-                        <HiStar className="text-[#FDD500] mt-[1px] h-6 w-6" />
-                      </div>
-                    </div>
-                    <p className="text-xs md:text-base text-left text-[#adaba8]">
-                      {review.date_posted}
-                    </p>
-                    <p className="text-xs italic text-left text-black md:text-base">
-  <ul>
-    <li>
-      <p>{review.review.subject}</p>
-    </li>
-  </ul>
-</p>
+  <li key={review._id} className="mb-1 sm:mb-4">
+    {/* Render individual review fields */}
+    <div className="flex">
+      <h4 className="mr-2 font-bold text-left text-black text-md md:text-lg">
+        {review.title}
+      </h4>
+      <div className="flex">
+        <h4 className="mr-2 text-md md:text-lg font-bold text-left text-[#FDD500]">
+          {calculateAverageRating(review.questions)}
+        </h4>
+        <HiStar className="text-[#FDD500] mt-[1px] h-6 w-6" />
+      </div>
+    </div>
+    <p className="text-xs md:text-base text-left text-[#adaba8]">
+      {review._createdAt}
+    </p>
+    <p className="text-xs italic text-left text-black md:text-base">
+      <ul>
+        {review.review && Array.isArray(review.review) ? (
+          review.review.map((block) => (
+            <li key={block._key}>
+              {block.children.map((child) => (
+                <p key={child._key}>{child.text}</p>
+              ))}
+            </li>
+          ))
+        ) : (
+          <li>No review available</li>
+        )}
+      </ul>
+    </p>
+  </li>
+))}
 
-                  </li>
-                ))}
               </ul>
             </div>
           </div>

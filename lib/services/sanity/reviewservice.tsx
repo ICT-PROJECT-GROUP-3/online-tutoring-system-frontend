@@ -13,7 +13,15 @@ export async function fetchReviews() {
       _createdAt,
       _updatedAt,
       title, 
-      review,
+      review[]{
+      _key,
+      _type,
+      children[]{
+        _key,
+        _type,
+        text
+      }
+    },
       tutor->{ 
         _id,
         _type,
