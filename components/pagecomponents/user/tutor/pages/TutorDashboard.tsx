@@ -32,7 +32,7 @@ const TutorDashboard = () => {
   const TodayCardData = [
     {
       name: 'Students',
-      value: totalNumberOfSessions,
+      value: totalNumberOfStudents,
       percentage: '+55%',
       since: 'since yesterday',
       reactIcon: <FaUser />,
