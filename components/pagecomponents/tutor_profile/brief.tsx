@@ -35,7 +35,8 @@ const TutorsBrief: React.FC<TutorBriefProps> = ({ fullname, bio }) => {
             {Array.isArray(bio) &&
               bio.map((block) => (
                 <p key={block._key}>
-                  {block.children.map((span) => span.text).join('')}
+                {block.children && block.children.map((span) => span.text).join('')}
+
                 </p>
               ))}
           </div>

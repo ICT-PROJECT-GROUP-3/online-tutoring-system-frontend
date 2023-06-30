@@ -58,16 +58,13 @@ const Review = () => {
                       {review.date_posted}
                     </p>
                     <p className="text-xs italic text-left text-black md:text-base">
-                    <ul>
-                        {review.review.map((block) => (
-                          <li key={block._key}>
-                            {block.children.map((child) => (
-                              <p key={child._key}>{child.text}</p>
-                            ))}
-                          </li>
-                        ))}
-                      </ul>
-                    </p>
+  <ul>
+    <li>
+      <p>{review.review.subject}</p>
+    </li>
+  </ul>
+</p>
+
                   </li>
                 ))}
               </ul>

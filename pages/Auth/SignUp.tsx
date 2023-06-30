@@ -9,7 +9,7 @@ import { BallTriangle } from 'react-loader-spinner';
 import PageWrapper from '../../components/shared/PageWrapper';
 
 // Define the component
-const Index = () => {
+const Index = () => { 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

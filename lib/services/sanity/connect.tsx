@@ -9,7 +9,7 @@ const client = createClient({
 
 export async function fetchData() {
   const query = `*[_type == "tutor"] {
-        fullname,
+        name,
         bio,
         slug,
         languages,

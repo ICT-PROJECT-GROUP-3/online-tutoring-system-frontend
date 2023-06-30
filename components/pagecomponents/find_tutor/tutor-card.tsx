@@ -7,7 +7,7 @@ import { TbClockFilled } from 'react-icons/tb';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
 interface TutorCardProps {
-  fullname: string;
+  name: string;
   rating: string;
   slug: {
     _type: string;
@@ -32,14 +32,12 @@ interface TutorCardProps {
   gender: string;
   email: string;
   teaches_at_home: boolean;
-  area_of_expertise?: {
-    title: string;
-  }[];
+  area_of_expertise?: string[];
   total_teaching_experience: number;
 }
 
 const TutorCard: React.FC<TutorCardProps> = ({
-  fullname,
+  name,
   bio,
   slug,
   rating,
@@ -73,7 +71,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
               <Link href={`/tutor_profile/${slug?.current}`}>
                 <h1 className="text-xl overflow-hidden h-8 font-semibold text-left mb-2 text-[#1c1c1c] hover:underline">
                   {/* Place tutor's name - string */}
-                  {fullname}
+                  {name}
                 </h1>
                 
               </Link>
@@ -81,25 +79,17 @@ const TutorCard: React.FC<TutorCardProps> = ({
               <p className=" text-md text-left mb-2 text-[#1c1c1c] overflow-hidden text-ellipsis h-[124px]">
                 {/* {bio?.map((block) => (
                   <p key={block._key}>
-                    {block.children.map((span) => span.text).join('')}
+                   {block.children && block.children.map((span) => span.text).join('')}
                   </p>
                 ))} */}
                 {Array.isArray(bio) &&
                   bio.map((block) => (
                     <p key={block._key}>
-                      {block.children.map((span) => span.text).join('')}
+                 {block.children && block.children.map((span) => span.text).join('')}
                     </p>
                   ))}
               </p>
-              <p>
-                {gender}
-              </p>
-              <p>
-                {homework_help ? 'Yes' : 'No'}
-              </p>
-              <p>
-                {can_travel ? 'Yes' : 'No'}
-              </p>
+              
 
               {/* Place the subjects the tutor teaches - list,string */}
               {/* The red denotes the link to search by that subject */}
@@ -109,14 +99,14 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 </li>
                 {area_of_expertise &&
                   area_of_expertise.map((area) => (
-                    <li key={area.title} className="m-1">
+                    <li key={area} className="m-1">
                       <Link href="/" className="flex flex-row hover:underline">
-                        {area.title}
+                        {area}
                         <p className="text-[#1c1c1c]">&nbsp;|&nbsp;</p>
                       </Link>
                     </li>
                   ))}
-              </ul>
+            </ul>
             </div>
             <div className="flex flex-col justify-center">
               <svg

@@ -1,41 +1,77 @@
-import { createClient } from '@sanity/client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CardDropShadow from '../../../../components/common/cards/card-dropshadow';
 import Title from '../../../../components/common/input/title';
 import Navbar from '../../../../components/shared/navbar/Navbar';
-
-const client = createClient({
-  projectId: '3iouolde',
-  dataset: 'production',
-  useCdn: true,
-});
+import client from '../../../../lib/services/sanity/sanity';
 
 const TeacherEvaluation = () => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const submit = async (formData) => {
-    try {
+const [review, setReview] = useState('');
+const [title, setTitle] = useState('');
 
-      const existingTutorId = 'mary-banda';
-     
-      await client.create({
-        _type: 'review',
-        review: formData.review,
-        tutor: { _type: 'reference', _ref: formData.tutor },
-        
-      });
-      alert('Review submitted successfully!');
-    } catch (error) {
-      console.error('Error creating review:', error);
-      alert('An error occurred while submitting the review.');
+  const submitForm = async () => {
+      // if(!review || !title || oninput['checkbox'])
+        //  return;
+
+     const formData = {
+       "title": title,
+       "review": review,
+       "questions":[
+          {
+            "question":questions,
+            "rating":ratingInputs
+          }
+       ],
+     }
+     console.log("1.formdata" + formData);
+
+    const sanityApiKey =
+    'skHK4SXyIt4zKcU6X6OIOaG2Zsb2ZYMvQk3oCMakw6KutBjRDje8EtUZVcDpIBSiGbF3cH26h46T9oH6GWg0VH6eDCHDg6uUX669PviEvtqfwTdrE4W7PuB00Mc6aWVq8S3up1LqUPkTeZOmVrtBX6yduClsbvwAceBJQTtRKzpnVZ5FGMuK';
+  const sanityProjectId = '3iouolde';
+  const sanityDataset = 'production';
+
+  try {
+    const response = await fetch(
+      `https://${sanityProjectId}.api.sanity.io/v1/data/mutate/${sanityDataset}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sanityApiKey}`,
+        },
+        body: JSON.stringify({
+          mutations: [
+            {
+              create: {
+                _type: 'reviews', // Replace with your existing schema type "tutor"
+                // Map the data fields to the corresponding fields in your "tutor" schema
+                ...formData, // Spread the tutorData object to include all fields
+              },
+            },
+          ],
+        }),
+      }
+    );
+
+    if (response.ok) {
+      console.log('2.reviews posted successfully!');
+      
+    } else {
+      console.error('3.Error posting reviews:', response.statusText);
     }
-  };
+  } catch (error) {
+    console.error('5.Error posting data:', error);
+  }
 
+
+
+  };
+ 
   const questions = [
     { name: 'Treats the student with respect' },
     { name: 'Communicates clearly' },
@@ -73,9 +109,10 @@ const TeacherEvaluation = () => {
         <h1 className="text-xl sm:text-2xl md:text-4xl text-center text-[#1c1c1c] my-8">
           Tutor Evaluation
         </h1>
+        
+        <form onSubmit={submitForm} className="m-8">
         <div className="mb-8">
           <CardDropShadow>
-          <form onSubmit={handleSubmit(submit)} className="m-8">
         {/* ... */}
         {questions.map((question) => (
           <div
@@ -100,17 +137,16 @@ const TeacherEvaluation = () => {
                   onChange={() => handleRadioClick(question.name, input.value)}
                 />
               ))}
+              
               <p className="text-[#1c1c1c] text-[18px] ml-4">Strongly Agree</p>
             </div>
           </div>
         ))}
-      </form>
       
           </CardDropShadow>
         </div>
         <div className="mb-8">
           <CardDropShadow>
-            <form onSubmit={handleSubmit(submit)} className="m-8">
               <div className="flex-col mb-6 md:flex md:items-center">
                 <div className="mb-4 md:w-full">
                   <Title
@@ -124,6 +160,7 @@ const TeacherEvaluation = () => {
                     className="bg-white appearance-none border-2 border-[#EAE8E4] rounded w-full py-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
                     id="inline-full-name"
                     type="text"
+                    value={title}
                     placeholder="Example: Yamikani is a Super Rockstar Tutor!"
                   />
                 </div>
@@ -141,6 +178,7 @@ const TeacherEvaluation = () => {
                     className="bg-white text-sm md:text-base appearance-none border-2 focus:border-transparent border-[#EAE8E4] rounded w-full py-2 px-2 text-[#1c1c1c] leading-tight focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     id="description"
                     rows={8}
+                    value={review}
                     placeholder="Example: Yamikani was fantastic at helping me understand how to approach a problem and was able to clearly explain new concepts. Extremely knowledgeable on a lot when it comes to maths. He takes the time to go over anything you need help with. Made sure I had complete understanding of all the topic we reviewed. Definitely would work with again."
                   ></textarea>
                 </div>
@@ -150,9 +188,10 @@ const TeacherEvaluation = () => {
                 value="Add Review"
                 className="rounded-[2px] bg-[#d03434] border-[#d03434] p-2 w-auto text-lg text-center text-[#fbf6e6]"
               />
-            </form>
+            
           </CardDropShadow>
         </div>
+        </form>
       </div>
     </>
   );
