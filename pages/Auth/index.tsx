@@ -87,12 +87,25 @@ const Index = ({ searchParams }: IProps) => {
         else if (body['user']['role'] == 'student') {
           try {
             client
-              .fetch('*[_type == "student" && email == $emailAddress]', {
-                emailAddress,
-              })
+              .fetch(
+                `*[_type == "student" && email == $emailAddress] {
+                _id,
+                  first_name,
+                    last_name,
+                    email,
+                    phone,
+                    "tutorName": tutor[]->name,
+                    "tutorSlug": tutor[]->slug,
+                    "tutorEmail": tutor[]->email,
+                    "tutorRef": tutor[]._ref,
+                    
+              }`,
+                {
+                  emailAddress,
+                }
+              )
               .then((data) => {
                 console.log(data);
-                // console.log('THE STUDENT IS:::::::' + tutor);
                 setStudentData(data);
                 const student = JSON.stringify(data);
                 console.log('THE STUDENT DATA IS::::::::' + student);
@@ -128,30 +141,30 @@ const Index = ({ searchParams }: IProps) => {
   return (
     // Top level container
     <PageWrapper>
-      <div className="flex flex-col items-center justify-center min-h-screen py-5 mx-4 pt-5 sm:pt-0 sm:mx-2 w-4/5">
-        <main className="flex flex-col items-center justify-center flex-1 px-0 sm:px-20 text-center w-full">
-          <div className="bg-white shadow-2xl rounded-2xl flex sm:w-6/7 w-full max-w-4xl flex-col sm:flex-row">
+      <div className="flex flex-col items-center justify-center w-4/5 min-h-screen py-5 pt-5 mx-4 sm:pt-0 sm:mx-2">
+        <main className="flex flex-col items-center justify-center flex-1 w-full px-0 text-center sm:px-20">
+          <div className="flex flex-col w-full max-w-4xl bg-white shadow-2xl rounded-2xl sm:w-6/7 sm:flex-row">
             {/* Left side of the container */}
-            <div className="sm:w-3/5 w-full sm:p-5 p-10">
-              <div className="text-left font-bold text-gray-400">
+            <div className="w-full p-10 sm:w-3/5 sm:p-5">
+              <div className="font-bold text-left text-gray-400">
                 Mphunzitsi{' '}
                 <span className="text-orange-500 text-[30px]">.</span>
               </div>
               <div className="py-10">
-                <h2 className="text-3xl font-bold mb-2 text-orange-500">
+                <h2 className="mb-2 text-3xl font-bold text-orange-500">
                   Welcome Back
                 </h2>
-                <div className="border-2 w-10 border-orange-500 inline-block mb-2"></div>
-                <p className="text-gray-500 mb-3"> Use your email account</p>
+                <div className="inline-block w-10 mb-2 border-2 border-orange-500"></div>
+                <p className="mb-3 text-gray-500"> Use your email account</p>
                 {searchParams?.message && (
-                  <p className="text-red-700 bg-red-100 py-2 px-5 rounded-md">
+                  <p className="px-5 py-2 text-red-700 bg-red-100 rounded-md">
                     {searchParams?.message}
                   </p>
                 )}
                 <div className="flex flex-col items-center">
                   {/* Email input field */}
-                  <div className="bg-gray-200 w-64 p-2 flex items-center rounded-lg mb-3">
-                    <ImEnvelop className="text-gray-400 m-2 " />
+                  <div className="flex items-center w-64 p-2 mb-3 bg-gray-200 rounded-lg">
+                    <ImEnvelop className="m-2 text-gray-400 " />
                     <input
                       type="text"
                       name="user"
@@ -159,12 +172,12 @@ const Index = ({ searchParams }: IProps) => {
                       required
                       onChange={(e) => setName(e.target.value)}
                       placeholder="email"
-                      className="bg-gray-200 outline-none w-full text-sm text-gray-600"
+                      className="w-full text-sm text-gray-600 bg-gray-200 outline-none"
                     />
                   </div>
                   {/* Password input field */}
-                  <div className="bg-gray-200 w-64 p-2 flex items-center rounded-lg">
-                    <GiPadlock className="text-gray-400 m-2 " />
+                  <div className="flex items-center w-64 p-2 bg-gray-200 rounded-lg">
+                    <GiPadlock className="m-2 text-gray-400 " />
                     <input
                       type={showPassword ? 'text' : 'password'}
                       name="pwd"
@@ -172,9 +185,9 @@ const Index = ({ searchParams }: IProps) => {
                       required
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="password"
-                      className="bg-gray-200 outline-none w-full text-sm text-gray-600"
+                      className="w-full text-sm text-gray-600 bg-gray-200 outline-none"
                     />
-                    <div className="relative inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+                    <div className="relative inset-y-0 right-0 flex items-center pr-3 text-sm leading-5">
                       <svg
                         className="h-4 text-gray-700"
                         fill="none"
@@ -190,7 +203,7 @@ const Index = ({ searchParams }: IProps) => {
                     </div>
                   </div>
                   {/* Remember me and Forgot password links */}
-                  <div className="flex justify-between w-64 text-gray-500 mt-2 mb-5">
+                  <div className="flex justify-between w-64 mt-2 mb-5 text-gray-500">
                     <label className="flex items-center text-xs">
                       <input type="checkbox" name="remember" className="mr-1" />{' '}
                       Remember me
@@ -202,10 +215,10 @@ const Index = ({ searchParams }: IProps) => {
                   {/* Sign in button */}
                   <button
                     onClick={(e) => loginUser(e)}
-                    className="text-orange-500 border-2 border-orange-500 rounded-full px-12 py-2 inline-block font-semibold hover:bg-orange-500 hover:text-white transition duration-300 ease-in-out w-64"
+                    className="inline-block w-64 px-12 py-2 font-semibold text-orange-500 transition duration-300 ease-in-out border-2 border-orange-500 rounded-full hover:bg-orange-500 hover:text-white"
                   >
                     {isLoading ? (
-                      <div className="flex justify-between items-center gap-3">
+                      <div className="flex items-center justify-between gap-3">
                         <BallTriangle
                           height={25}
                           width={25}
@@ -216,7 +229,7 @@ const Index = ({ searchParams }: IProps) => {
                           // wrapperStyle=""
                           visible={true}
                         />{' '}
-                        <p className="flex h-full w-full items-center">
+                        <p className="flex items-center w-full h-full">
                           loading
                         </p>{' '}
                       </div>
@@ -228,15 +241,15 @@ const Index = ({ searchParams }: IProps) => {
               </div>
             </div>
 
-            <div className="sm:w-2/5 w-full bg-orange-500 text-white sm:rounded-tr-2xl rounded-2xl sm:rounded-br-2xl py-36 px-12 ">
-              <h2 className="text-3xl font-bold mb-2">Hello, Friend</h2>
-              <div className="border-2 w-10 border-white-600 inline-block mb-2"></div>
+            <div className="w-full px-12 text-white bg-orange-500 sm:w-2/5 sm:rounded-tr-2xl rounded-2xl sm:rounded-br-2xl py-36 ">
+              <h2 className="mb-2 text-3xl font-bold">Hello, Friend</h2>
+              <div className="inline-block w-10 mb-2 border-2 border-white-600"></div>
               <p className="mb-10">
                 You want to join the elite community? Sign up now and get access
               </p>
               <Link
                 href="/Auth/SignUp"
-                className="text-white border-2 border-white rounded-full px-12 py-2 inline-block font-semibold hover:bg-white hover:text-orange-600 transition duration-300 ease-in-out"
+                className="inline-block px-12 py-2 font-semibold text-white transition duration-300 ease-in-out border-2 border-white rounded-full hover:bg-white hover:text-orange-600"
               >
                 Sign Up
               </Link>
