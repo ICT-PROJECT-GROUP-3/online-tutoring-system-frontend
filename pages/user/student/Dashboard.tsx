@@ -17,7 +17,7 @@ import Layout from './layout';
 const Dashboard = () => {
   // const [student, setStudent] = useState([]);
   const { student } = useContext(AuthContext);
-  const tutors = student[0].tutorName;
+  const tutors = student[0]?.tutorName || [''];
   // const tut = tutors.split(', ');
   console.log('The tutors of this student are' + student);
   return (
