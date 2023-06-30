@@ -20,13 +20,18 @@ const ChatEngine = dynamic(() =>
 const MessageFormSocial = dynamic(() =>
   import('react-chat-engine').then((module) => module.MessageFormSocial)
 );
+const getOrCreateChat = dynamic(() =>
+  import('react-chat-engine').then((module) => module.getOrCreateChat)
+);
 
 export default function Home() {
   const { user } = useContext(AuthContext);
   const [showChat, setShowChat] = useState(false);
   const router = useRouter();
-  const username = user.user.name;
-  const secret = user.user.password;
+  console.log(router.query.nameCode + ' ' + router.query.nameKey);
+  const username = router.query.nameCode;
+  const secret = router.query.nameKey;
+  const [username1, setUsername1] = useState();
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -42,6 +47,27 @@ export default function Home() {
 
   if (!showChat) return <div />;
 
+  function createDirectChat(creds) {
+    getOrCreateChat(
+      creds,
+      { is_direct_chat: true, usernames: [username1] },
+      () => setUsername1('')
+    );
+  }
+
+  function renderChatForm(creds) {
+    return (
+      <div>
+        <input
+          placeholder="Username"
+          value={username1}
+          onChange={(e) => setUsername1(e.target.value)}
+        />
+        <button onClick={() => createDirectChat(creds)}>Create</button>
+      </div>
+    );
+  }
+
   return (
     <div className="w-screen h-screen p-5">
       <div className="shadow">
@@ -51,6 +77,7 @@ export default function Home() {
           userName={username}
           userSecret={secret}
           renderNewMessageForm={() => <MessageFormSocial />}
+          renderNewChatForm={(creds) => renderChatForm(creds)}
         />
       </div>
     </div>

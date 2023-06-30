@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 import PageWrapper from '../../components/shared/PageWrapper';
 
-const Room = () => {
+const Room = (props) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [RoomCode, setRoomCode] = useState(router.query.name);

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
 import { AiOutlinePlus } from 'react-icons/ai';
 import TutorNavbar from '../TutorNavbar';
 
@@ -112,6 +113,11 @@ const TutorSessions = () => {
     },
   ];
 
+  const router = useRouter();
+  const createSession = () => {
+    const roomid = 'mnbvcxz';
+    router.push({ pathname: '/video_session', query: { name: roomid } });
+  };
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -135,12 +141,17 @@ const TutorSessions = () => {
               <div className="flex-auto p-4">
                 <div className="flex flex-row -mx-3">
                   <div className="flex-none w-2/3 max-w-full px-2">
-                    <div className="w-full">
+                    <div
+                      className="w-full curser-pointer animate-pulse"
+                      onClick={() => {
+                        createSession();
+                      }}
+                    >
                       <p className="mb-0 font-sans text-sm font-semibold leading-normal uppercase text-gray dark:opacity-60">
                         New Session
                       </p>
                       <h5 className="mb-2 font-bold text-gray-600">
-                        with Students
+                        with Student
                       </h5>
                     </div>
                   </div>
