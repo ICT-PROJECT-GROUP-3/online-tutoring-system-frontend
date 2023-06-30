@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +9,6 @@ import { HiLocationMarker } from 'react-icons/hi';
 import { MdWorkOutline } from 'react-icons/md';
 import { AuthContext } from '../../../../../context/auth/SessionContext';
 import TutorNavbar from '../TutorNavbar';
-import axios from 'axios';
 
 const TutorProfileDashboard = () => {
   const router = useRouter();
@@ -20,13 +20,16 @@ const TutorProfileDashboard = () => {
     const secret = user.user.password;
     axios
       .put(
-        "https://api.chatengine.io/users/",
+        'https://api.chatengine.io/users/',
         { username, secret },
-        { headers: { "Private-Key": "ddb24a05-5197-466e-ae42-61d84aee08c0" } }
+        { headers: { 'Private-Key': 'ddb24a05-5197-466e-ae42-61d84aee08c0' } }
       )
 
       .then(() => {
-        router.push("/chat");
+        router.push({
+          pathname: '/chat',
+          query: { nameCode: username, nameKey: secret },
+        });
       });
   };
 
