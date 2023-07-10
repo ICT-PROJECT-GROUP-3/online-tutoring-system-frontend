@@ -12,7 +12,7 @@ const PayPal = () => {
   return (
     <>
       <CardDropShadow>
-        <div className="px-16 py-8 border-l-4">
+        <div className="mx-16 my-8">
           <div className="flex flex-row items-center mb-12">
             <ImPaypal className="fill-[#1c1c1c] w-8 h-8 mr-4" />
             <h2 className="text-3xl text-left text-[#1c1c1c]">Paypal</h2>

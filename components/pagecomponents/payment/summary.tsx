@@ -35,7 +35,7 @@ const TutorCheckoutSummary: React.FC<TutorSummaryProps> = ({
               <Image
                 width={280}
                 height={280}
-                src="/assets/images/Profile pic.png"
+                src="/assets/images/Profile.png"
                 className="object-cover w-72 h-72 rounded-2"
                 alt="Profile picture"
               />

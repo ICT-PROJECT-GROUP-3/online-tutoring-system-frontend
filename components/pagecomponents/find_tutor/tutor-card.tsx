@@ -7,7 +7,7 @@ import { TbClockFilled } from 'react-icons/tb';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
 interface TutorCardProps {
-  fullname: string;
+  name: string;
   rating: string;
   slug: {
     _type: string;
@@ -30,14 +30,12 @@ interface TutorCardProps {
   can_travel: boolean;
   phone_number: string;
   email: string;
-  area_of_expertise?: {
-    title: string;
-  }[];
+  area_of_expertise?: string[];
   total_teaching_experience: number;
 }
 
 const TutorCard: React.FC<TutorCardProps> = ({
-  fullname,
+  name,
   bio,
   slug,
   rating,
@@ -57,7 +55,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
             <Image
               width={280}
               height={280}
-              src="/assets/images/Profile pic 2.png"
+              src="/assets/images/Profile.png"
               className="object-cover w-56 h-56 rounded-2"
               alt="Profile picture"
             />
@@ -67,22 +65,23 @@ const TutorCard: React.FC<TutorCardProps> = ({
               <Link href={`/tutor_profile/${slug?.current}`}>
                 <h1 className="text-xl overflow-hidden h-8 font-semibold text-left mb-2 text-[#1c1c1c] hover:underline">
                   {/* Place tutor's name - string */}
-                  {fullname}
+                  {name}
                 </h1>
               </Link>
               {/* Place a shorten version of the tutor's bio  - string */}
               <p className=" text-md text-left mb-2 text-[#1c1c1c] overflow-hidden text-ellipsis h-[124px]">
                 {/* {bio?.map((block) => (
                   <p key={block._key}>
-                    {block.children.map((span) => span.text).join('')}
+                    {block.children && block.children.map((span) => span.text).join('')}
                   </p>
                 ))} */}
-                {/* {Array.isArray(bio) &&
+                {Array.isArray(bio) &&
                   bio.map((block) => (
                     <p key={block._key}>
-                      {block.children.map((span) => span.text).join('')}
+                      {block.children &&
+                        block.children.map((span) => span.text).join('')}
                     </p>
-                  ))} */}
+                  ))}
               </p>
 
               {/* Place the subjects the tutor teaches - list,string */}
@@ -93,9 +92,9 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 </li>
                 {area_of_expertise &&
                   area_of_expertise.map((area) => (
-                    <li key={area.title} className="m-1">
+                    <li key={area} className="m-1">
                       <Link href="/" className="flex flex-row hover:underline">
-                        {area.title}
+                        {area}
                         <p className="text-[#1c1c1c]">&nbsp;|&nbsp;</p>
                       </Link>
                     </li>
@@ -145,8 +144,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 </div>
                 {/* Place the language the tutor knows  - string  */}
                 <ul className="flex flex-wrap text-left text-sm text-[#1c1c1c]">
-                  {/* {languages.join(', ')} */}
-                  {/* {languages.join(', ')} */}
+                  {languages ? languages.join(', ') : 'No languages specified'}
                 </ul>
               </div>
             </div>

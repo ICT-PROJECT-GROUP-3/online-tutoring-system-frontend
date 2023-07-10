@@ -26,7 +26,7 @@ const ContactDetails = () => {
 
             {/* Place tutor's specific address - string*/}
             <p className="text-lg text-left text-black">
-              Mulunguzi Zomba, Malawi
+              Manja Blantyre, Malawi
             </p>
           </div>
         </CardDropShadow>

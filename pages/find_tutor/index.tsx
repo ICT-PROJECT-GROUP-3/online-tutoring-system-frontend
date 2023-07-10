@@ -87,7 +87,7 @@ const FindTutor = () => {
                   <TutorCard
                     key={tutor._id}
                     bio={tutor.bio}
-                    fullname={tutor.fullname}
+                    name={tutor.name}
                     slug={tutor.slug}
                     area_of_expertise={tutor.area_of_expertise}
                     total_teaching_experience={tutor.total_teaching_experience}

@@ -9,7 +9,7 @@ const client = createClient({
 
 export async function fetchData() {
   const query = `*[_type == "tutor"] {
-        fullname,
+        name,
         bio,
         slug,
         languages,
@@ -38,6 +38,7 @@ export async function fetchData() {
         address, 
         phone_number,
         email,
+        has_paid
  }`;
   const tutor = await client.fetch(query);
   console.log(tutor);

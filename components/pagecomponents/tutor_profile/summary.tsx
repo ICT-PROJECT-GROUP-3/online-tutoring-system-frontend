@@ -8,7 +8,7 @@ import CardDropShadow from '../../common/cards/card-dropshadow';
 import VideoPlayer from '../../common/video-player';
 
 interface TutorSummaryProps {
-  fullname: string;
+  name: string;
   languages: string[];
   location: string;
   price: number;
@@ -18,7 +18,7 @@ interface TutorSummaryProps {
 }
 
 const ProfileSummary: React.FC<TutorSummaryProps> = ({
-  fullname,
+  name,
   languages,
   location,
   price,
@@ -40,7 +40,7 @@ const ProfileSummary: React.FC<TutorSummaryProps> = ({
           <div className="m-4">
             <div className="hidden md:flex md:flex-col">
               {/* Place tutor's name - string */}
-              <p className="text-2xl text-center text-black">{fullname}</p>
+              <p className="text-2xl text-center text-black">{name}</p>
 
               {/* Place the subjects the tutor teaches - list,string */}
               <p className="text-md text-center text-[#1c1c1c] mb-2">

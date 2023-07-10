@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { IoNotifications } from 'react-icons/io5';
 import { MdAccountCircle, MdDashboard, MdOutlinePayment } from 'react-icons/md';
@@ -9,10 +10,12 @@ import { AuthContext } from '../../../context/auth/SessionContext';
 const Menu = () => {
   const { logout } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
+  const router = useRouter();
 
   const userLogout = () => {
     try {
-      logout();
+      router.push('/');
+      setTimeout(logout(), 3000);
     } catch (error) {
       console.log('error logging out' + error);
     }
@@ -28,7 +31,7 @@ const Menu = () => {
     <>
       <CardDropShadow>
         <div className="m-8">
-          <h1 className="text-xl">Welcome</h1>
+          <h1 className="text-xl">Welcome, {user.user.name}</h1>
           <svg
             width={1083}
             height={1}

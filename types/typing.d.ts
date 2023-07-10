@@ -1,6 +1,6 @@
 export interface Tutor {
   _id: string;
-  fullname: string;
+  name: string;
   rating: string;
   bio?: {
     _key: string;
@@ -23,7 +23,7 @@ export interface Tutor {
     title: string;
   }[];
   slug: {
-    current: string; 
+    current: string;
   };
   last_login: Date;
   total_teaching_experience: number;

@@ -55,10 +55,10 @@ const Review = () => {
                         </h4>
                       </div>
                     </div>
-                    <p className="text-xs md:text-base text-left text-[#adaba8]">
+                    <p className="text-sm md:text-base text-left text-[#adaba8]">
                       {review.date_posted}
                     </p>
-                    <p className="text-xs italic text-left text-black md:text-base">
+                    <p className="text-sm italic text-left text-black md:text-base">
                       {review.description}
                     </p>
                   </li>

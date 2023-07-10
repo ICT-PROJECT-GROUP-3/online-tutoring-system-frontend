@@ -28,15 +28,11 @@ const TutorProfile = ({ tutor }: Props) => {
         <div className="justify-center w-11/12 mx-auto mt-20 mb-8 md:max-w-7xl">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col md:flex-row">
-              <TutorsBrief
-                key={tutor._id}
-                fullname={tutor.fullname}
-                bio={tutor.bio}
-              />
+              <TutorsBrief key={tutor._id} name={tutor.name} bio={tutor.bio} />
               <div className="md:mx-8 md:w-80">
                 <ProfileSummary
                   key={tutor._id}
-                  fullname={tutor.fullname}
+                  name={tutor.name}
                   total_teaching_experience={tutor.total_teaching_experience}
                   price={tutor.price}
                   languages={tutor.languages}

@@ -9,6 +9,7 @@ import CardDropShadow from '../../common/cards/card-dropshadow';
 const TutorCard = ({ title }) => {
   const { locale, locales, push } = useRouter();
   const { user } = useContext(AuthContext);
+  console.log('context user is:' + user);
   const [open, setOpen] = useState(false);
   const Menus = ['See Profile', 'Message', 'Join session', 'Review'];
   const [option, setOption] = useState('');
@@ -19,8 +20,9 @@ const TutorCard = ({ title }) => {
 
   const toMesseges = () => {
     if (user.user.name.length === 1 || user.user.password.length === 1) return;
-    const username = user.user.name;
-    const secret = user.user.password;
+    const username = user?.user.name;
+    const secret = user?.user.password;
+    console.log('username' + username + 'password' + secret);
     axios
       .put(
         'https://api.chatengine.io/users/',
@@ -29,7 +31,10 @@ const TutorCard = ({ title }) => {
       )
 
       .then(() => {
-        router.push('/chat');
+        router.push({
+          pathname: '/chat',
+          query: { nameCode: username, nameKey: secret },
+        });
       });
   };
 
@@ -100,7 +105,7 @@ const TutorCard = ({ title }) => {
               <Image
                 width={280}
                 height={280}
-                src="/assets/images/Profile pic 2.png"
+                src="/assets/images/Profile.png"
                 className="object-cover w-4 h-4 rounded-full sm:h-6 sm:w-6 lg:h-8 lg:w-8"
                 alt="Profile picture"
               />

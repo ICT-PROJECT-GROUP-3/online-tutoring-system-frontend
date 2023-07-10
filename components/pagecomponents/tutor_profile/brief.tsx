@@ -1,14 +1,14 @@
 import Image from 'next/image';
 
 interface TutorBriefProps {
-  fullname: string;
+  name: string;
   bio?: {
     _key: string;
     children: { text: string }[];
   }[];
 }
 
-const TutorsBrief: React.FC<TutorBriefProps> = ({ fullname, bio }) => {
+const TutorsBrief: React.FC<TutorBriefProps> = ({ name, bio }) => {
   return (
     <>
       <div className="flex flex-col justify-center max-w-5xl my-8 mr-auto md:my-0 md:flex-row">
@@ -17,7 +17,7 @@ const TutorsBrief: React.FC<TutorBriefProps> = ({ fullname, bio }) => {
           <Image
             width={280}
             height={280}
-            src="/assets/images/Profile pic.png"
+            src="/assets/images/Profile.png"
             className="object-cover w-full h-auto md:w-72 md:h-72 rounded-2"
             alt="Profile picture"
           />
@@ -27,7 +27,7 @@ const TutorsBrief: React.FC<TutorBriefProps> = ({ fullname, bio }) => {
           <div>
             {/* Place tutor's name - string*/}
             <h1 className="relative text-4xl mb-4 text-left text-[#1c1c1c]">
-              {fullname}
+              {name}
             </h1>
           </div>
           {/* Place tutor's bio  - string */}
@@ -35,7 +35,7 @@ const TutorsBrief: React.FC<TutorBriefProps> = ({ fullname, bio }) => {
             {Array.isArray(bio) &&
               bio.map((block) => (
                 <p key={block._key}>
-                  {block.children.map((span) => span.text).join('')}
+                  {block.children?.map((span) => span.text).join('')}
                 </p>
               ))}
           </div>

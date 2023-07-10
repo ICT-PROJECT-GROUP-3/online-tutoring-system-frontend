@@ -4,6 +4,7 @@ import Link from 'next/link';
 import RegularButton from '../../../../components/common/buttons/primary-button';
 import SecondaryButton from '../../../../components/common/buttons/secondary-button';
 import ContactDetails from '../../../../components/pagecomponents/checkout/contact-details';
+import TutorCheckoutSummary from '../../../../components/pagecomponents/payment/summary';
 import Background from '../../../../components/shared/background/background';
 import Navbar from '../../../../components/shared/navbar/Navbar';
 import { Tutor } from '../../../../types/typing';
@@ -39,23 +40,23 @@ const Checkout = ({ tutor }: Props) => {
               <Link href="/find_tutor" className="mr-8">
                 <SecondaryButton name="Find another tutor" />
               </Link>
-              <Link href="/user/student/Dashboardr">
+              <Link href="/user/student/Dashboard">
                 <RegularButton name="Head to your dashboard" />
               </Link>
             </div>
           </div>
         </div>
         <div className="mx-8 w-80">
-          {/* <TutorCheckoutSummary
+          <TutorCheckoutSummary
             key={tutor._id}
-            fullname={tutor.fullname}
+            fullname={tutor.name}
             total_teaching_experience={tutor.total_teaching_experience}
             price={tutor.price}
             languages={tutor.languages}
             subjects={tutor.subjects}
             location={tutor.location}
             last_login={tutor.last_login}
-          /> */}
+          />
         </div>
       </div>
     </Background>
