@@ -149,13 +149,13 @@
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
-
 import Image from 'next/image';
 import Link from 'next/link';
 import { useContext, useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
 import { AuthContext } from '../../../context/auth/SessionContext';
+import Help from './help';
 import Language from './language';
 import { useRouter } from 'next/router';
 
@@ -259,8 +259,14 @@ const Navbar = () => {
                 </Link>
               ))
             )}
-            <Language />
-            <Link href="/auth">
+            <div id="help">
+              <Help />
+            </div>
+
+            <div id="translator">
+              <Language />
+            </div>
+            <Link href="/auth" id="dark-mode">
               <MdDarkMode className="w-6 h-6 text-gray-700" />
             </Link>
           </div>

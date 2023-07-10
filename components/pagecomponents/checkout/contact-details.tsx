@@ -6,7 +6,7 @@ const ContactDetails = () => {
       <div className="">
         <h2 className="text-[32px] text-left text-black">Contact details</h2>
         <CardDropShadow>
-          <div className="grid w-3/4 grid-cols-2 gap-2 p-4">
+          <div className="grid w-full grid-cols-2 gap-2 p-4 gap-y-8">
             <p className="text-lg font-semibold text-left text-black ">
               Phone number:
             </p>
@@ -26,7 +26,7 @@ const ContactDetails = () => {
 
             {/* Place tutor's specific address - string*/}
             <p className="text-lg text-left text-black">
-              Mulunguzi Zomba, Malawi
+              Manja Blantyre, Malawi
             </p>
           </div>
         </CardDropShadow>

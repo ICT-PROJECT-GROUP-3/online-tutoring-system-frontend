@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { fetchData } from '../../../../lib/services/sanity/connect';
 import UsersTable from './Users';
 
 const UserManagementPage: React.FC = () => {
+  const [tutorData, setTutorData] = useState([]);
+
+  useEffect(() => {
+    fetchData().then((tutor) => {
+      console.log(tutor);
+      setTutorData(tutor);
+    });
+  }, []);
+
   // Sample list of users
   const users = [
     {
@@ -34,7 +44,7 @@ const UserManagementPage: React.FC = () => {
       <div className="justify-between p-5 mx-5">
         <h1 className="text-xl text-gray-700">User Management</h1>
       </div>
-      <UsersTable users={users} onDeleteUser={handleDeleteUser} />
+      <UsersTable users={tutorData} onDeleteUser={handleDeleteUser} />
     </div>
   );
 };

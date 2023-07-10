@@ -15,7 +15,7 @@ const TutorDashboard = () => {
   const pageName = 'Dashboard';
   const [students, setStudents] = useState([]);
   const [numberOfSessions, setNumberOfSessions] = useState(0);
-  const [subjects, setSubjects] = useState([]);
+  const [subjects] = useState([]);
   const [totalNumberOfSessions, setTotalNumberOfSessions] = useState(0);
   const [totalNumberOfStudents, setTotalNumberOfStudents] = useState(0);
 
@@ -169,7 +169,7 @@ const TutorDashboard = () => {
     >
       <TutorNavbar pageName={pageName} />
       {/* <!-- cards --> */}
-      <div className="lg:ml-72 px-6 py-6 mx-auto">
+      <div className="px-6 py-6 mx-auto lg:ml-72">
         {/* <!-- row 1 --> */}
         <div className="flex flex-wrap -mx-3">
           {TodayCardData.map((card, i) => (
@@ -296,7 +296,7 @@ const TutorDashboard = () => {
           <div className="w-full max-w-full px-3 mt-0 lg:w-5/12 lg:flex-none">
             <div className="border-black/12.5 shadow-xl bg-white dark:shadow-dark-xl relative flex min-w-0 flex-col break-words rounded-2xl max-h-96 border-0 border-solid bg-clip-border">
               <div className="p-4 pb-0 rounded-t-4">
-                <h6 className="mb-0 text-gray-700 font-semibold">
+                <h6 className="mb-0 font-semibold text-gray-700">
                   My trending subjects
                 </h6>
               </div>
@@ -316,7 +316,7 @@ const TutorDashboard = () => {
                       className="relative flex justify-between py-2 pr-4 mb-2 border-0 rounded-xl text-inherit"
                     >
                       <div className="flex items-center">
-                        <div className="flex justify-center items-center w-8 h-8 mr-4 text-center text-white bg-center shadow-sm fill-current stroke-none bg-gradient-to-tl from-zinc-400 to-zinc-500 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 rounded-xl">
+                        <div className="flex items-center justify-center w-8 h-8 mr-4 text-center text-white bg-center shadow-sm fill-current stroke-none bg-gradient-to-tl from-zinc-400 to-zinc-500 dark:bg-gradient-to-tl dark:from-slate-750 dark:to-gray-850 rounded-xl">
                           {subject.reactIcon}
                         </div>
                         <div className="flex flex-col">

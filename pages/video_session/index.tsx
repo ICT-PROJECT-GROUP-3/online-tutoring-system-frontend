@@ -16,16 +16,16 @@ const Room = (props) => {
   };
   return (
     <PageWrapper>
-      <div className="flex min-h-full flex-col justify-center items-center mt-28 px-6 py-12 lg:px-8 bg-white w-1/2 shadow-2xl p-24 rounded-xl">
+      <div className="flex flex-col items-center justify-center w-1/2 min-h-full p-24 px-6 py-12 bg-white shadow-2xl mt-28 lg:px-8 rounded-xl">
         <div className="flex flex-col justify-center sm:mx-auto sm:w-full sm:max-w-sm">
           <Image
-            className="h-10 w-10 mx-auto"
+            className="w-10 h-10 mx-auto"
             src="/assets/images/Logo.png"
             alt=""
             width={170}
             height={100}
           />
-          <h2 className="mt-10 text-center text-2xl font-extrabold leading-9 tracking-tight text-gray-600">
+          <h2 className="mt-10 text-2xl font-extrabold leading-9 tracking-tight text-center text-gray-600">
             Enter Room
           </h2>
         </div>
@@ -55,7 +55,7 @@ const Room = (props) => {
                 className="flex w-full justify-center rounded-md bg-orange-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 {isLoading ? (
-                  <div className="flex justify-between items-center gap-3">
+                  <div className="flex items-center justify-between gap-3">
                     <BallTriangle
                       height={25}
                       width={25}
@@ -66,7 +66,7 @@ const Room = (props) => {
                       // wrapperStyle=""
                       visible={true}
                     />{' '}
-                    <p className="flex h-full w-full items-center">loading</p>{' '}
+                    <p className="flex items-center w-full h-full">loading</p>{' '}
                   </div>
                 ) : (
                   'Enter Room'
