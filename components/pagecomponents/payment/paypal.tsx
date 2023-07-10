@@ -1,9 +1,14 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ImPaypal } from 'react-icons/im';
 import SecondaryButton from '../../common/buttons/secondary-button';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
 const PayPal = () => {
+  const router = useRouter();
+  const slug = router.query.slug;
+  console.log(slug);
+
   return (
     <>
       <CardDropShadow>
@@ -14,7 +19,7 @@ const PayPal = () => {
           </div>
           {/* Connect to paypal using this button*/}
           <div className="w-1/3 mb-4">
-            <Link href="/checkout">
+            <Link href={`/tutor_profile/${slug}/payment/checkout`}>
               <SecondaryButton name={'Purchase'} />
             </Link>
           </div>
