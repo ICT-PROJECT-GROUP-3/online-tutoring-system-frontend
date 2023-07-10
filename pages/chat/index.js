@@ -55,18 +55,18 @@ export default function Home() {
     );
   }
 
-  function renderChatForm(creds) {
-    return (
-      <div>
-        <input
-          placeholder="Username"
-          value={username1}
-          onChange={(e) => setUsername1(e.target.value)}
-        />
-        <button onClick={() => createDirectChat(creds)}>Create</button>
-      </div>
-    );
-  }
+  // function renderChatForm(creds) {
+  //   return (
+  //     <div>
+  //       <input
+  //         placeholder="Username"s
+  //         value={username1}
+  //         onChange={(e) => setUsername1(e.target.value)}
+  //       />
+  //       <button onClick={() => createDirectChat(creds)}>Create</button>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="w-screen h-screen p-5">
@@ -77,7 +77,7 @@ export default function Home() {
           userName={username}
           userSecret={secret}
           renderNewMessageForm={() => <MessageFormSocial />}
-          renderNewChatForm={(creds) => renderChatForm(creds)}
+          // renderNewChatForm={(creds) => renderChatForm(creds)}
         />
       </div>
     </div>

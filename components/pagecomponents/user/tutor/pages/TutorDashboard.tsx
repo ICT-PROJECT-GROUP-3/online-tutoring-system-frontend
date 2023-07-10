@@ -15,7 +15,7 @@ const TutorDashboard = () => {
   const pageName = 'Dashboard';
   const [students, setStudents] = useState([]);
   const [numberOfSessions, setNumberOfSessions] = useState(0);
-  const [subjects, setSubjects] = useState([]);
+  const [subjects] = useState([]);
   const [totalNumberOfSessions, setTotalNumberOfSessions] = useState(0);
   const [totalNumberOfStudents, setTotalNumberOfStudents] = useState(0);
 
