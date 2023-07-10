@@ -14,13 +14,20 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
+  "typedocOptions": {
+    "out": "docs",
+    "entryPoints": ["pages"],
+    "exclude": ["**/*.spec.ts"],
+    "theme": "default"
+  },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "lib/services/firebase/auth.tsx",
     "pages/api/mux/uploadFile.js",
-    "components/pagecomponents/video_session/Settings.tsx"
-, "pages/chat/index.js"  ],
+    "components/pagecomponents/video_session/Settings.tsx",
+    "pages/chat/index.js"
+  ],
   "exclude": ["node_modules"]
 }

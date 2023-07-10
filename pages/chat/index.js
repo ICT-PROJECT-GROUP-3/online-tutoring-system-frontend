@@ -59,11 +59,7 @@ export default function Home() {
   //   return (
   //     <div>
   //       <input
-<<<<<<< HEAD
-  //         placeholder="Username"s
-=======
   //         placeholder="Username"
->>>>>>> f89b0493cecfbd411ef07519c3ba4cd18bec1b87
   //         value={username1}
   //         onChange={(e) => setUsername1(e.target.value)}
   //       />
