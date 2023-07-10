@@ -1,15 +1,19 @@
 import bcrypt from 'bcryptjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useContext, useState } from 'react';
 import { GiPadlock } from 'react-icons/gi';
 import { ImEnvelop } from 'react-icons/im';
 import { MdSupervisorAccount } from 'react-icons/md';
 import { BallTriangle } from 'react-loader-spinner';
 import PageWrapper from '../../components/shared/PageWrapper';
+import { AuthContext } from '../../context/auth/SessionContext';
+import { useAuthStepperContext } from '../../context/auth/StepperContext';
 
 // Define the component
 const Index = () => {
+  const { tutorData, setUserData } = useAuthStepperContext();
+  const { user, login } = useContext(AuthContext);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,6 +53,7 @@ const Index = () => {
           email: email,
           password: hash,
           role: role,
+          refreshToken: '',
         };
         const sanityApiKey =
           'skHK4SXyIt4zKcU6X6OIOaG2Zsb2ZYMvQk3oCMakw6KutBjRDje8EtUZVcDpIBSiGbF3cH26h46T9oH6GWg0VH6eDCHDg6uUX669PviEvtqfwTdrE4W7PuB00Mc6aWVq8S3up1LqUPkTeZOmVrtBX6yduClsbvwAceBJQTtRKzpnVZ5FGMuK';
@@ -68,7 +73,7 @@ const Index = () => {
                 mutations: [
                   {
                     create: {
-                      _type: 'user', // Replace with your existing schema type "tutor"
+                      _type: 'user', // Replace with your existing schema type "user"
                       // Map the data fields to the corresponding fields in your "tutor" schema
                       ...data, // Spread the tutorData object to include all fields
                     },
@@ -80,7 +85,31 @@ const Index = () => {
 
           if (response.ok) {
             console.log('account created successfully!');
-            router.push('/Auth/RegistrationStepper');
+
+            //session context
+            try {
+              const user = data;
+              console.log(data.name);
+              console.log(data.email);
+
+              const accessToken = 'token';
+
+              const postData = { accessToken, user };
+
+              login(postData);
+              console.log('context created');
+            } catch (error) {
+              console.log(
+                'Context not created followed by this error: ' + error
+              );
+            }
+
+            // redirect to the next page
+            if (user.user.role == 'tutor') {
+              router.push('/Auth/AccountSetUpBuilder');
+            } else if (user.user.role == 'student') {
+              router.push('/user/student/Dashboard');
+            }
           } else {
             console.error('Error creating user:', response.statusText);
           }

@@ -18,20 +18,20 @@ const Language = () => {
     push(`/`, undefined, { locale: l });
   };
 
-  const check = (l) => {
-    if (String(l) === 'en') {
-      setLanguage('English');
-      return language;
-    } else {
-      if (String(l) === 'fr') {
-        setLanguage('French');
-        return language;
-      } else {
-        setLanguage('Chichewa');
-        return language;
-      }
-    }
-  };
+  // const check = (l) => {
+  //   if (String(l) === 'en') {
+  //     setLanguage('English');
+  //     return language;
+  //   } else {
+  //     if (String(l) === 'fr') {
+  //       setLanguage('French');
+  //       return language;
+  //     } else {
+  //       setLanguage('Chichewa');
+  //       return language;
+  //     }
+  //   }
+  // };
   return (
     <>
       <div className="w-10 h-10 relative bg-[#f4f1ed] hover:bg-[#EDEAE6]">

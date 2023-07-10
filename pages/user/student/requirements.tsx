@@ -101,7 +101,7 @@ const Requirements = () => {
                 </div>
                 <div className="md:w-full">
                   <textarea
-                    className="bg-white text-sm md:text-base appearance-none border-2 border-[#EAE8E4] rounded w-full py-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
+                    className="bg-white text-sm md:text-base appearance-none border-2 focus:border-transparent border-[#EAE8E4] rounded w-full py-2 px-2 text-[#1c1c1c] leading-tight focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     id="description"
                     rows={8}
                     placeholder="Example: I am looking for someone with experience in teaching IGCSE Maths online to young kids. My daughter is available from 4.30 pm EST to 8.30 pm EST on weekdays and flexible on Weekends. You should have a digital pen and good internet connection. My budget is a maximum of MWK10000 per hour."
@@ -124,7 +124,7 @@ const Requirements = () => {
                   </label>
                 </div>
                 <div className="md:w-full">
-                  <div className="bg-white text-sm md:text-base border-2 border-[#EAE8E4] group rounded w-full px-2 py-4 md:px-4 text-[#1c1c1c] ">
+                  <div className="bg-white text-sm md:text-base border-2 border-[#EAE8E4] group rounded w-full px-2 py-2 md:2x-4 text-[#1c1c1c] ">
                     <ul className="flex flex-wrap">
                       {subjects.map((subject, index) => (
                         <li
@@ -139,7 +139,7 @@ const Requirements = () => {
                         </li>
                       ))}
                       <input
-                        className="inline p-0 my-2 mx-2 border-0 appearance-none align-baseline leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
+                        className="inline p-0 mx-2 my-2 leading-tight align-baseline bg-white border-0 appearance-none focus:ring-0 focus:border-transparent focus:outline-none"
                         type="text"
                         placeholder="Press enter after typing"
                         onKeyUp={(e) =>
@@ -166,7 +166,7 @@ const Requirements = () => {
                   </label>
                 </div>
                 <div className="md:w-full">
-                  <div className="bg-white text-sm md:text-base border-2 border-[#EAE8E4] group rounded w-full px-2 py-4 md:px-4 text-[#1c1c1c] ">
+                  <div className="bg-white text-sm md:text-base border-2 border-[#EAE8E4] group rounded w-full px-2 py-2 md:2x-4 text-[#1c1c1c] ">
                     <ul className="flex flex-wrap">
                       {languages.map((language, index) => (
                         <li
@@ -181,7 +181,7 @@ const Requirements = () => {
                         </li>
                       ))}
                       <input
-                        className="inline p-0 my-2 mx-2 border-0 appearance-none align-baseline leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
+                        className="inline p-0 mx-2 my-2 leading-tight align-baseline border-0 appearance-none focus:ring-0 focus:outline-none focus:bg-white focus:border-transparent"
                         type="text"
                         placeholder="Press enter after typing"
                         onKeyUp={(e) =>
@@ -209,7 +209,7 @@ const Requirements = () => {
                 </div>
                 <div className="md:w-full">
                   <input
-                    className="bg-white text-sm md:text-base appearance-none border-2 border-[#EAE8E4] rounded w-full py-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
+                    className="bg-white text-sm md:text-base appearance-none border-2 border-[#EAE8E4] rounded w-full py-2 px-2 text-[#1c1c1c] leading-tight focus:border-transparent focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     id="location"
                     type="text"
                   />
@@ -234,7 +234,7 @@ const Requirements = () => {
                   <select
                     name="language"
                     id="language"
-                    className="bg-white text-sm md:text-base appearance-none border-2 border-[#EAE8E4] rounded w-full py-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
+                    className="bg-white text-sm md:text-base appearance-none border-2 focus:border-transparent border-[#EAE8E4] rounded w-full py-2 px-2 text-[#1c1c1c] leading-tight focus:outline-none focus:border-transparent focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                   >
                     <option value="">Please select the gender</option>
                     <option value="any">Any</option>
@@ -266,7 +266,7 @@ const Requirements = () => {
                       onChange={(e) => setMinValue(parseInt(e.target.value))}
                       type="number"
                       value={minValue}
-                      className="w-28 bg-white appearance-none border-2 border-[#EAE8E4] roundedpy-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
+                      className="w-28 bg-white appearance-none border-2 border-[#EAE8E4] rounded py-2 px-2 text-[#1c1c1c] leading-tight focus:border-transparent focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
                   <div className="ml-2 text-lg font-semibold"> - </div>
@@ -276,14 +276,14 @@ const Requirements = () => {
                       onChange={(e) => setMaxValue(parseInt(e.target.value))}
                       type="number"
                       value={maxValue}
-                      className="w-28 bg-white appearance-none border-2 border-[#EAE8E4] roundedpy-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
+                      className="w-28 bg-white appearance-none border-2 border-[#EAE8E4] rounded py-2 px-2 text-[#1c1c1c] leading-tight  focus:border-transparent focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                   </div>
                 </div>
                 <div className="w-full mb-4">
                   <div className="relative h-1 bg-gray-300 rounded-md slider">
                     <div
-                      className="absolute h-1 bg-[#F4AB4E] rounded progress "
+                      className="absolute h-1 bg-[#F4AB4E] accent-[#F4AB4E] rounded progress "
                       ref={progressRef}
                     ></div>
                   </div>
@@ -296,7 +296,7 @@ const Requirements = () => {
                       step={100}
                       max={100000}
                       value={minValue}
-                      className="absolute w-full h-1 bg-transparent accent-[#F4AB4E] appearance-none pointer-events-none range-min -top-1"
+                      className="absolute w-full h-1 bg-transparent focus:border-transparent accent-[#F4AB4E] appearance-none pointer-events-none range-min -top-1"
                     />
 
                     <input
@@ -306,7 +306,7 @@ const Requirements = () => {
                       step={100}
                       max={100000}
                       value={maxValue}
-                      className="absolute w-full h-1 bg-transparent accent-[#F4AB4E] appearance-none pointer-events-none range-max -top-1"
+                      className="absolute w-full h-1 bg-transparent focus:border-transparent accent-[#F4AB4E] appearance-none pointer-events-none range-max -top-1"
                     />
                   </div>
                 </div>

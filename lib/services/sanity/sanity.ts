@@ -1,12 +1,9 @@
-import { createClient } from 'next-sanity';
-
-//...
+import { createClient } from '@sanity/client';
 
 const client = createClient({
-  projectId: process.env.SANITY_PROJECT_ID,
-  dataset: process.env.SANITY_DATASET,
-  apiVersion: '2023-05-08',
-  useCdn: false,
+  projectId: '3iouolde',
+  dataset: 'production',
+  apiVersion: '2023-06-18', // The API version you are using
+  useCdn: false, // Set to true if you want to enable the Content Delivery Network (CDN)
 });
-
 export default client;

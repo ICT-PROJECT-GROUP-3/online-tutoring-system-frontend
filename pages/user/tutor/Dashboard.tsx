@@ -1,23 +1,58 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { MdAttachFile } from 'react-icons/md';
-import PageWrapper from '../../../components/shared/PageWrapper';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import TutorSideNav from '../../../components/pagecomponents/user/tutor/TutorSideNav';
+import TutorDashboard from '../../../components/pagecomponents/user/tutor/pages/TutorDashboard';
+import TutorPayments from '../../../components/pagecomponents/user/tutor/pages/TutorPayments';
+import TutorProfileDashboard from '../../../components/pagecomponents/user/tutor/pages/TutorProfileDashboard';
+import TutorSessions from '../../../components/pagecomponents/user/tutor/pages/TutorSessions';
+import TutorSupport from '../../../components/pagecomponents/user/tutor/pages/TutorSupport';
 import { AuthContext } from '../../../context/auth/SessionContext';
-import Navbar from '../../../components/shared/navbar/Navbar';
 
 const Dashboard = () => {
   const router = useRouter();
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, tutor } = useContext(AuthContext);
+  // const { tutor } = useContext(AuthContext);
+  const id = tutor?._id;
+  // console.log('THE TUTOR ID FROM SESSION IS: ' + id);
+  // console.log('THE TUTOR ID FROM SESSION IS:' + data);
 
- const handleLogout = async () => {
+  const handleLogout = async () => {
     logout;
     router.push('/Auth');
- }
+  };
+
+  const [activeComponent, setActiveComponent] = useState<string>('');
+
+  const handleSidebarClick = (componentName: string) => {
+    setActiveComponent(componentName);
+  };
+
+  const students = [];
+  // const students = JSON.stringify(response);
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case 'Dashboard':
+        return <TutorDashboard />;
+      case 'Profile':
+        return <TutorProfileDashboard />;
+      case 'Session':
+        return <TutorSessions />;
+      case 'Support':
+        return <TutorSupport />;
+      case 'Payment':
+        return <TutorPayments />;
+      // case 'component6':
+      //   return <Component6 />;
+      default:
+        return <TutorDashboard />;
+    }
+  };
 
   return (
-    <PageWrapper>
-      <Navbar/>
+    <div>
+      <TutorSideNav onSidebarClick={handleSidebarClick} />
+      <div className="w-screen screen">{renderComponent()}</div>
+      {/* <PageWrapper>
       <div className="flex flex-col items-center justify-center min-h-screen py-5 pt-5 mx-4 sm:pt-0 sm:mx-2 mt-20">
         <div className='w-3/5 bg-white p-20 rounded-xl'>
         <div className=' flex text-gray-600 font-bold text-2xl my-10 w-full justify-center'>Dashboard</div>
@@ -151,12 +186,9 @@ const Dashboard = () => {
         </Link>
         </div>
       </div>
-    </PageWrapper>
+    </PageWrapper> */}
+    </div>
   );
 };
 
 export default Dashboard;
-function preventDefault() {
-  throw new Error('Function not implemented.');
-}
-
