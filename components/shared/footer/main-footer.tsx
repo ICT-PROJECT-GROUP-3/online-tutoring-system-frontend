@@ -4,6 +4,7 @@ import RegularButton from '../../common/buttons/primary-button';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
 const MainFooter = ({ children }) => {
+  // List of links and their categories
   const sections = [
     {
       title: 'Browse',
@@ -44,8 +45,10 @@ const MainFooter = ({ children }) => {
           />
           <div>
             <div className="h-4"></div>
+            {/* Background Gradient */}
             <div className="w-screen h-[440px] sm:h-80 opacity-80 bg-gradient-to-b from-[#f4f3f2] to-[#eee9e2]">
               <div className="flex flex-col items-center justify-center mb-8 -space-y-12 justify-items-center">
+                {/* Top Bar */}
                 <div
                   className="w-2/3 h-8 rounded-bl-[100px] rounded-br-[50px] bg-[#f4f3f2]"
                   style={{ boxShadow: '0px 20px 50px 0 #e5e5e5' }}
@@ -54,6 +57,7 @@ const MainFooter = ({ children }) => {
               </div>
               <div className="flex flex-col justify-between mx-8 my-12 sm:mx-40 sm:flex-row">
                 <div className="flex flex-col w-auto mb-4 sm:mb-0 sm:items-center sm:content-center sm:justify-center sm:mr-16 sm:w-1/5">
+                  {/* Logo and Title */}
                   <div className="flex flex-row sm:items-center sm:content-center sm:justify-center sm:flex-col">
                     <Image
                       className="w-8 h-9 sm:w-24 sm:h-[108px]"
@@ -66,12 +70,14 @@ const MainFooter = ({ children }) => {
                       Mphunzitsi
                     </h1>
                   </div>
+                  {/* Description */}
                   <p className="text-xs font-medium sm:text-center text-[#5c5b5b]">
                     An Online Tutoring Platform that aims to provide a service
                     connect students with teachers, matching them together
                     accordingly and providing a channel for interaction.
                   </p>
                 </div>
+                {/* Vertical Line */}
                 <svg
                   width={2}
                   height={256}
@@ -93,6 +99,7 @@ const MainFooter = ({ children }) => {
                   />
                 </svg>
                 <div className="grid grid-cols-3 gap-4 mb-4 sm:mb-0 sm:mx-16 sm:gap-16">
+                  {/* Links */}
                   {sections.map((section) => (
                     <div key={section.title}>
                       <h2 className="mb-2 text-sm font-semibold text-gray-900 capitalize sm:mb-6 dark:text-white">
@@ -101,6 +108,7 @@ const MainFooter = ({ children }) => {
                       <ul className="text-xs font-light text-gray-600 dark:text-gray-300">
                         {section.links.map((link) => (
                           <li key={link.label} className="mb-1 sm:mb-4">
+                            {/* Link */}
                             <Link href={link.url} className="hover:underline">
                               {link.label}
                             </Link>
@@ -114,6 +122,7 @@ const MainFooter = ({ children }) => {
                   <h2 className="mb-2 text-sm font-semibold text-gray-900 capitalize sm:mb-4 dark:text-white">
                     Contacts
                   </h2>
+                  {/* Subscription Card */}
                   <CardDropShadow>
                     <div className="flex flex-col w-64 max-w-xl min-w-0 mx-2 my-4 sm:w-96">
                       <p className="text-sm font-bold text-left text-[#5c5c5b]">
@@ -139,9 +148,11 @@ const MainFooter = ({ children }) => {
                 </div>
               </div>
             </div>
+            {/* Bottom Bar */}
             <div className="w-screen h-8 opacity-80 bg-[#f4f3f2] px-8 sm:px-32 flex flex-col justify-center">
               <span className="flex flex-row text-xs font-bold text-gray-500">
-                Copyright © 2023{' '}
+                {/* Copyright */}
+                Copyright © 2023
                 <Image
                   className="w-auto h-4 mr-1"
                   src="/assets/images/Logo.png"

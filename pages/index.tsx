@@ -8,6 +8,7 @@ import Features from '../components/pagecomponents/home_page/Features';
 import Hero from '../components/pagecomponents/home_page/Hero';
 import NewsLetter from '../components/pagecomponents/home_page/Newsletter';
 import Team from '../components/pagecomponents/home_page/Team';
+import MainFooter from '../components/shared/footer/main-footer';
 import Navbar from '../components/shared/navbar/Navbar';
 
 const Home = () => {
@@ -21,43 +22,45 @@ const Home = () => {
     <main
       className={`flex min-h-screen w-screen flex-col items-center justify-between p-0 md:p-2 mt-20 `}
     >
-      <Navbar />
-      <JoyRideNoSSR
-        spotlightClicks
-        showSkipButton
-        showProgress
-        continuous
-        scrollToFirstStep
-        styles={{
-          options: {
-            primaryColor: '#d00000',
-          },
-        }}
-        steps={[
-          {
-            content:
-              'Change between the language your most comfortable with, Sintha pakati pa chilankhulo chomwe mumamasuka nacho. ',
-            target: '#translator',
-          },
-          {
-            content: 'Click here to activate dark mode.',
-            target: '#dark-mode',
-          },
-          {
-            content: 'Click here if you need any more assistance in the page',
-            target: '#help',
-          },
-        ]}
-      />
-      <Hero
-        hero_title_1={translate('hero_title_1')}
-        hero_title_2={translate('hero_title_2')}
-      />
-      <About />
-      <Features />
-      <Team />
-      <Contact />
-      <NewsLetter />
+      <MainFooter>
+        <Navbar />
+        <JoyRideNoSSR
+          spotlightClicks
+          showSkipButton
+          showProgress
+          continuous
+          scrollToFirstStep
+          styles={{
+            options: {
+              primaryColor: '#d00000',
+            },
+          }}
+          steps={[
+            {
+              content:
+                'Change between the language your most comfortable with, Sintha pakati pa chilankhulo chomwe mumamasuka nacho. ',
+              target: '#translator',
+            },
+            {
+              content: 'Click here to activate dark mode.',
+              target: '#dark-mode',
+            },
+            {
+              content: 'Click here if you need any more assistance in the page',
+              target: '#help',
+            },
+          ]}
+        />
+        <Hero
+          hero_title_1={translate('hero_title_1')}
+          hero_title_2={translate('hero_title_2')}
+        />
+        <About />
+        <Features />
+        <Team />
+        <Contact />
+        <NewsLetter />
+      </MainFooter>
     </main>
   );
 };

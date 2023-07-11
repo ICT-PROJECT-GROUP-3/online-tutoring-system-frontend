@@ -151,18 +151,21 @@ import { XMarkIcon } from '@heroicons/react/20/solid';
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import { BiMenuAltRight } from 'react-icons/bi';
 import { MdDarkMode } from 'react-icons/md';
 import { AuthContext } from '../../../context/auth/SessionContext';
 import Help from './help';
 import Language from './language';
-import { useRouter } from 'next/router';
 
+// Define navigation links for desktop view
 const navigationDesktop = [
   { name: 'Sign In', href: '/Auth' },
   { name: 'About', href: '#' },
 ];
+
+// Define navigation links for mobile view
 const navigation = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/' },
@@ -170,6 +173,8 @@ const navigation = [
   { name: 'Sign In', href: '/Auth' },
   { name: 'Register', href: '/Auth/SignUp' },
 ];
+
+// Define navigation links for logged-in users
 const navigationWhilstLoggedIn = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/' },
@@ -180,24 +185,19 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
-  //getting user session context from context provider
+  // Getting user session context from context provider
   const { user } = useContext(AuthContext);
 
   const toDashboard = () => {
+    // Redirect to the dashboard based on user role
     if (user.user.role === 'tutor') {
-      window.location.href ='/user/tutor/Dashboard';
+      window.location.href = '/user/tutor/Dashboard';
     } else if (user.user.role === 'student') {
       window.location.href = '/user/student/Dashboard';
     }
   };
 
-  // if (user) {
-  //   console.log(user.user.name);
-  // } else {
-  //   console.log('no user');
-  // }
-
-
+  // Render the component
   return (
     <div
       className="fixed w-screen h-16 bg-[#f4f3f2] flex flex-col justify-center z-30 top-0"
@@ -235,7 +235,7 @@ const Navbar = () => {
           </div>
           <div className="items-center hidden lg:flex lg:gap-x-4">
             <Link href="/find_tutor">Find Tutor</Link>
-            <div className="rounded-[5px] bg-[#d03434]  hover:bg-orange-500 p-1 w-auto">
+            <div className="rounded-[5px] bg-[#d03434] hover:bg-orange-500 p-1 w-auto">
               <Link href="/Auth">
                 <p className="text-md text-center text-[#fbf6e6] ">
                   Become Tutor
@@ -245,10 +245,14 @@ const Navbar = () => {
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-x-4">
             {user ? (
-              <span onClick={toDashboard} className="text-sm cursor-pointer font-medium leading-6 text-gray-900">
+              <span
+                onClick={toDashboard}
+                className="text-sm font-medium leading-6 text-gray-900 cursor-pointer"
+              >
                 {user.user.name}
               </span>
             ) : (
+              // Render navigation links for non-logged-in users
               navigationDesktop.map((item) => (
                 <Link
                   key={item.name}
@@ -305,6 +309,7 @@ const Navbar = () => {
             <div className="flow-root mt-6">
               <div className="-my-6 divide-y divide-gray-500/10">
                 <div className="py-24 space-y-2">
+                  {/* Render navigation links based on user session */}
                   {user
                     ? navigationWhilstLoggedIn.map((item) => (
                         <Link
@@ -327,15 +332,6 @@ const Navbar = () => {
                         </Link>
                       ))}
                 </div>
-
-                {/* <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
-                </div> */}
               </div>
             </div>
           </Dialog.Panel>

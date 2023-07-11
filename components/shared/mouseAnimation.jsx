@@ -6,31 +6,11 @@ const MouseAnimation = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const colors = [
-    "#f4ab4e",
-    "#f4a65b",
-    "#f3a14b",
-    "#f3a04e",
-    "#f1a04c",
-    "#ed9449",
-    "#eb8e4a",
-    "#e98646",
-    "#e77f45",
-    "#e47642",
-    "#e36f43",
-    "#e0663f",
-    "#de5f3e",
-    "#db563b",
-    "#d9503c",
-    "#d74938",
-    "#d64239",
-    "#d33e36",
-    "#d23a37",
-    "#d13735",
-    "#d23836",
-    "#d03434"
+    // Array of colors for the circles
   ];
 
   useEffect(() => {
+    // Initialize the circles and assign colors to them
     circles.current.forEach((circle, index) => {
       circle.x = 0;
       circle.y = 0;
@@ -39,23 +19,27 @@ const MouseAnimation = () => {
   }, []);
 
   useEffect(() => {
+    // Update the mouse coordinates on mousemove
     const handleMouseMove = (e) => {
       coords.current.x = e.clientX;
       coords.current.y = e.clientY;
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove);
 
+    // Cleanup the event listener
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
   const handleMouseHover = () => {
+    // Set the hovered state to true
     setIsHovered(true);
   };
 
   const handleMouseLeave = () => {
+    // Set the hovered state to false
     setIsHovered(false);
   };
 
@@ -64,11 +48,13 @@ const MouseAnimation = () => {
       let x = coords.current.x;
       let y = coords.current.y;
 
+      // Update the position and scale of each circle
       circles.current.forEach((circle, index) => {
-        circle.style.left = x - 12 + "px";
-        circle.style.top = y - 12 + "px";
+        circle.style.left = x - 12 + 'px';
+        circle.style.top = y - 12 + 'px';
 
-        circle.style.scale = (circles.current.length - index) / circles.current.length;
+        circle.style.scale =
+          (circles.current.length - index) / circles.current.length;
 
         circle.x = x;
         circle.y = y;
@@ -78,13 +64,16 @@ const MouseAnimation = () => {
         y += (nextCircle.y - y) * 0.3;
       });
 
+      // Request animation frame for smooth animation
       requestAnimationFrame(animateCircles);
     };
 
+    // Start the animation loop
     animateCircles();
   }, []);
 
   const handleCircleRef = (circle) => {
+    // Add each circle reference to the circles array
     if (circle) {
       circles.current.push(circle);
     }
@@ -93,8 +82,8 @@ const MouseAnimation = () => {
   return (
     <div className="container h-screen mx-auto">
       <h1
-        // onMouseEnter={handleMouseHover}
-        // onMouseLeave={handleMouseLeave}
+      // onMouseEnter={handleMouseHover}
+      // onMouseLeave={handleMouseLeave}
       >
         Hover Me!
       </h1>
