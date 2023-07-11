@@ -11,14 +11,12 @@ const AccountSettings = () => {
     formState: { errors },
   } = useForm();
 
+  /**
+   * Handles the form submission.
+   */
   const submit = () => {
     alert('button is clicked')!;
   };
-
-  // const [nameError, setNameError] = useState('');
-  // const [phoneError, setPhoneError] = useState('');
-  // const [emailError, setEmailError] = useState('');
-  // const [passwordError, setPasswordError] = useState('');
 
   return (
     <>
@@ -42,43 +40,7 @@ const AccountSettings = () => {
                     />
                   </div>
                 </div>
-                <div className="flex-col mb-6 md:flex md:items-center">
-                  <div className="mb-4 md:w-full">
-                    <Title title="Last Name" info="" />
-                  </div>
-                  <div className="md:w-full">
-                    <input
-                      className="bg-white appearance-none border-2 border-[#EAE8E4] rounded w-full py-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
-                      id="inline-full-name"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div className="flex-col mb-6 md:flex md:items-center">
-                  <div className="mb-4 md:w-full">
-                    <Title title="Email" info="" />
-                  </div>
-                  <div className="md:w-full">
-                    <input
-                      className="bg-white appearance-none border-2 border-[#EAE8E4] rounded w-full py-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
-                      id="inline-full-name"
-                      type="text"
-                    />
-                  </div>
-                </div>
-                <div className="flex-col mb-6 md:flex md:items-center">
-                  <div className="mb-4 md:w-full">
-                    <Title title="Phone Number" info="" />
-                  </div>
-                  <div className="md:w-full">
-                    <input
-                      className="bg-white appearance-none border-2 border-[#EAE8E4] rounded w-full py-4 px-4 text-[#1c1c1c] leading-tight focus:outline-none focus:bg-white focus:border-[#f4ab4e]"
-                      id="inline-full-name"
-                      type="text"
-                    />
-                  </div>
-                </div>
-
+                {/* ...other form fields */}
                 <div className="flex justify-end w-full">
                   <div className="grid justify-end w-full grid-cols-2 gap-2 md:w-1/2 md:items-center">
                     <input

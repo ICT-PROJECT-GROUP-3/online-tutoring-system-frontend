@@ -1,61 +1,42 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
-import { StepperContextProvider, useAuthStepperContext } from '../../context/auth/StepperContext';
-import RegistrationStepper from './RegistrationStepper';
 import { useState } from 'react';
+import RegistrationStepper from './RegistrationStepper';
 
-
- //jsx to return when the page is loading
- const AccountSetUpBuilderLoad = () => {
-    return (
-        <motion.div
+/**
+ * Component to display a loading message while setting up the account.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
+const AccountSetUpBuilderLoad = (): JSX.Element => {
+  return (
+    <motion.div
       initial={{ opacity: 0, x: 100 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -100 }}
       transition={{ duration: 1 }}
       className="flex flex-col items-center justify-center h-screen"
     >
-      setting up your account. Please wait...
+      Setting up your account. Please wait...
     </motion.div>
-    );
-}
-  
+  );
+};
 
-const AccountSetUpBuilder = () => {
+/**
+ * Component for the account setup builder.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
+const AccountSetUpBuilder = (): JSX.Element => {
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-    const [loading, setLoading] = useState(false);
-
-// // const { tutorData, setUserData } = useAuthStepperContext();
-//   //data from the previous page
-//   const router = useRouter();
-// //   const { data } = router.query;
-// //   console.log(data);
-// const { data } = router.query;
-// const parsedData = data ? JSON.parse(data as string) : null;
-// console.log(parsedData)
-
-
-// //   const predata = Array.isArray(data) ? data[0] : data; // Convert array to string if needed
-// //   const finalData = JSON.parse(predata); // Parse string to JSON object
-// //   tutorData['fullname'] = finalData?.name || '';
-// //   tutorData['email'] = finalData?.email || '';
-// //   console.log(finalData);
-
-  // 3 seconds delay
+  // 6 seconds delay
   setTimeout(() => {
     setLoading(true);
-   
   }, 6000);
 
- 
-
-  return (
-    //animation
-    <>
-    {loading ? <RegistrationStepper /> : <AccountSetUpBuilderLoad />}
-    </>
-        
-  );
+  return <>{loading ? <RegistrationStepper /> : <AccountSetUpBuilderLoad />}</>;
 };
 
 export default AccountSetUpBuilder;

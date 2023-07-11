@@ -2,6 +2,11 @@ import React from 'react';
 import Menu from '../../../components/pagecomponents/student_dashboard/menu';
 import Navbar from '../../../components/shared/navbar/Navbar';
 
+/**
+ * Layout component for the student dashboard page.
+ * Renders the navbar, menu, and page content.
+ * @param {React.ReactNode} children - The children components to be rendered within the layout.
+ */
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>

@@ -4,16 +4,25 @@ import { useState } from 'react';
 import { BallTriangle } from 'react-loader-spinner';
 import PageWrapper from '../../components/shared/PageWrapper';
 
+/**
+ * Component for entering a room by providing a room code.
+ */
 const Room = (props) => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [RoomCode, setRoomCode] = useState(router.query.name);
+
+  /**
+   * Handles the form submission when the user clicks the submit button.
+   * @param {Event} e - The form submit event.
+   */
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
     console.log(RoomCode);
     router.push(`./video_session/${RoomCode}`);
   };
+
   return (
     <PageWrapper>
       <div className="flex flex-col items-center justify-center w-1/2 min-h-full p-24 px-6 py-12 bg-white shadow-2xl mt-28 lg:px-8 rounded-xl">
@@ -62,11 +71,9 @@ const Room = (props) => {
                       radius={6}
                       color="white"
                       ariaLabel="ball-triangle-loading"
-                      // wrapperClass={{}}
-                      // wrapperStyle=""
                       visible={true}
-                    />{' '}
-                    <p className="flex items-center w-full h-full">loading</p>{' '}
+                    />
+                    <p className="flex items-center w-full h-full">loading</p>
                   </div>
                 ) : (
                   'Enter Room'

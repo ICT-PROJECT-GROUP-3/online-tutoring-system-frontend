@@ -16,9 +16,13 @@
   },
   "typedocOptions": {
     "out": "docs",
-    "entryPoints": ["pages"],
+    "entryPoints": ["pages", "components/pagecomponents", "components/shared"],
     "exclude": ["**/*.spec.ts"],
-    "theme": "default"
+    "theme": "default",
+    "jsDocCompatibility": {
+      "exampleTag": true,
+      "defaultTag": true
+    }
   },
   "include": [
     "next-env.d.ts",

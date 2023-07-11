@@ -8,17 +8,27 @@ import { BallTriangle } from 'react-loader-spinner';
 import PageWrapper from '../../components/shared/PageWrapper';
 import { AuthContext } from '../../context/auth/SessionContext';
 
+/**
+ * Interface for the props of the Index component.
+ */
 interface IProps {
   searchParams?: { [key: string]: string | string[] | undefined };
 }
+
 const client = createClient({
   projectId: '3iouolde',
   dataset: 'production',
   apiVersion: '2021-09-18', // The API version you are using
   useCdn: false, // Set to true if you want to enable the Content Delivery Network (CDN)
 });
-// Define the component
-const Index = ({ searchParams }: IProps) => {
+
+/**
+ * The Index component.
+ *
+ * @param {IProps} props - The component props.
+ * @returns {JSX.Element} The rendered component.
+ */
+const Index = ({ searchParams }: IProps): JSX.Element => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -27,10 +37,15 @@ const Index = ({ searchParams }: IProps) => {
 
   const { login, setTutorData, setStudentData } = useContext(AuthContext);
 
-  // sign in user with email and password
+  /**
+   * Handles user login with email and password.
+   *
+   * @param {React.MouseEvent<HTMLButtonElement, MouseEvent>} e - The event object.
+   * @returns {Promise<void>} A Promise that resolves when the login process is complete.
+   */
   const loginUser = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  ): Promise<void> => {
     e.preventDefault();
     setIsLoading(true);
     if (!name || !password) return;
@@ -55,7 +70,7 @@ const Index = ({ searchParams }: IProps) => {
         const body = await response.json();
         const emailAddress = body['user']['email'];
 
-        //adding the authenticated user to the session context
+        // Adding the authenticated user to the session context
         login(body);
 
         // Checking if the authenticated user is an admin
@@ -64,6 +79,7 @@ const Index = ({ searchParams }: IProps) => {
         }
         // Checking if the authenticated user is a tutor
         else if (body['user']['role'] == 'tutor') {
+          // Fetch tutor data
           try {
             client
               .fetch('*[_type == "tutor" && email == $emailAddress]', {
@@ -85,20 +101,20 @@ const Index = ({ searchParams }: IProps) => {
         }
         // Checking if the authenticated user is a student
         else if (body['user']['role'] == 'student') {
+          // Fetch student data
           try {
             client
               .fetch(
                 `*[_type == "student" && email == $emailAddress] {
-                _id,
+                  _id,
                   first_name,
-                    last_name,
-                    email,
-                    phone,
-                    "tutorName": tutor[]->name,
-                    "tutorSlug": tutor[]->slug,
-                    "tutorEmail": tutor[]->email,
-                    "tutorRef": tutor[]._ref,
-                    
+                  last_name,
+                  email,
+                  phone,
+                  "tutorName": tutor[]->name,
+                  "tutorSlug": tutor[]->slug,
+                  "tutorEmail": tutor[]->email,
+                  "tutorRef": tutor[]._ref,
               }`,
                 {
                   emailAddress,
@@ -137,14 +153,11 @@ const Index = ({ searchParams }: IProps) => {
     }
   };
 
-  // Define the state
   return (
-    // Top level container
     <PageWrapper>
       <div className="flex flex-col items-center justify-center w-4/5 min-h-screen py-5 pt-5 mx-4 sm:pt-0 sm:mx-2">
         <main className="flex flex-col items-center justify-center flex-1 w-full px-0 text-center sm:px-20">
           <div className="flex flex-col w-full max-w-4xl bg-white shadow-2xl rounded-2xl sm:w-6/7 sm:flex-row">
-            {/* Left side of the container */}
             <div className="w-full p-10 sm:w-3/5 sm:p-5">
               <div className="font-bold text-left text-gray-400">
                 Mphunzitsi{' '}
@@ -162,7 +175,6 @@ const Index = ({ searchParams }: IProps) => {
                   </p>
                 )}
                 <div className="flex flex-col items-center">
-                  {/* Email input field */}
                   <div className="flex items-center w-64 p-2 mb-3 bg-gray-200 rounded-lg">
                     <ImEnvelop className="m-2 text-gray-400 " />
                     <input
@@ -175,7 +187,6 @@ const Index = ({ searchParams }: IProps) => {
                       className="w-full text-sm text-gray-600 bg-gray-200 outline-none"
                     />
                   </div>
-                  {/* Password input field */}
                   <div className="flex items-center w-64 p-2 bg-gray-200 rounded-lg">
                     <GiPadlock className="m-2 text-gray-400 " />
                     <input
@@ -202,7 +213,6 @@ const Index = ({ searchParams }: IProps) => {
                       </svg>
                     </div>
                   </div>
-                  {/* Remember me and Forgot password links */}
                   <div className="flex justify-between w-64 mt-2 mb-5 text-gray-500">
                     <label className="flex items-center text-xs">
                       <input type="checkbox" name="remember" className="mr-1" />{' '}
@@ -212,7 +222,6 @@ const Index = ({ searchParams }: IProps) => {
                       Forgot password?
                     </Link>
                   </div>
-                  {/* Sign in button */}
                   <button
                     onClick={(e) => loginUser(e)}
                     className="inline-block w-64 px-12 py-2 font-semibold text-orange-500 transition duration-300 ease-in-out border-2 border-orange-500 rounded-full hover:bg-orange-500 hover:text-white"
@@ -225,8 +234,6 @@ const Index = ({ searchParams }: IProps) => {
                           radius={6}
                           color="orange"
                           ariaLabel="ball-triangle-loading"
-                          // wrapperClass={{}}
-                          // wrapperStyle=""
                           visible={true}
                         />{' '}
                         <p className="flex items-center w-full h-full">
@@ -260,4 +267,5 @@ const Index = ({ searchParams }: IProps) => {
     </PageWrapper>
   );
 };
+
 export default Index;

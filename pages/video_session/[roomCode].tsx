@@ -2,11 +2,11 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth/SessionContext';
 
-// import plugin
-// import { ZegoSuperBoardManager } from "zego-superboard-web";
-
-//rendering dynamic room id page
-
+/**
+ * Room page rendered dynamically based on the provided room code.
+ * Uses ZegoSuperBoardManager plugin for video conferencing and whiteboard functionality.
+ * @param {string} roomCode - The room code for the current room.
+ */
 const RoomCode = ({ roomCode }) => {
   const router = useRouter();
   const { RoomCode } = router.query;

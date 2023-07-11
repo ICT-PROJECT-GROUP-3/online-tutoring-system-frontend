@@ -79,9 +79,6 @@
     "typedoc": "^0.24.8",
     "typescript": "^5.0.4"
   },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
-  },
   "browser": {
     "fs": false,
     "path": false,

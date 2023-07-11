@@ -2,6 +2,9 @@ import React from 'react';
 import { useAuthStepperContext } from '../../../../context/auth/StepperContext';
 import StepsAnimateFramer from '../StepsAnimateFramer';
 
+/**
+ * Configuration for the form fields.
+ */
 const fieldConfig = [
   {
     label: 'Full Name',
@@ -9,16 +12,13 @@ const fieldConfig = [
     placeholder: 'Full Name',
     type: 'text',
   },
-
   {
     label: 'Phone Number',
     name: 'phone_number',
     placeholder: 'Enter your phone number',
     type: 'tel',
   },
-
   { label: 'Location', name: 'location', placeholder: 'Enter your location' },
-
   {
     label: 'Email',
     name: 'email',
@@ -31,7 +31,6 @@ const fieldConfig = [
     placeholder: 'Gender',
     options: ['Male', 'Female'],
   },
-
   {
     label: 'Date of Birth',
     name: 'date_of_birth',
@@ -52,8 +51,9 @@ const fieldConfig = [
   // }
 ];
 
-
-
+/**
+ * Country codes for phone numbers.
+ */
 const countryCodes = [
   { code: '+1', country: 'USA' },
   { code: '+44', country: 'UK' },
@@ -61,9 +61,17 @@ const countryCodes = [
   // Add more country codes as needed
 ];
 
+/**
+ * Component for the personal profile form.
+ */
 export default function PersonalProfile(): JSX.Element {
   const { tutorData, setUserData } = useAuthStepperContext();
 
+  /**
+   * Event handler for input and select field changes.
+   * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} e - The event object.
+   * @param {string} fieldName - The name of the field being changed.
+   */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     fieldName: string
@@ -75,10 +83,7 @@ export default function PersonalProfile(): JSX.Element {
   return (
     <StepsAnimateFramer>
       <div className="relative flex flex-col">
-        <div
-          className="w-full text-center font-medium text-4xl capitalize
-      md:text-5xl mb-7 mt-0 md:mt-7 text-gray-800"
-        >
+        <div className="w-full text-center font-medium text-4xl capitalize md:text-5xl mb-7 mt-0 md:mt-7 text-gray-800">
           Personal Details
         </div>
         {fieldConfig.map(({ label, name, placeholder, options, type }) => (

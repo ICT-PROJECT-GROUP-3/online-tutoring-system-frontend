@@ -1,8 +1,11 @@
 import Link from 'next/link';
-// import path from 'path';
 import { useAuthStepperContext } from '../../../context/auth/StepperContext';
 const path = require('path');
 
+/**
+ * Posts the tutor data to the Sanity API.
+ * @param {Object} data - The tutor data to be posted.
+ */
 const postData = async (data) => {
   const sanityApiKey =
     'skHK4SXyIt4zKcU6X6OIOaG2Zsb2ZYMvQk3oCMakw6KutBjRDje8EtUZVcDpIBSiGbF3cH26h46T9oH6GWg0VH6eDCHDg6uUX669PviEvtqfwTdrE4W7PuB00Mc6aWVq8S3up1LqUPkTeZOmVrtBX6yduClsbvwAceBJQTtRKzpnVZ5FGMuK';
@@ -42,12 +45,28 @@ const postData = async (data) => {
   }
 };
 
+/**
+ * Checks if the step data is valid (all fields are filled).
+ * @param {Object} stepData - The step data.
+ * @returns {boolean} True if the step data is valid, false otherwise.
+ */
 function isStepValid(stepData: Record<string, string>): boolean {
   return Object.values(stepData).every((value) => value.trim() !== '');
 }
+
+/**
+ * Component for rendering stepper controls (back and next/confirm buttons).
+ * @param {Object} handleClick - The click event handler.
+ * @param {number} currentStep - The current step index.
+ * @param {Object[]} steps - The array of steps.
+ */
 export default function StepperControl({ handleClick, currentStep, steps }) {
   let { tutorData } = useAuthStepperContext();
 
+  /**
+   * Handles the click event of the control buttons.
+   * @param {string} btnName - The name of the button clicked.
+   */
   const controlHandleClick = async (btnName: string) => {
     // Handle button functionality
 
@@ -63,34 +82,34 @@ export default function StepperControl({ handleClick, currentStep, steps }) {
       ) {
         handleClick('Next');
       } else if (
-        tutorData.education_qualification.length == 0 &&
-        tutorData.certification_of_credentials.length == 0 &&
-        tutorData.identity.length == 0 &&
-        tutorData.area_of_expertise.length == 0 &&
-        tutorData.teaching_experience.length == 0 &&
-        tutorData.reference.length == 0
+        tutorData.education_qualification.length === 0 &&
+        tutorData.certification_of_credentials.length === 0 &&
+        tutorData.identity.length === 0 &&
+        tutorData.area_of_expertise.length === 0 &&
+        tutorData.teaching_experience.length === 0 &&
+        tutorData.reference.length === 0
       ) {
-        alert('fields empty...Please fill them out');
+        alert('Fields are empty. Please fill them out.');
         return;
       } else if (
-        tutorData.weekly_availability == 0 &&
-        tutorData.time_slots.length == 0 &&
-        tutorData.maximum_number_of_sessions == 0 &&
-        tutorData.total_teaching_experience == 0 &&
-        tutorData.session_duration == 0
+        tutorData.weekly_availability === 0 &&
+        tutorData.time_slots.length === 0 &&
+        tutorData.maximum_number_of_sessions === 0 &&
+        tutorData.total_teaching_experience === 0 &&
+        tutorData.session_duration === 0
       ) {
-        alert('fields empty...Please fill them out');
+        alert('Fields are empty. Please fill them out.');
       } else {
         handleClick('Next');
       }
     } else if (btnName === 'Confirm') {
       console.log(tutorData);
 
-      // check if tutor data is not empty
+      // Check if tutor data is not empty
       if (tutorData) {
         await postData(tutorData); // Call the postData function with the tutorData
       } else {
-        alert('Tutor details empty!!...Please fill out the fields');
+        alert('Tutor details are empty. Please fill out the fields.');
         return;
       }
       handleClick('Next');

@@ -1,6 +1,11 @@
 // import React from 'react'
 // import Chat from '../../components/pagecomponents/chat/Chat'
 
+/**
+ * The main index component.
+ * @returns {JSX.Element} The JSX element representing the index component.
+ */
+
 // const index = () => {
 //   return (
 //     <div><Chat/></div>
@@ -24,6 +29,10 @@ const MessageFormSocial = dynamic(() =>
 //   import('react-chat-engine').then((module) => module.getOrCreateChat)
 // );
 
+/**
+ * The main Home component.
+ * @returns {JSX.Element} The JSX element representing the Home component.
+ */
 export default function Home() {
   const { user } = useContext(AuthContext);
   const [showChat, setShowChat] = useState(false);
@@ -47,6 +56,10 @@ export default function Home() {
 
   if (!showChat) return <div />;
 
+  /**
+   * Creates a direct chat.
+   * @param {Object} creds - The user credentials.
+   */
   function createDirectChat(creds) {
     getOrCreateChat(
       creds,

@@ -7,7 +7,11 @@ import Layout from './layout';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const notifications = () => {
+/**
+ * Notifications page in the student dashboard.
+ * Displays different types of notifications and includes a "Send Message" button.
+ */
+const Notifications = () => {
   const notify = () =>
     toast.info('Wow so easy!', {
       icon: ({ theme, type }) => (
@@ -49,4 +53,4 @@ const notifications = () => {
   );
 };
 
-export default notifications;
+export default Notifications;

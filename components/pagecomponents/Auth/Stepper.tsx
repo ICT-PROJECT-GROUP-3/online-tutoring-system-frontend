@@ -1,16 +1,26 @@
 import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 
+/**
+ * Component for rendering a stepper with dynamic steps.
+ * @param {Object[]} steps - The array of steps.
+ * @param {number} currentStep - The current step index.
+ */
 const Stepper = ({ steps, currentStep }) => {
   const [newStep, setNewStep] = useState([]);
   const stepsRef = useRef();
 
+  /**
+   * Updates the step object based on the current step.
+   * @param {number} stepNumber - The step number.
+   * @param {Object[]} steps - The array of steps.
+   * @returns {Object[]} The updated array of steps.
+   */
   const updateStep = (stepNumber, steps) => {
     const newSteps = [...steps];
-    console.log(newSteps);
     let count = 0;
     while (count < newSteps.length) {
-      //current step
+      // Current step
       if (count === stepNumber) {
         newSteps[count] = {
           ...newSteps[count],
@@ -20,8 +30,7 @@ const Stepper = ({ steps, currentStep }) => {
         };
         count++;
       }
-
-      //step completed
+      // Step completed
       else if (count < stepNumber) {
         newSteps[count] = {
           ...newSteps[count],
@@ -31,7 +40,7 @@ const Stepper = ({ steps, currentStep }) => {
         };
         count++;
       }
-      //step pending
+      // Step pending
       else {
         newSteps[count] = {
           ...newSteps[count],
@@ -42,7 +51,6 @@ const Stepper = ({ steps, currentStep }) => {
         count++;
       }
     }
-
     return newSteps;
   };
 
@@ -120,4 +128,5 @@ const Stepper = ({ steps, currentStep }) => {
     </div>
   );
 };
+
 export default Stepper;

@@ -18,6 +18,9 @@ const TeacherEvaluation = () => {
     formState: { errors },
   } = useForm();
 
+  /**
+   * Handles the form submission.
+   */
   const submit = () => {
     alert('button is clicked')!;
   };
@@ -59,9 +62,18 @@ const TeacherEvaluation = () => {
 
   const [selectedQ1RadioBtn, setSelectedQ1RadioBtn] = useState(3);
 
+  /**
+   * Checks if the rating input is selected for question 1.
+   * @param {number} value - The value of the rating input.
+   * @returns {boolean} - True if the rating input is selected, false otherwise.
+   */
   const isQ1RatingSelected = (value: number): boolean =>
     selectedQ1RadioBtn === value;
 
+  /**
+   * Handles the click on the rating input for question 1.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The change event.
+   */
   const handleQ1RadioClick = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setSelectedQ1RadioBtn(parseInt(e.currentTarget.value));
 
@@ -142,7 +154,7 @@ const TeacherEvaluation = () => {
                     className="bg-white text-sm md:text-base appearance-none border-2 focus:border-transparent border-[#EAE8E4] rounded w-full py-2 px-2 text-[#1c1c1c] leading-tight focus:ring-orange-500 dark:focus:ring-orange-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     id="description"
                     rows={8}
-                    placeholder="Example: Yamikani was fantastic at helping me understand how to approach a problem and was able to clearly explain new concepts. Extremely knowledgeable on a lot when it comes to maths. He takes the time to go over anything you need help with. Made sure I had complete understanding of all the topic we reviewed. Definitely would work with again."
+                    placeholder="Example: Yamikani was fantastic at helping me understand how to approach a problem and was able to clearly explain new concepts. Extremely knowledgeable on a lot when it comes to maths. He takes the time to go over anything you need help with. Made sure I had complete understanding of all the topic we reviewed. Definitely would workwith again."
                   ></textarea>
                 </div>
               </div>

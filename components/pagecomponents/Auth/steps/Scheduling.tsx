@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { useAuthStepperContext } from '../../../../context/auth/StepperContext';
 import StepsAnimateFramer from '../StepsAnimateFramer';
 
-const timeZones = ['GMT', 'EST', 'CST', 'PST']; // Example time zones, replace with your own list
+/**
+ * Example time zones, replace with your own list.
+ */
+const timeZones = ['GMT', 'EST', 'CST', 'PST'];
 
+/**
+ * Configuration for the form fields.
+ */
 const fieldConfig = [
   {
     label: 'Weekly Availability',
@@ -43,10 +49,18 @@ const fieldConfig = [
   },
 ];
 
+/**
+ * Component for the scheduling form.
+ */
 export default function Scheduling(): JSX.Element {
   const { tutorData, setUserData } = useAuthStepperContext();
   const [timeSlots, setTimeSlots] = useState<string[]>([]);
 
+  /**
+   * Event handler for input and select field changes.
+   * @param {React.ChangeEvent<HTMLInputElement | HTMLSelectElement>} e - The event object.
+   * @param {string} fieldName - The name of the field being changed.
+   */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     fieldName: string
@@ -55,11 +69,18 @@ export default function Scheduling(): JSX.Element {
     setUserData({ ...tutorData, [fieldName]: value });
   };
 
+  /**
+   * Event handler for adding a new time slot to the timeSlots state.
+   */
   const handleAddTimeSlot = () => {
-    // Add a new time slot to the timeSlots state
     setTimeSlots([...timeSlots, '']);
   };
 
+  /**
+   * Event handler for updating a time slot in the timeSlots state.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The event object.
+   * @param {number} index - The index of the time slot being changed.
+   */
   const handleTimeSlotChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number

@@ -8,6 +8,10 @@ import SideFooter from '../../components/shared/footer/side-footer';
 import Navbar from '../../components/shared/navbar/Navbar';
 import { fetchData } from '../../lib/services/sanity/connect';
 
+/**
+ * The FindTutor component.
+ * @returns {JSX.Element} The JSX element representing the FindTutor component.
+ */
 const FindTutor = () => {
   const [tutorData, setTutorData] = useState([]);
   const [filteredTutors, setFilteredTutors] = useState([]);
@@ -21,6 +25,11 @@ const FindTutor = () => {
     });
   }, []);
 
+  /**
+   * Handles the search functionality.
+   * @param {string} searchTerm - The search term.
+   * @param {string} locationTerm - The location term.
+   */
   const handleSearch = (searchTerm, locationTerm) => {
     if (!searchTerm && !locationTerm) {
       setFilteredTutors(tutorData);

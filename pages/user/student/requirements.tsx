@@ -4,6 +4,11 @@ import { MdClose } from 'react-icons/md';
 import RegularButton from '../../../components/common/buttons/primary-button';
 import CardDropShadow from '../../../components/common/cards/card-dropshadow';
 
+/**
+ * Tutor Requirements form in the student dashboard.
+ * Allows students to specify their tutoring needs and preferences.
+ */
+
 const Requirements = () => {
   const [homeworkHelpChecked, setHomeworkHelpChecked] = useState(false);
   const homeworkHelpCheckHandler = () => {

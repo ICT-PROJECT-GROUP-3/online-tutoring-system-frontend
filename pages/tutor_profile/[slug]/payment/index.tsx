@@ -18,6 +18,12 @@ interface Props {
   tutor: Tutor;
 }
 
+/**
+ * The Payment component.
+ * @param {Props} props - The component props.
+ * @param {Tutor} props.tutor - The tutor object.
+ * @returns {JSX.Element} The JSX element representing the Payment component.
+ */
 const Payment = ({ tutor }: Props) => {
   return (
     <Background>
@@ -42,7 +48,7 @@ const Payment = ({ tutor }: Props) => {
         <div className="mx-8 w-80">
           <TutorCheckoutSummary
             key={tutor._id}
-            fullname={tutor.fullname}
+            fullname={tutor.name}
             total_teaching_experience={tutor.total_teaching_experience}
             price={tutor.price}
             languages={tutor.languages}
@@ -58,13 +64,17 @@ const Payment = ({ tutor }: Props) => {
 
 export default Payment;
 
+/**
+ * The function to get the static paths.
+ * @returns {Promise} The promise that resolves to an object containing the paths and fallback value.
+ */
 export const getStaticPaths = async () => {
   const query = `*[_type == "tutor"] {
     _id,
-      slug{
-        current
-      }
-}`;
+    slug{
+      current
+    }
+  }`;
 
   const tutors = await client.fetch(query);
   // console.log(tutors);
@@ -84,35 +94,35 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const query = `*[_type == "tutor" && slug.current == $slug][0] {
     _id,
-      fullname,
-      bio,
-      languages,
-      subjects,
-      location,
-      rating, 
-      price,
-      area_of_expertise,
-      teaching_experience,
-      total_teaching_experience,
-      education_qualifications,
-      teaches_online,
-      registration_date,
-      date_of_birth,
-      gender,
-      work_experience,
-      certification_of_credentials,
-      platform,
-      weekly_availability,
-      time_slots,
-      maximum_number_of_sessions,
-      reference,
-      session_duration,
-      homework_help,
-      can_travel,
-      address, 
-      phone_number,
-      email,
-    }`;
+    fullname,
+    bio,
+    languages,
+    subjects,
+    location,
+    rating, 
+    price,
+    area_of_expertise,
+    teaching_experience,
+    total_teaching_experience,
+    education_qualifications,
+    teaches_online,
+    registration_date,
+    date_of_birth,
+    gender,
+    work_experience,
+    certification_of_credentials,
+    platform,
+    weekly_availability,
+    time_slots,
+    maximum_number_of_sessions,
+    reference,
+    session_duration,
+    homework_help,
+    can_travel,
+    address, 
+    phone_number,
+    email,
+  }`;
 
   const tutor = await client.fetch(query, {
     slug: params?.slug,

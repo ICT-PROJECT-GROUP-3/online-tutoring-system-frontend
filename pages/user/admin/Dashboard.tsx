@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
-import Sidebar from '../../../components/pagecomponents/user/admin/SideBar';
 import DashboardComponent from '../../../components/pagecomponents/user/admin/Dashboard';
-import Users from '../../../components/pagecomponents/user/admin/Users';
+import Sidebar from '../../../components/pagecomponents/user/admin/SideBar';
 import UserManagementPage from '../../../components/pagecomponents/user/admin/UserManagement';
 
+/**
+ * The Dashboard component.
+ * @returns {JSX.Element} The JSX element representing the Dashboard component.
+ */
 const Dashboard: React.FC = () => {
   const [activeComponent, setActiveComponent] = useState<string>('');
 
+  /**
+   * Handles the click on the sidebar item.
+   * @param {string} componentName - The name of the clicked sidebar item.
+   */
   const handleSidebarClick = (componentName: string) => {
     setActiveComponent(componentName);
   };
 
+  /**
+   * Renders the active component based on the selected sidebar item.
+   * @returns {JSX.Element} The JSX element representing the active component.
+   */
   const renderComponent = () => {
     switch (activeComponent) {
       case 'dashboard':

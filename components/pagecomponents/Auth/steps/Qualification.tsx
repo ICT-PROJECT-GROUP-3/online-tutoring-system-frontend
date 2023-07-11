@@ -2,6 +2,9 @@ import React from 'react';
 import { useAuthStepperContext } from '../../../../context/auth/StepperContext';
 import StepsAnimateFramer from '../StepsAnimateFramer';
 
+/**
+ * Configuration for the form fields.
+ */
 const fieldConfig = [
   {
     label: 'Educational Qualifications',
@@ -41,10 +44,19 @@ const fieldConfig = [
   },
 ];
 
+/**
+ * Component for the qualifications form.
+ */
 export default function Qualifications(): JSX.Element {
   const { tutorData, setUserData, addField, removeField } =
     useAuthStepperContext();
 
+  /**
+   * Event handler for input field changes.
+   * @param {React.ChangeEvent<HTMLInputElement>} e - The event object.
+   * @param {string} fieldName - The name of the field being changed.
+   * @param {number} index - The index of the field in the array.
+   */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     fieldName: string,
@@ -56,10 +68,19 @@ export default function Qualifications(): JSX.Element {
     setUserData({ ...tutorData, [fieldName]: updatedData });
   };
 
+  /**
+   * Event handler for adding a new field to the array.
+   * @param {string} fieldName - The name of the field being added.
+   */
   const handleAddField = (fieldName: string) => {
     addField(fieldName);
   };
 
+  /**
+   * Event handler for removing a field from the array.
+   * @param {string} fieldName - The name of the field being removed.
+   * @param {number} index - The index of the field in the array.
+   */
   const handleRemoveField = (fieldName: string, index: number) => {
     removeField(fieldName, index);
   };
@@ -67,10 +88,7 @@ export default function Qualifications(): JSX.Element {
   return (
     <StepsAnimateFramer>
       <div className="flex flex-col">
-        <div
-          className="w-full text-center font-medium text-4xl capitalize
-      md:text-5xl mb-7 mt-0 md:mt-7 text-gray-800"
-        >
+        <div className="w-full text-center font-medium text-4xl capitalize md:text-5xl mb-7 mt-0 md:mt-7 text-gray-800">
           Qualification
         </div>
         {fieldConfig.map(({ label, name, placeholder, type }) => (

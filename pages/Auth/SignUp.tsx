@@ -25,6 +25,11 @@ const Index = () => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
+  /**
+   * Handles the registration of a new user.
+   *
+   * @param {FormEvent<HTMLFormElement>} e - The form event.
+   */
   const registerUser = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
