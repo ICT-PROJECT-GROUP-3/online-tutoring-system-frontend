@@ -1,8 +1,16 @@
+/**
+ * Language component for the footer.
+ * Allows users to select a language and switch between locales.
+ */
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { IoLanguage } from 'react-icons/io5';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 
+/**
+ * Language component.
+ * Renders a language selector button and menu.
+ */
 const Language = () => {
   // State for managing the open/closed state of the language menu
   const [open, setOpen] = useState(false);
@@ -17,7 +25,11 @@ const Language = () => {
   const { locale, locales, push } = useRouter();
   console.log(locale);
 
-  // Handler function for changing the language
+  /**
+   * Handle language selection.
+   * Updates the URL with the selected locale.
+   * @param {string} l - The selected language/locale.
+   */
   const handleClick = (l) => () => {
     push(`/`, undefined, { locale: l });
   };

@@ -1,8 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+/**
+ * Footer component for the side footer.
+ */
 const SideFooter = () => {
-  // Array of links for the footer
+  /**
+   * Array of links for the footer.
+   *
+   * @type {Array<{ label: string, url: string }>}
+   */
   const links = [
     { label: 'Home', url: 'https://flowbite.com/' },
     { label: 'Sign In', url: 'https://tailwindcss.com/' },

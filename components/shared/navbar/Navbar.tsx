@@ -146,6 +146,9 @@
 
 // export default Navbar;
 
+/**
+ * Component for rendering a footer with navigation links and user-specific options.
+ */
 import { Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/20/solid';
 
@@ -181,6 +184,11 @@ const navigationWhilstLoggedIn = [
   { name: 'tutor Page', href: '/' },
 ];
 
+/**
+ * Navbar component.
+ * Renders a fixed header with navigation links and user-specific options.
+ * @returns {JSX.Element} Navbar component.
+ */
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
@@ -188,8 +196,10 @@ const Navbar = () => {
   // Getting user session context from context provider
   const { user } = useContext(AuthContext);
 
+  /**
+   * Redirects the user to the dashboard based on their role.
+   */
   const toDashboard = () => {
-    // Redirect to the dashboard based on user role
     if (user.user.role === 'tutor') {
       window.location.href = '/user/tutor/Dashboard';
     } else if (user.user.role === 'student') {

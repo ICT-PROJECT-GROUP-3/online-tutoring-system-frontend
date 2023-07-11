@@ -1,8 +1,19 @@
+/**
+ * @module components
+ */
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { MdKeyboardArrowRight } from 'react-icons/md';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
+/**
+ * Renders a card component displaying information about an interested tutor.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.title - The title of the tutor.
+ * @returns {JSX.Element} The rendered InterestedTutorCard component.
+ */
 const InterestedTutorCard = ({ title }) => {
   return (
     <>

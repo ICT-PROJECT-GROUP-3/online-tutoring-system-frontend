@@ -3,6 +3,11 @@ import Link from 'next/link';
 import RegularButton from '../../common/buttons/primary-button';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
+/**
+ * Footer component for the website.
+ * @param {Object} children - The children components.
+ * @returns {JSX.Element} The rendered component.
+ */
 const MainFooter = ({ children }) => {
   // List of links and their categories
   const sections = [
@@ -34,8 +39,10 @@ const MainFooter = ({ children }) => {
   return (
     <div className="flex flex-col w-screen h-screen">
       {children}
+      {/* Footer section */}
       <footer className="w-screen h-[488px] m-0 mt-auto inset-x-0 bottom-0 sm:h-[368px] bg-[#f4f3f2] flex flex-col justify-end">
         <div className="flex flex-col -space-y-[488px] sm:-space-y-[368px] items-end justify-end justify-items-end">
+          {/* Logo Image */}
           <Image
             className="w-screen sm:w-1/3 h-[440px] sm:h-80"
             src="/assets/images/Rectangle 29.png"
@@ -152,7 +159,7 @@ const MainFooter = ({ children }) => {
             <div className="w-screen h-8 opacity-80 bg-[#f4f3f2] px-8 sm:px-32 flex flex-col justify-center">
               <span className="flex flex-row text-xs font-bold text-gray-500">
                 {/* Copyright */}
-                Copyright © 2023
+                Copyright © 2023{' '}
                 <Image
                   className="w-auto h-4 mr-1"
                   src="/assets/images/Logo.png"

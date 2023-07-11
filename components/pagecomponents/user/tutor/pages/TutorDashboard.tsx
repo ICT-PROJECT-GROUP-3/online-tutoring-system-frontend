@@ -9,7 +9,7 @@ import client from '../../../../../lib/services/sanity/sanity';
 import TutorNavbar from '../TutorNavbar';
 
 const TutorDashboard = () => {
-  //   const currentYear: number = new Date().getFullYear();
+  // const currentYear: number = new Date().getFullYear();
   // console.log(currentYear + ",");
 
   const pageName = 'Dashboard';
@@ -24,7 +24,7 @@ const TutorDashboard = () => {
   const tutorData = JSON.stringify(tutor);
   // const tutorData = tutor[0];
   const tutorId = tutor[0]._id;
-  //  '9d11251a-60c3-431e-8763-38fbfa9acf4a';
+  // '9d11251a-60c3-431e-8763-38fbfa9acf4a';
 
   console.log('The tutor object is:' + tutorData + 'tutor Id is:::' + tutorId);
   // const tutorId = tutor?._id;
@@ -132,7 +132,7 @@ const TutorDashboard = () => {
       })
       .catch((error) => {
         console.error(
-          'Error occured whilst fetching number of sessions' + error
+          'Error occurred while fetching number of sessions' + error
         );
       });
     // Fetch number of students
@@ -141,12 +141,12 @@ const TutorDashboard = () => {
         tutorId,
       })
       .then((data) => {
-        console.log('total number of sessions of a tutor:' + data);
+        console.log('total number of students of a tutor:' + data);
         setTotalNumberOfStudents(data);
       })
       .catch((error) => {
         console.error(
-          'Error occured whilst fetching number of sessions' + error
+          'Error occurred while fetching number of students' + error
         );
       });
   }, [tutorId]);

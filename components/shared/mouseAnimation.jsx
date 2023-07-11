@@ -1,5 +1,13 @@
+/**
+ * MouseAnimation component for creating a mouse animation effect with circles.
+ * @component
+ */
 import React, { useEffect, useRef, useState } from 'react';
 
+/**
+ * MouseAnimation component.
+ * @returns {JSX.Element} MouseAnimation component.
+ */
 const MouseAnimation = () => {
   const coords = useRef({ x: 0, y: 0 });
   const circles = useRef([]);
@@ -10,7 +18,9 @@ const MouseAnimation = () => {
   ];
 
   useEffect(() => {
-    // Initialize the circles and assign colors to them
+    /**
+     * Initialize the circles and assign colors to them.
+     */
     circles.current.forEach((circle, index) => {
       circle.x = 0;
       circle.y = 0;
@@ -19,7 +29,10 @@ const MouseAnimation = () => {
   }, []);
 
   useEffect(() => {
-    // Update the mouse coordinates on mousemove
+    /**
+     * Update the mouse coordinates on mousemove.
+     * @param {MouseEvent} e - Mouse event object.
+     */
     const handleMouseMove = (e) => {
       coords.current.x = e.clientX;
       coords.current.y = e.clientY;
@@ -27,28 +40,36 @@ const MouseAnimation = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
-    // Cleanup the event listener
+    /**
+     * Cleanup the event listener.
+     */
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
+  /**
+   * Event handler for mouse hover.
+   */
   const handleMouseHover = () => {
-    // Set the hovered state to true
     setIsHovered(true);
   };
 
+  /**
+   * Event handler for mouse leave.
+   */
   const handleMouseLeave = () => {
-    // Set the hovered state to false
     setIsHovered(false);
   };
 
   useEffect(() => {
+    /**
+     * Animation function to update circle positions and create the animation effect.
+     */
     const animateCircles = () => {
       let x = coords.current.x;
       let y = coords.current.y;
 
-      // Update the position and scale of each circle
       circles.current.forEach((circle, index) => {
         circle.style.left = x - 12 + 'px';
         circle.style.top = y - 12 + 'px';
@@ -64,7 +85,6 @@ const MouseAnimation = () => {
         y += (nextCircle.y - y) * 0.3;
       });
 
-      // Request animation frame for smooth animation
       requestAnimationFrame(animateCircles);
     };
 
@@ -72,8 +92,11 @@ const MouseAnimation = () => {
     animateCircles();
   }, []);
 
+  /**
+   * Callback function to handle circle references.
+   * @param {HTMLDivElement} circle - Circle reference.
+   */
   const handleCircleRef = (circle) => {
-    // Add each circle reference to the circles array
     if (circle) {
       circles.current.push(circle);
     }

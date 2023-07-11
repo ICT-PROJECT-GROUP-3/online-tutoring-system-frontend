@@ -1,3 +1,7 @@
+/**
+ * Footer component for the menu.
+ * Renders a menu with various options and a logout button.
+ */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useContext } from 'react';
@@ -7,11 +11,26 @@ import SecondaryButton from '../../../components/common/buttons/secondary-button
 import CardDropShadow from '../../../components/common/cards/card-dropshadow';
 import { AuthContext } from '../../../context/auth/SessionContext';
 
+/**
+ * Menu component.
+ * Renders the menu options and handles user logout.
+ */
+/**
+ * Footer component for the menu.
+ * @module Menu
+ * @returns {JSX.Element} Menu component
+ */
 const Menu = () => {
+  // Get the logout function from the AuthContext
   const { logout } = useContext(AuthContext);
+  // Get the user object from the AuthContext
   const { user } = useContext(AuthContext);
   const router = useRouter();
 
+  /**
+   * Handles the user logout process.
+   * It redirects to the home page and logs out the user after a delay.
+   */
   const userLogout = () => {
     try {
       router.push('/');
@@ -27,11 +46,14 @@ const Menu = () => {
       console.log('no user');
     }
   };
+
   return (
     <>
+      {/* Footer Card */}
       <CardDropShadow>
         <div className="m-8">
           <h1 className="text-xl">Welcome, {user.user.name}</h1>
+          {/* Horizontal Divider */}
           <svg
             width={1083}
             height={1}
@@ -49,12 +71,14 @@ const Menu = () => {
               stroke="#DAD5CE"
             />
           </svg>
+          {/* Dashboard Menu Item */}
           <div className="flex flex-row items-center my-2">
             <MdDashboard className="fill-[#1c1c1c] w-4 h-4 ml-2 mr-6" />
             <Link href="/user/student/Dashboard">
               <h2 className="text-lg text-left text-[#1c1c1c]">Dashboard</h2>
             </Link>
           </div>
+          {/* Horizontal Divider */}
           <svg
             width={1083}
             height={1}
@@ -72,6 +96,7 @@ const Menu = () => {
               stroke="#DAD5CE"
             />
           </svg>
+          {/* Notifications Menu Item */}
           <div className="flex flex-row items-center my-2">
             <IoNotifications className="fill-[#1c1c1c] w-4 h-4 ml-2 mr-6" />
             <Link href="/user/student/notifications">
@@ -80,6 +105,7 @@ const Menu = () => {
               </h2>
             </Link>
           </div>
+          {/* Horizontal Divider */}
           <svg
             width={1083}
             height={1}
@@ -97,6 +123,7 @@ const Menu = () => {
               stroke="#DAD5CE"
             />
           </svg>
+          {/* Account Settings Menu Item */}
           <div className="flex flex-row items-center my-2">
             <MdAccountCircle className="fill-[#1c1c1c] w-4 h-4 ml-2 mr-6" />
             <Link href="/user/student/account_settings">
@@ -105,6 +132,7 @@ const Menu = () => {
               </h2>
             </Link>
           </div>
+          {/* Horizontal Divider */}
           <svg
             width={1083}
             height={1}
@@ -122,6 +150,7 @@ const Menu = () => {
               stroke="#DAD5CE"
             />
           </svg>
+          {/* Payment Settings Menu Item */}
           <div className="flex flex-row items-center my-2">
             <MdOutlinePayment className="fill-[#1c1c1c] w-4 h-4 ml-2 mr-6" />
             <Link href="/user/student/payment_settings">
@@ -130,6 +159,7 @@ const Menu = () => {
               </h2>
             </Link>
           </div>
+          {/* Horizontal Divider */}
           <svg
             width={1083}
             height={1}
@@ -147,6 +177,7 @@ const Menu = () => {
               stroke="#DAD5CE"
             />
           </svg>
+          {/* Logout Button */}
           <div className="md:flex md:items-center">
             <div className="md:w-full">
               <div onClick={userLogout}>

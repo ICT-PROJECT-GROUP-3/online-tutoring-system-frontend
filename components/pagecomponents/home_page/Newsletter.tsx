@@ -12,19 +12,39 @@
   }
   ```
 */
+/**
+ * This component represents a newsletter subscription form with additional information.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Newsletter />
+ * )
+ */
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import HomePageWrapper from './HomePageWrapper';
 
+/**
+ * Newsletter component.
+ *
+ * @returns {JSX.Element} Newsletter component.
+ */
 export default function Newsletter() {
-  const [state, setState] = useState(0);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [state, setState] = useState(0); // State to manage the subscription process state
+  const [errorMsg, setErrorMsg] = useState(''); // State to store error messages
 
-  // 0 - initial , 1 - loading, 2 - success, 2 - error
+  // 0 - initial, 1 - loading, 2 - success, 3 - error
+
+  /**
+   * Handles the email subscription.
+   *
+   * @param {Event} e - Form submit event.
+   */
   const subscribeEmail = async (e) => {
     e.preventDefault();
 
-    setState(1);
+    setState(1); // Set state to loading
     setErrorMsg('');
     console.log(e.target[0].value);
     try {
@@ -37,18 +57,18 @@ export default function Newsletter() {
       if (data.error !== null) {
         throw data.error;
       }
-      setState(2);
+      setState(2); // Set state to success
     } catch (e) {
       setErrorMsg(e);
-      setState(3);
+      setState(3); // Set state to error
     }
   };
 
   return (
     <HomePageWrapper>
-      <div className="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32 shadow-lg rounded-lg">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
+      <div className="relative py-16 overflow-hidden bg-gray-900 rounded-lg shadow-lg isolate sm:py-24 lg:py-32">
+        <div className="px-6 mx-auto max-w-7xl lg:px-8">
+          <div className="grid max-w-2xl grid-cols-1 mx-auto gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-2">
             <div className="max-w-xl lg:max-w-lg">
               <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 Subscribe to our newsletter
@@ -58,9 +78,9 @@ export default function Newsletter() {
                 Stay informed with our latest news and updates. Subscribe to our
                 newsletter for valuable insights.
               </p>
-              <div className="mt-6 flex max-w-md gap-x-4">
+              <div className="flex max-w-md mt-6 gap-x-4">
                 {state == 2 ? (
-                  <p className="font-medium mt-4 text-xl text-green-800">
+                  <p className="mt-4 text-xl font-medium text-green-800">
                     Thanks for subscribing, you will receive mail once we launch
                     our website.
                   </p>
@@ -85,7 +105,7 @@ export default function Newsletter() {
                       Subscribe
                     </button>
                     {state === 3 ? (
-                      <p className="text-red-500 mt-3">{errorMsg}</p>
+                      <p className="mt-3 text-red-500">{errorMsg}</p>
                     ) : (
                       ''
                     )}
@@ -94,9 +114,9 @@ export default function Newsletter() {
               </div>
               <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
                 <div className="flex flex-col items-start">
-                  <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <div className="p-2 rounded-md bg-white/5 ring-1 ring-white/10">
                     <CalendarDaysIcon
-                      className="h-6 w-6 text-white"
+                      className="w-6 h-6 text-white"
                       aria-hidden="true"
                     />
                   </div>
@@ -109,9 +129,9 @@ export default function Newsletter() {
                   </dd>
                 </div>
                 <div className="flex flex-col items-start">
-                  <div className="rounded-md bg-white/5 p-2 ring-1 ring-white/10">
+                  <div className="p-2 rounded-md bg-white/5 ring-1 ring-white/10">
                     <HandRaisedIcon
-                      className="h-6 w-6 text-white"
+                      className="w-6 h-6 text-white"
                       aria-hidden="true"
                     />
                   </div>
@@ -125,7 +145,7 @@ export default function Newsletter() {
             </div>
           </div>
           <div
-            className="absolute left-1/2 top-0 -z-10 -translate-x-1/2 blur-3xl xl:-top-6"
+            className="absolute top-0 -translate-x-1/2 left-1/2 -z-10 blur-3xl xl:-top-6"
             aria-hidden="true"
           >
             <div
