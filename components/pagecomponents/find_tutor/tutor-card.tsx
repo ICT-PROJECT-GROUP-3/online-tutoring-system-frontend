@@ -6,6 +6,9 @@ import { IoLanguage, IoLocationSharp } from 'react-icons/io5';
 import { TbClockFilled } from 'react-icons/tb';
 import CardDropShadow from '../../common/cards/card-dropshadow';
 
+/**
+ * Props for TutorCard component.
+ */
 interface TutorCardProps {
   name: string;
   rating: string;
@@ -21,19 +24,16 @@ interface TutorCardProps {
   location: string;
   price: number;
   subjects: string;
-  education_qualifications: string[];
-  session_duration: number;
-  timeSlots: string;
-  homework_help: string;
-  maximum_number_of_sessions: number;
-  weeklyAvailability: number;
-  can_travel: boolean;
-  phone_number: string;
-  email: string;
   area_of_expertise?: string[];
   total_teaching_experience: number;
 }
 
+/**
+ * TutorCard component.
+ *
+ * @param {TutorCardProps} props - The props for the TutorCard component.
+ * @returns {JSX.Element} The rendered TutorCard component.
+ */
 const TutorCard: React.FC<TutorCardProps> = ({
   name,
   bio,
@@ -42,7 +42,6 @@ const TutorCard: React.FC<TutorCardProps> = ({
   languages,
   location,
   price,
-  subjects,
   area_of_expertise,
   total_teaching_experience,
 }) => {
@@ -51,7 +50,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
       <div className="">
         <CardDropShadow>
           <div className="flex flex-row w-[1024px] h-56">
-            {/* Place tutor's profile pic - image*/}
+            {/* Place tutor's profile pic */}
             <Image
               width={280}
               height={280}
@@ -64,17 +63,12 @@ const TutorCard: React.FC<TutorCardProps> = ({
               {/* Place link to the tutor's profile */}
               <Link href={`/tutor_profile/${slug?.current}`}>
                 <h1 className="text-xl overflow-hidden h-8 font-semibold text-left mb-2 text-[#1c1c1c] hover:underline">
-                  {/* Place tutor's name - string */}
+                  {/* Place tutor's name */}
                   {name}
                 </h1>
               </Link>
-              {/* Place a shorten version of the tutor's bio  - string */}
-              <p className=" text-md text-left mb-2 text-[#1c1c1c] overflow-hidden text-ellipsis h-[124px]">
-                {/* {bio?.map((block) => (
-                  <p key={block._key}>
-                    {block.children && block.children.map((span) => span.text).join('')}
-                  </p>
-                ))} */}
+              {/* Place a shortened version of the tutor's bio */}
+              <p className="text-md text-left mb-2 text-[#1c1c1c] overflow-hidden text-ellipsis h-[124px]">
                 {Array.isArray(bio) &&
                   bio.map((block) => (
                     <p key={block._key}>
@@ -84,7 +78,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
                   ))}
               </p>
 
-              {/* Place the subjects the tutor teaches - list,string */}
+              {/* Place the subjects the tutor teaches */}
               {/* The red denotes the link to search by that subject */}
               <ul className="flex flex-wrap my-2 text-md font-medium text-[#d03434] items-center">
                 <li key={0} className="text-[#1c1c1c]">
@@ -119,21 +113,21 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 <div className="mr-2">
                   <IoLocationSharp />
                 </div>
-                {/* Place the longest distance tutor can travel - number*/}
+                {/* Place the longest distance tutor can travel */}
                 <p className="text-sm text-left text-[#1c1c1c]">{location}</p>
               </div>
               <div className="flex flex-row my-1">
                 <div className="mr-2">
                   <FaMoneyBill />
                 </div>
-                {/* Place the minimum and maximum amount the tutor asks for - number  */}
+                {/* Place the minimum and maximum amount the tutor asks for */}
                 <p className="text-sm text-left text-[#1c1c1c]">K{price}/hr</p>
               </div>
               <div className="flex flex-row my-1">
                 <div className="mr-2">
                   <TbClockFilled />
                 </div>
-                {/* Total teaching experience - number  */}
+                {/* Total teaching experience */}
                 <p className="text-sm text-left text-[#1c1c1c]">
                   {total_teaching_experience}yrs
                 </p>
@@ -142,7 +136,7 @@ const TutorCard: React.FC<TutorCardProps> = ({
                 <div className="mr-2">
                   <IoLanguage />
                 </div>
-                {/* Place the language the tutor knows  - string  */}
+                {/* Place the language the tutor knows */}
                 <ul className="flex flex-wrap text-left text-sm text-[#1c1c1c]">
                   {languages ? languages.join(', ') : 'No languages specified'}
                 </ul>

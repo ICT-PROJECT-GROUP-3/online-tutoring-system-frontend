@@ -1,22 +1,41 @@
-// import RegularButton from '@/components/common/buttons/primary-button'
 import { useState } from 'react';
 
+/**
+ * Search component.
+ *
+ * @param {function} handleSearch - The function to handle search.
+ * @returns {JSX.Element} The rendered Search component.
+ */
 const Search = ({ handleSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [locationTerm, setLocationTerm] = useState('');
 
+  /**
+   * Handle input change for search term.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
     handleSearch(e.target.value);
   };
 
+  /**
+   * Handle input change for location term.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleLocationChange = (e) => {
     setLocationTerm(e.target.value);
   };
 
+  /**
+   * Handle search button click.
+   */
   const handleSearchClick = () => {
     handleSearch(searchTerm, locationTerm);
   };
+
   return (
     <>
       <div className="">
@@ -47,8 +66,8 @@ const Search = ({ handleSearch }) => {
               <path
                 d="M3 3H43"
                 stroke="white"
-                stroke-width={5}
-                stroke-linecap="round"
+                strokeWidth={5}
+                strokeLinecap="round"
               />
             </svg>
           </div>
@@ -79,14 +98,13 @@ const Search = ({ handleSearch }) => {
               <path
                 d="M3 3H43"
                 stroke="white"
-                stroke-width={5}
-                stroke-linecap="round"
+                strokeWidth={5}
+                strokeLinecap="round"
               />
             </svg>
           </div>
 
-          {/* Turn this into abutton that searches both sides  - string  */}
-
+          {/* Button to trigger search */}
           <button
             className="rounded-[5px] bg-[#d03434] p-2 w-auto"
             type="button"

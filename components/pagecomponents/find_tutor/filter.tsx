@@ -2,13 +2,26 @@ import { useState } from 'react';
 import { BiMaleFemale } from 'react-icons/bi';
 import { HiFilter } from 'react-icons/hi';
 
+/**
+ * Filter component.
+ *
+ * @returns {JSX.Element} The rendered Filter component.
+ */
 const Filter = () => {
   const [maleChecked, setMaleChecked] = useState(false);
+
+  /**
+   * Toggle the male checkbox state.
+   */
   const maleCheckHandler = () => {
     setMaleChecked(!maleChecked);
   };
 
   const [femaleChecked, setFemaleChecked] = useState(false);
+
+  /**
+   * Toggle the female checkbox state.
+   */
   const femaleCheckHandler = () => {
     setFemaleChecked(!femaleChecked);
   };
