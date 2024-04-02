@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState } from 'react';
+import { AuthContext } from './SessionContext';
 
 interface StepperContextData {
   tutorData: TutorData;
@@ -8,59 +9,80 @@ interface StepperContextData {
 }
 
 interface TutorData {
-  fullName: string;
+  weekly_availability: number;
+  session_duration: number;
+  total_teaching_experience: number;
+  date_of_birth: string;
+  profile_picture: string;
+  mock_video: any;
+  platform: string;
   email: string;
-  phoneNumber: string;
+  last_login: string;
+  registration_date: string;
+  fullname: string;
+  bio: string[];
+  education_qualification: string[];
+  price: number;
+  teaching_experience: string[];
+  reference: string[];
+  area_of_expertise: string[];
+  maximum_number_of_sessions: number;
+  Teaches_at_home: boolean;
+  identity: string[];
+  languages: string[];
+  time_slots: string[];
+  phone_number: string;
   gender: string;
-  address: string;
-  dateOfBirth: string;
-  educationalQualifications: string[];
-  teachingExperience: string[];
-  areasOfExpertise: string[];
-  certificationsOrCredentials: string[];
-  references: string[];
-  teachingPhilosophyOrApproach: string[];
-  weeklyAvailability: string[];
-  preferredTimeSlots: string[];
-  timeZone: string;
-  sessionDuration: string;
-  breaksOrUnavailability: string[];
-  maxNumberOfSessions: number;
+  can_travel: boolean;
+  location: string;
+  certification_of_credentials: string[];
 }
 
-
-const initialUserData: TutorData = {
-  educationalQualifications: [""],
-  teachingExperience: [""],
-  areasOfExpertise: [""],
-  certificationsOrCredentials: [""],
-  references: [""],
-  teachingPhilosophyOrApproach: [""],
-  fullName: "",
-  email: "",
-  phoneNumber: "",
-  gender: "",
-  address: "",
-  dateOfBirth: "",
-  weeklyAvailability: [],
-  preferredTimeSlots: [],
-  timeZone: "",
-  sessionDuration: "",
-  breaksOrUnavailability: [],
-  maxNumberOfSessions: 0
+let initialUserData: TutorData = {
+  weekly_availability: 0,
+  session_duration: 0,
+  total_teaching_experience: 0,
+  date_of_birth: '',
+  platform: '',
+  email: '',
+  last_login: '',
+  registration_date: '',
+  fullname: '',
+  bio: [],
+  education_qualification: [''],
+  price: 0,
+  teaching_experience: [''],
+  reference: [''],
+  area_of_expertise: [''],
+  maximum_number_of_sessions: 0,
+  Teaches_at_home: false,
+  languages: [''],
+  time_slots: [],
+  phone_number: '',
+  gender: '',
+  can_travel: false,
+  location: '',
+  certification_of_credentials: [''],
+  identity: [''],
+  profile_picture: '',
+  mock_video: '',
 };
 
 const StepperContext = createContext<StepperContextData | null>(null);
 
-export const StepperContextProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const StepperContextProvider: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
   const [tutorData, setUserData] = useState<TutorData>(initialUserData);
+  const {user} = useContext(AuthContext);
+
+  tutorData['fullname'] = user?.user.name || '';
+  tutorData['email'] = user?.user.email || '';
 
   const addField = (fieldName: string) => {
     setUserData((prevUserData) => ({
       ...prevUserData,
-      [fieldName]: [...prevUserData[fieldName], ""],
+      [fieldName]: [...prevUserData[fieldName], ''],
     }));
   };
 
@@ -83,14 +105,18 @@ export const StepperContextProvider: React.FC<{ children: React.ReactNode }> = (
   };
 
   return (
-    <StepperContext.Provider value={contextValue}>{children}</StepperContext.Provider>
+    <StepperContext.Provider value={contextValue}>
+      {children}
+    </StepperContext.Provider>
   );
 };
 
 export const useAuthStepperContext = (): StepperContextData => {
   const context = useContext(StepperContext);
   if (!context) {
-    throw new Error("useStepperContext must be used within the StepperContextProvider");
+    throw new Error(
+      'useStepperContext must be used within the StepperContextProvider'
+    );
   }
   return context;
 };

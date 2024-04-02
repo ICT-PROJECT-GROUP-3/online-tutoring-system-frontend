@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -18,12 +14,24 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
+  "typedocOptions": {
+    "out": "docs",
+    "entryPoints": ["pages", "components/pagecomponents", "components/shared"],
+    "exclude": ["**/*.spec.ts"],
+    "theme": "default",
+    "jsDocCompatibility": {
+      "exampleTag": true,
+      "defaultTag": true
+    }
+  },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "lib/services/firebase/auth.tsx",
+    "pages/api/mux/uploadFile.js",
+    "components/pagecomponents/video_session/Settings.tsx",
+    "pages/chat/index.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

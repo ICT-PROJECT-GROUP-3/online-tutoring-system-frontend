@@ -1,121 +1,20 @@
-
 import HomePageWrapper from './HomePageWrapper';
 
-// const navigation = [
-//   { name: 'Product', href: '#' },
-//   { name: 'Features', href: '#' },
-//   { name: 'Marketplace', href: '#' },
-//   { name: 'Company', href: '#' },
-// ];
-
-const Hero = () => {
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+/**
+ * Footer component for the homepage.
+ *
+ * @param {string} hero_title_1 - The first title of the hero section.
+ * @param {string} hero_title_2 - The second title of the hero section.
+ * @returns {JSX.Element} The rendered footer component.
+ */
+const Hero = ({ hero_title_1, hero_title_2 }) => {
   return (
-
     <HomePageWrapper>
-      <div className="bg-white shadow-lg w-full top-10">
-        {/* <header className="absolute inset-x-0 top-0 z-50">
-        <nav
-          className="flex items-center justify-between p-6 lg:px-8"
-          aria-label="Global"
-        >
-          <div className="flex lg:flex-1">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                alt=""
-              />
-            </a>
-          </div>
-          <div className="flex lg:hidden">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </button>
-          </div>
-          <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a
-              href="#"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Log in <span aria-hidden="true">&rarr;</span>
-            </a>
-          </div>
-        </nav>
-        <Dialog
-          as="div"
-          className="lg:hidden"
-          open={mobileMenuOpen}
-          onClose={setMobileMenuOpen}
-        >
-          <div className="fixed inset-0 z-50" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
-                <img
-                  className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                  alt=""
-                />
-              </a>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-              </button>
-            </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                </div>
-                <div className="py-6">
-                  <a
-                    href="#"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Log in
-                  </a>
-                </div>
-              </div>
-            </div>
-          </Dialog.Panel>
-        </Dialog>
-      </header> */}
-
+      <div className="w-full bg-white shadow-lg top-10">
+        {/* Background element */}
         <div className="relative px-6 lg:px-8">
           <div
-            className="absolute inset-x-0 top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            className="absolute inset-x-0 overflow-hidden top-40 -z-10 transform-gpu blur-3xl sm:-top-80"
             aria-hidden="true"
           >
             <div
@@ -126,10 +25,13 @@ const Hero = () => {
               }}
             />
           </div>
-          <div className="mx-auto max-w-2xl py-16 sm:py-48 lg:py-32">
+
+          {/* Content */}
+          <div className="max-w-2xl py-16 mx-auto sm:py-48 lg:py-32">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-              <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                We are on pomotions.{' '}
+              {/* Promotion message */}
+              <div className="relative px-3 py-1 text-sm leading-6 text-gray-600 rounded-full ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                We are on promotions.{' '}
                 <a href="#" className="font-semibold text-indigo-600">
                   <span
                     className="absolute inset-0 text-gray-500"
@@ -140,17 +42,22 @@ const Hero = () => {
               </div>
             </div>
             <div className="text-center">
+              {/* Title */}
               <h1 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-6xl">
-                <span className="text-orange-500">Ignite</span> intelligence
+                <span className="text-orange-500">Ignite</span> Intelligence
                 <span className="text-orange-500">.</span>
               </h1>
+
+              {/* Description */}
               <p className="mt-6 text-lg leading-8 text-gray-600">
-                We provide a personalized tutoring services that caters to each
-                student&apos;s individual needs, by connecting them with the
+                We provide personalized tutoring services that cater to each
+                student's individual needs by connecting them with the
                 appropriate tutors for effective learning. Join our platform
                 today and achieve your academic goals with our help.
               </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
+
+              {/* Call-to-action buttons */}
+              <div className="flex items-center justify-center mt-10 gap-x-6">
                 <a
                   href="#"
                   className="rounded-md bg-[#d03434] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#d03434] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-bg-[#d03434]"
@@ -166,6 +73,8 @@ const Hero = () => {
               </div>
             </div>
           </div>
+
+          {/* Background element */}
           <div
             className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
             aria-hidden="true"

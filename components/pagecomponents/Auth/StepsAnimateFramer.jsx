@@ -1,7 +1,7 @@
-'use Client';
-
-import { AnimatePresence, motion } from 'framer-motion';
-
+/**
+ * Component for animating steps using Framer Motion.
+ * @param {Object} children - The child components to be animated.
+ */
 const StepsAnimateFramer = ({ children }) => {
   return (
     <div>

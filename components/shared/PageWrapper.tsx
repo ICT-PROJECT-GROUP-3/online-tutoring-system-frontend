@@ -3,6 +3,14 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
+/**
+ * Component responsible for rendering the main content of a page.
+ *
+ * @component
+ * @param {object} props - The component props.
+ * @param {React.ReactNode} props.children - The content to be rendered within the component.
+ * @returns {JSX.Element} - The rendered component.
+ */
 const PageWrapper = ({ children }) => {
   return (
     <div>
@@ -18,6 +26,7 @@ const PageWrapper = ({ children }) => {
             bounce: 0.4,
             stiffness: 70,
           }}
+          className="flex flex-col items-center justify-between w-screen p-0 md:p-2"
         >
           {children}
         </motion.div>
